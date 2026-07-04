@@ -3,78 +3,61 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Doğan Optik — Tasarım Önizleme v2</title>
+<title>Doğan Optik — Lens Uzmanı</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --buz:#F6F8F9;
-  --kart:#FFFFFF;
-  --murekkep:#0B1721;
-  --petrol:#123C49;
-  --petrol-acik:#1C5566;
-  --gri:#5B6B75;
-  --gri-acik:#9AA8AF;
-  --cizgi:#E3E9EC;
-  --amber:#D98E32;
-  --amber-koyu:#8A5215;
-  --amber-fon:#FBF1E1;
-  --yesil:#1E6B37;
-  --yesil-fon:#E4F3E8;
-  --mavi:#1D5B8A;
-  --mavi-fon:#E3EEF6;
-  --kirmizi:#B3392E;
-  --kirmizi-fon:#F9E9E7;
+  --buz:#F6F8F9; --kart:#FFFFFF; --murekkep:#0B1721; --petrol:#123C49; --petrol-acik:#1C5566;
+  --gri:#5B6B75; --gri-acik:#9AA8AF; --cizgi:#E3E9EC;
+  --amber:#D98E32; --amber-koyu:#8A5215; --amber-fon:#FBF1E1;
+  --yesil:#1E6B37; --yesil-fon:#E4F3E8; --mavi:#1D5B8A; --mavi-fon:#E3EEF6;
+  --kirmizi:#B3392E; --kirmizi-fon:#F9E9E7;
   --lens-grad:linear-gradient(160deg,#F4C877 0%,#D98E32 45%,#7A4A16 100%);
   --petrol-grad:linear-gradient(135deg,#123C49 0%,#0B1721 100%);
   --foto-fon:radial-gradient(120% 90% at 50% 18%,#FFFFFF 0%,#EDF1F3 55%,#DDE4E8 100%);
-  --radius:16px;
-  --golge:0 24px 48px -24px rgba(11,23,33,.22);
+  --radius:16px; --golge:0 24px 48px -24px rgba(11,23,33,.22);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:'Inter',sans-serif;background:var(--buz);color:var(--murekkep);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
-h1,h2,h3,h4,.display{font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 118}
+h1,h2,h3,h4{font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 118}
 .mono{font-family:'Space Mono',monospace}
 a{color:inherit}
 
-/* =========================================================
-   GÖZLÜK MODÜLÜ — askıda.
-   Kod duruyor; tekrar açmak için GOZLUK_AKTIF = true yapın
-   (sayfa sonundaki script). CSS'teki bu kural JS ile kalkar.
-   ========================================================= */
+/* GÖZLÜK MODÜLÜ — askıda; Yönetim > Ayarlar'dan açılır */
 body:not(.gozluk-acik) .gozluk-modul{display:none!important}
 
-/* ---------- Demo görünüm seçici ---------- */
+/* ---------- Demo çubuğu ---------- */
 .demo-bar{position:sticky;top:0;z-index:80;background:var(--murekkep);color:#fff;display:flex;align-items:center;gap:8px;padding:10px 20px;flex-wrap:wrap}
 .demo-bar span.etiketcik{font-size:11px;letter-spacing:.1em;text-transform:uppercase;opacity:.55;margin-right:6px}
-.demo-bar button{font-family:'Archivo',sans-serif;font-weight:600;font-size:12.5px;background:transparent;color:#fff;border:1px solid rgba(255,255,255,.22);border-radius:99px;padding:6px 15px;cursor:pointer;transition:.18s}
-.demo-bar button:hover{border-color:#fff}
+.demo-bar button,.demo-bar a.buton{font-family:'Archivo',sans-serif;font-weight:600;font-size:12.5px;background:transparent;color:#fff;border:1px solid rgba(255,255,255,.22);border-radius:99px;padding:6px 15px;cursor:pointer;transition:.18s;text-decoration:none;display:inline-block}
+.demo-bar button:hover,.demo-bar a.buton:hover{border-color:#fff}
 .demo-bar button.aktif{background:var(--amber);border-color:var(--amber);color:var(--murekkep)}
-.demo-bar .ayrac{width:1px;height:18px;background:rgba(255,255,255,.2);margin:0 4px}
 .gorunum{display:none}
 .gorunum.aktif{display:block}
 
-/* ---------- Üst şerit + header ---------- */
+/* ---------- Şerit + header ---------- */
 .serit{background:var(--petrol);color:#DCE9EC;text-align:center;font-size:12.5px;padding:8px 16px;letter-spacing:.02em}
 .serit b{color:#F4C877}
 header.site{background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--cizgi);position:sticky;top:41px;z-index:70}
-.header-ic{max-width:1280px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:28px}
+.header-ic{max-width:1280px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:24px}
 .logo{font-family:'Archivo',sans-serif;font-weight:800;font-size:21px;letter-spacing:-.01em;white-space:nowrap;cursor:pointer;line-height:1.1}
 .logo em{font-style:normal;color:var(--amber)}
 .logo small{display:block;font-family:'Space Mono',monospace;font-size:9px;font-weight:400;letter-spacing:.34em;color:var(--gri);margin-top:2px}
 nav.sekmeler{display:flex;gap:2px;flex:1}
-nav.sekmeler a{font-family:'Archivo',sans-serif;font-weight:600;font-size:14px;color:var(--gri);text-decoration:none;padding:9px 15px;border-radius:99px;transition:.15s;position:relative;white-space:nowrap}
+nav.sekmeler a{font-family:'Archivo',sans-serif;font-weight:600;font-size:14px;color:var(--gri);text-decoration:none;padding:9px 15px;border-radius:99px;transition:.15s;position:relative;white-space:nowrap;cursor:pointer}
 nav.sekmeler a:hover{color:var(--murekkep);background:var(--buz)}
 nav.sekmeler a.secili{color:var(--murekkep)}
 nav.sekmeler a.secili::after{content:'';position:absolute;left:15px;right:15px;bottom:2px;height:3px;border-radius:3px;background:var(--lens-grad)}
 .header-arac{display:flex;align-items:center;gap:10px}
-.ara{display:flex;align-items:center;gap:8px;background:var(--buz);border:1px solid var(--cizgi);border-radius:99px;padding:9px 16px;color:var(--gri);font-size:13.5px;min-width:200px;cursor:text}
+.ara{display:flex;align-items:center;gap:8px;background:var(--buz);border:1px solid var(--cizgi);border-radius:99px;padding:0 16px;color:var(--gri);min-width:210px}
+.ara input{border:none;outline:none;background:transparent;font-family:'Inter',sans-serif;font-size:13.5px;color:var(--murekkep);padding:10px 0;width:100%}
 .ikon-btn{width:40px;height:40px;border-radius:50%;border:1px solid var(--cizgi);background:var(--kart);display:grid;place-items:center;cursor:pointer;position:relative;transition:.15s;flex-shrink:0}
 .ikon-btn:hover{border-color:var(--murekkep)}
 .ikon-btn .rozet{position:absolute;top:-4px;right:-4px;background:var(--amber);color:var(--murekkep);font-size:10.5px;font-weight:700;min-width:18px;height:18px;border-radius:99px;display:grid;place-items:center}
 svg.ik{width:18px;height:18px;stroke:var(--murekkep);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
-.hesap-pill{display:flex;align-items:center;gap:9px;border:1px solid var(--cizgi);border-radius:99px;padding:5px 14px 5px 5px;cursor:pointer;background:var(--kart);transition:.15s}
+.hesap-pill{display:flex;align-items:center;gap:9px;border:1px solid var(--cizgi);border-radius:99px;padding:5px 14px 5px 5px;cursor:pointer;background:var(--kart);transition:.15s;white-space:nowrap}
 .hesap-pill:hover{border-color:var(--murekkep)}
 .hesap-pill .avatar{width:30px;height:30px;border-radius:50%;background:var(--petrol-grad);color:#F4C877;font-family:'Archivo',sans-serif;font-weight:700;font-size:12px;display:grid;place-items:center}
 .hesap-pill b{font-size:13px;font-family:'Archivo',sans-serif}
@@ -99,7 +82,7 @@ svg.ik{width:18px;height:18px;stroke:var(--murekkep);fill:none;stroke-width:1.7;
 .lens-halka.h1{width:310px;height:310px;right:16px;top:8px;background:var(--lens-grad);opacity:.94;box-shadow:0 40px 70px -24px rgba(138,82,21,.5)}
 .lens-halka.h2{width:180px;height:180px;left:22px;bottom:4px;background:radial-gradient(circle at 35% 30%,#2E5561,#0B1721)}
 .lens-halka.h3{width:74px;height:74px;left:120px;top:20px;border:2.5px dashed var(--gri-acik);background:transparent;opacity:.7}
-.hero-lens{position:absolute;inset:0;margin:auto;width:230px;height:230px;border-radius:50%;background:radial-gradient(circle at 34% 28%,rgba(255,255,255,.95) 0%,rgba(230,240,244,.55) 34%,rgba(180,205,214,.35) 62%,rgba(120,160,175,.5) 100%);border:1px solid rgba(255,255,255,.8);box-shadow:inset 0 -18px 40px rgba(18,60,73,.18),0 30px 50px -20px rgba(11,23,33,.35);backdrop-filter:blur(2px)}
+.hero-lens{position:absolute;inset:0;margin:auto;width:230px;height:230px;border-radius:50%;background:radial-gradient(circle at 34% 28%,rgba(255,255,255,.95) 0%,rgba(230,240,244,.55) 34%,rgba(180,205,214,.35) 62%,rgba(120,160,175,.5) 100%);border:1px solid rgba(255,255,255,.8);box-shadow:inset 0 -18px 40px rgba(18,60,73,.18),0 30px 50px -20px rgba(11,23,33,.35)}
 .hero-lens::after{content:'';position:absolute;left:18%;top:14%;width:34%;height:22%;border-radius:50%;background:rgba(255,255,255,.85);filter:blur(6px);transform:rotate(-18deg)}
 .yuzen-kart{position:absolute;background:var(--kart);border:1px solid var(--cizgi);border-radius:14px;padding:12px 16px;font-size:12.5px;box-shadow:var(--golge)}
 .yuzen-kart b{display:block;font-family:'Archivo',sans-serif;font-size:15px}
@@ -107,7 +90,6 @@ svg.ik{width:18px;height:18px;stroke:var(--murekkep);fill:none;stroke-width:1.7;
 .yuzen-kart.b{right:-4px;bottom:26px;display:flex;align-items:center;gap:10px}
 .yuzen-kart.b .tik{width:30px;height:30px;border-radius:50%;background:var(--yesil-fon);display:grid;place-items:center;color:var(--yesil);font-weight:700}
 
-/* Hızlı tekrar şeridi (hero altı) */
 .tekrar-serit{max-width:1280px;margin:0 auto;padding:0 24px 44px}
 .tekrar-kutu{background:var(--petrol-grad);border-radius:var(--radius);padding:20px 26px;display:flex;align-items:center;gap:20px;color:#DCE9EC;flex-wrap:wrap}
 .tekrar-kutu .ikon{width:44px;height:44px;border-radius:12px;background:rgba(244,200,119,.14);display:grid;place-items:center;flex-shrink:0}
@@ -116,24 +98,26 @@ svg.ik{width:18px;height:18px;stroke:var(--murekkep);fill:none;stroke-width:1.7;
 .tekrar-kutu span{font-size:13px;opacity:.75}
 .tekrar-kutu .btn{margin-left:auto}
 
-/* ---------- Kategori kartları ---------- */
+/* ---------- Kategoriler ---------- */
 .kategori-serit{max-width:1280px;margin:0 auto;padding:0 24px 8px;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px}
 .kat-kart{background:var(--kart);border:1px solid var(--cizgi);border-radius:14px;padding:18px 16px;cursor:pointer;transition:.18s;text-align:center}
 .kat-kart:hover{transform:translateY(-3px);box-shadow:var(--golge);border-color:transparent}
+.kat-kart.secili{border-color:var(--amber);box-shadow:0 0 0 1px var(--amber)}
 .kat-kart .damla{width:44px;height:44px;margin:0 auto 10px;border-radius:50% 50% 50% 4px;transform:rotate(-45deg);display:grid;place-items:center}
 .kat-kart .damla i{transform:rotate(45deg);font-style:normal;font-family:'Archivo',sans-serif;font-weight:800;font-size:13px;color:#fff}
 .kat-kart b{font-family:'Archivo',sans-serif;font-size:14px;display:block}
 .kat-kart span{font-size:11.5px;color:var(--gri)}
 
-/* ---------- Filtre + ürün grid ---------- */
+/* ---------- Filtre + grid ---------- */
 .bolum{max-width:1280px;margin:0 auto;padding:36px 24px 64px}
 .bolum-baslik{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:18px;flex-wrap:wrap}
 .bolum-baslik h2{font-size:26px;font-weight:800;letter-spacing:-.015em}
 .bolum-baslik .adet{color:var(--gri);font-size:13.5px}
-.filtreler{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.filtreler{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px;align-items:center}
 .cip{font-size:13px;font-weight:500;border:1px solid var(--cizgi);background:var(--kart);border-radius:99px;padding:8px 16px;cursor:pointer;color:var(--gri);display:inline-flex;align-items:center;gap:6px;transition:.15s;font-family:'Inter',sans-serif}
 .cip:hover{border-color:var(--murekkep);color:var(--murekkep)}
 .cip.secili{background:var(--murekkep);border-color:var(--murekkep);color:#fff}
+select.secim{font-size:13px;border:1px solid var(--cizgi);background:var(--kart);border-radius:99px;padding:8px 14px;color:var(--murekkep);font-family:'Inter',sans-serif;cursor:pointer;outline:none}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
 .urun{background:var(--kart);border:1px solid var(--cizgi);border-radius:var(--radius);overflow:hidden;transition:.22s;cursor:pointer;position:relative;display:flex;flex-direction:column}
 .urun:hover{transform:translateY(-4px);box-shadow:var(--golge);border-color:transparent}
@@ -146,7 +130,7 @@ svg.ik{width:18px;height:18px;stroke:var(--murekkep);fill:none;stroke-width:1.7;
 .marka{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gri);font-weight:600}
 .urun-ad{font-family:'Archivo',sans-serif;font-weight:700;font-size:16.5px;margin:3px 0 2px}
 .urun-not{font-size:12px;color:var(--gri-acik)}
-.fiyat-tablo{margin-top:14px;border-top:1px dashed var(--cizgi);padding-top:12px;display:flex;flex-direction:column;gap:7px}
+.fiyat-tablo{margin-top:auto;border-top:1px dashed var(--cizgi);padding-top:12px;display:flex;flex-direction:column;gap:7px;margin-top:14px}
 .fiyat-satir2{display:flex;align-items:baseline;justify-content:space-between;font-size:13px}
 .fiyat-satir2 .kutu-ad{color:var(--gri)}
 .fiyat-satir2 .kutu-ad b{color:var(--murekkep);font-weight:600}
@@ -154,30 +138,28 @@ svg.ik{width:18px;height:18px;stroke:var(--murekkep);fill:none;stroke-width:1.7;
 .fiyat-satir2 .tutar.indirimli{color:var(--amber-koyu)}
 .fiyat-satir2 .birim{font-size:11px;color:var(--gri-acik);margin-left:5px;font-weight:400}
 .urun .sepet-btn{margin-top:14px;width:100%;border-radius:12px;font-size:13.5px;padding:11px}
-/* Lens silindir görseli */
 .lens-silindir{width:84px;height:114px;border-radius:14px;background:linear-gradient(180deg,#FFFFFF,#E8EDEF);border:1px solid #D5DDE1;box-shadow:0 14px 22px -10px rgba(11,23,33,.25);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;position:relative}
 .lens-silindir .kapak{width:84px;height:24px;border-radius:14px 14px 4px 4px;position:absolute;top:-10px;left:-1px;border:1px solid rgba(0,0,0,.06)}
 .lens-silindir .yazi{font-family:'Archivo',sans-serif;font-weight:800;font-size:10.5px;letter-spacing:.05em;text-align:center;line-height:1.3;color:var(--petrol);padding:0 6px}
 .lens-silindir .alt-cizgi{width:46px;height:3px;border-radius:3px;background:var(--cizgi)}
+.bos-durum{text-align:center;padding:44px 20px;color:var(--gri);grid-column:1/-1}
+.bos-durum .buyuk-ikon{width:64px;height:64px;border-radius:20px;background:var(--kart);border:1px solid var(--cizgi);display:grid;place-items:center;margin:0 auto 14px}
 
-/* ---------- Güven şeridi ---------- */
+/* ---------- Güven + markalar + footer ---------- */
 .guven{background:var(--kart);border-top:1px solid var(--cizgi);border-bottom:1px solid var(--cizgi)}
 .guven-ic{max-width:1280px;margin:0 auto;padding:34px 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:28px}
 .guven-madde{display:flex;gap:14px;align-items:flex-start}
 .guven-madde .nokta{width:42px;height:42px;border-radius:12px;background:var(--buz);border:1px solid var(--cizgi);display:grid;place-items:center;flex-shrink:0}
 .guven-madde b{font-family:'Archivo',sans-serif;font-size:14.5px;display:block}
 .guven-madde span{font-size:13px;color:var(--gri)}
-
-/* ---------- Marka şeridi ---------- */
 .markalar{max-width:1280px;margin:0 auto;padding:30px 24px;display:flex;gap:14px;flex-wrap:wrap;align-items:center;justify-content:center}
 .marka-pill{font-family:'Archivo',sans-serif;font-weight:700;font-size:14px;color:var(--gri);border:1px solid var(--cizgi);background:var(--kart);border-radius:12px;padding:12px 26px;letter-spacing:.02em;transition:.15s;cursor:pointer}
-.marka-pill:hover{color:var(--murekkep);border-color:var(--murekkep)}
-
+.marka-pill:hover,.marka-pill.secili{color:var(--murekkep);border-color:var(--murekkep)}
 footer{background:var(--murekkep);color:#8FA0A8}
 .footer-ic{max-width:1280px;margin:0 auto;padding:44px 24px;display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:32px;font-size:13px}
 .footer-ic .logo{color:#fff}
 .footer-ic h4{color:#fff;font-size:13px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px}
-.footer-ic a{display:block;text-decoration:none;padding:3px 0;transition:.15s}
+.footer-ic a{display:block;text-decoration:none;padding:3px 0;transition:.15s;cursor:pointer}
 .footer-ic a:hover{color:#fff}
 .footer-alt{border-top:1px solid rgba(255,255,255,.08);text-align:center;font-size:12px;padding:16px;color:#5F7078}
 
@@ -199,19 +181,28 @@ footer{background:var(--murekkep);color:#8FA0A8}
 .auth-sekme button.aktif{background:var(--kart);color:var(--murekkep);box-shadow:0 4px 12px rgba(11,23,33,.08)}
 .form-alan{margin-bottom:16px}
 .form-alan label{display:block;font-size:12.5px;font-weight:600;margin-bottom:6px;color:var(--murekkep)}
-.form-alan input,.form-alan select{width:100%;border:1.5px solid var(--cizgi);border-radius:12px;padding:12px 15px;font-size:14px;font-family:'Inter',sans-serif;color:var(--murekkep);background:var(--kart);transition:.15s;outline:none}
-.form-alan input:focus{border-color:var(--petrol)}
+.form-alan input,.form-alan select,.form-alan textarea{width:100%;border:1.5px solid var(--cizgi);border-radius:12px;padding:12px 15px;font-size:14px;font-family:'Inter',sans-serif;color:var(--murekkep);background:var(--kart);transition:.15s;outline:none}
+.form-alan input:focus,.form-alan textarea:focus,.form-alan select:focus{border-color:var(--petrol)}
 .form-alan .ipucu{font-size:11.5px;color:var(--gri-acik);margin-top:5px}
 .form-ikili{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .onay-satir{display:flex;gap:10px;align-items:flex-start;font-size:12.5px;color:var(--gri);margin:6px 0 20px}
 .onay-satir input{margin-top:3px;accent-color:var(--petrol)}
 .auth-form .btn{width:100%}
-.auth-veya{display:flex;align-items:center;gap:14px;color:var(--gri-acik);font-size:12px;margin:20px 0}
-.auth-veya::before,.auth-veya::after{content:'';flex:1;height:1px;background:var(--cizgi)}
 .dogrulama-notu{background:var(--mavi-fon);color:var(--mavi);font-size:12.5px;border-radius:12px;padding:12px 16px;margin-top:18px;display:flex;gap:10px;align-items:flex-start}
-.giris-panel{display:none}
+.hata-not{background:var(--kirmizi-fon);color:var(--kirmizi);font-size:12.5px;border-radius:12px;padding:11px 16px;margin-bottom:16px;display:none}
+.hata-not.acik{display:block}
+.demo-ipucu{background:var(--amber-fon);color:var(--amber-koyu);font-size:12px;border-radius:12px;padding:10px 16px;margin-bottom:20px}
+.demo-ipucu b{font-family:'Space Mono',monospace;font-size:11.5px}
+.giris-panel,.dogrulama-panel{display:none}
 .auth-form.giris-modu .kayit-panel{display:none}
 .auth-form.giris-modu .giris-panel{display:block}
+.auth-form.dogrulama-modu .kayit-panel,.auth-form.dogrulama-modu .giris-panel,.auth-form.dogrulama-modu .auth-sekme{display:none}
+.auth-form.dogrulama-modu .dogrulama-panel{display:block}
+.dogrulama-panel{text-align:center;padding:20px 0}
+.dogrulama-panel .zarf{width:74px;height:74px;border-radius:22px;background:var(--mavi-fon);display:grid;place-items:center;margin:0 auto 18px}
+.dogrulama-panel .zarf svg{width:34px;height:34px;stroke:var(--mavi)}
+.dogrulama-panel h3{font-size:20px;font-weight:800;margin-bottom:8px}
+.dogrulama-panel p{font-size:13.5px;color:var(--gri);margin-bottom:22px}
 
 /* ---------- Hesabım ---------- */
 .hesap-sahne{max-width:1160px;margin:0 auto;padding:40px 24px 80px;display:grid;grid-template-columns:280px 1fr;gap:26px;align-items:start}
@@ -222,7 +213,7 @@ footer{background:var(--murekkep);color:#8FA0A8}
 .profil-ust span{font-size:12.5px;opacity:.72}
 .profil-ust .uye-rozet{display:inline-flex;align-items:center;gap:6px;background:rgba(244,200,119,.15);color:#F4C877;font-size:11px;font-weight:700;border-radius:99px;padding:4px 12px;margin-top:10px;letter-spacing:.04em}
 .profil-menu{padding:10px 0}
-.profil-menu a{display:flex;align-items:center;gap:11px;padding:11px 22px;font-size:14px;color:var(--gri);text-decoration:none;transition:.15s}
+.profil-menu a{display:flex;align-items:center;gap:11px;padding:11px 22px;font-size:14px;color:var(--gri);text-decoration:none;transition:.15s;cursor:pointer}
 .profil-menu a:hover{color:var(--murekkep);background:var(--buz)}
 .profil-menu a.secili{color:var(--murekkep);font-weight:600;box-shadow:inset 3px 0 0 var(--amber)}
 .hesap-icerik{display:flex;flex-direction:column;gap:20px}
@@ -240,8 +231,9 @@ footer{background:var(--murekkep);color:#8FA0A8}
 .rec-goz .d{font-size:13px}
 .rec-goz .d small{display:block;font-size:10px;color:var(--gri-acik);letter-spacing:.06em}
 .rec-goz .d span{font-family:'Space Mono',monospace;font-weight:700}
+.baglanti{font-size:12.5px;color:var(--petrol);font-weight:600;text-decoration:none;cursor:pointer}
 
-/* ---------- Sipariş kartları (hesap + admin ortak) ---------- */
+/* ---------- Sipariş kartı ---------- */
 .siparis{background:var(--kart);border:1px solid var(--cizgi);border-radius:var(--radius);margin-bottom:12px;overflow:hidden;transition:.15s}
 .siparis:hover{border-color:#C6D0D5}
 .siparis-ust{display:grid;grid-template-columns:auto 1fr auto auto auto;gap:18px;align-items:center;padding:16px 20px;cursor:pointer}
@@ -249,96 +241,88 @@ footer{background:var(--murekkep);color:#8FA0A8}
 .siparis-ad b{font-family:'Archivo',sans-serif;font-size:15px;display:block}
 .siparis-ad span{font-size:12px;color:var(--gri)}
 .durum{font-size:11.5px;font-weight:600;border-radius:99px;padding:5px 13px;white-space:nowrap;justify-self:start}
+.durum.yeni{background:var(--amber-fon);color:var(--amber-koyu)}
 .durum.hazir{background:var(--yesil-fon);color:var(--yesil)}
 .durum.kargo{background:var(--mavi-fon);color:var(--mavi)}
-.durum.odeme{background:var(--amber-fon);color:var(--amber-koyu)}
 .durum.teslim{background:var(--buz);color:var(--gri)}
-.durum.iptal{background:var(--kirmizi-fon);color:var(--kirmizi)}
 .siparis-tutar{font-family:'Archivo',sans-serif;font-weight:800;font-size:15.5px;white-space:nowrap}
 .ok{transition:.25s;color:var(--gri)}
 .siparis.acik .ok{transform:rotate(180deg)}
 .siparis-detay{display:none;border-top:1px solid var(--cizgi);background:#FBFCFD;padding:18px 22px;font-size:13.5px}
 .siparis.acik .siparis-detay{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:18px}
 .detay-blok b{display:block;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--gri);margin-bottom:6px}
-.odeme-cubugu{height:6px;border-radius:99px;background:#E7ECEF;overflow:hidden;margin:8px 0 6px}
-.odeme-cubugu i{display:block;height:100%;border-radius:99px;background:var(--lens-grad)}
-.tekrar-btn{grid-column:1/-1;display:flex;gap:10px;padding-top:4px}
+.tekrar-btn{grid-column:1/-1;display:flex;gap:10px;padding-top:4px;flex-wrap:wrap}
 
-/* ---------- Admin ---------- */
-.admin{max-width:1320px;margin:0 auto;padding:34px 24px 80px;display:grid;grid-template-columns:240px 1fr;gap:26px;align-items:start}
-.admin-menu{background:var(--murekkep);border-radius:var(--radius);padding:20px 0;color:#B9C6CC;position:sticky;top:120px}
-.admin-menu .baslikcik{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.24em;padding:0 22px 12px;color:#5F7078}
-.admin-menu a{display:flex;align-items:center;gap:10px;padding:10px 22px;color:inherit;text-decoration:none;font-size:13.5px;transition:.15s;cursor:pointer}
-.admin-menu a:hover{color:#fff}
-.admin-menu a.secili{color:#fff;background:rgba(255,255,255,.07);box-shadow:inset -3px 0 0 var(--amber)}
-.admin-menu a .mini-rozet{margin-left:auto;background:var(--amber);color:var(--murekkep);font-size:10px;font-weight:700;border-radius:99px;padding:2px 8px}
-.admin-icerik{display:flex;flex-direction:column;gap:20px;min-width:0}
-.panel{background:var(--kart);border:1px solid var(--cizgi);border-radius:var(--radius);padding:22px 24px}
-.panel h3{font-size:16.5px;font-weight:800;margin-bottom:3px}
-.panel .aciklama{font-size:13px;color:var(--gri);margin-bottom:16px}
-.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
-.stat{background:var(--kart);border:1px solid var(--cizgi);border-radius:14px;padding:18px 20px;position:relative;overflow:hidden}
-.stat::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--lens-grad)}
-.stat.petrol::before{background:var(--petrol)}
-.stat.yesil::before{background:var(--yesil)}
-.stat .deger{font-family:'Archivo',sans-serif;font-weight:800;font-size:26px;letter-spacing:-.01em}
-.stat .ad{font-size:12px;color:var(--gri)}
-.stat .degisim{font-size:11.5px;font-weight:600;margin-top:5px;display:inline-block;border-radius:99px;padding:2px 9px}
-.stat .degisim.arti{background:var(--yesil-fon);color:var(--yesil)}
-.stat .degisim.notr{background:var(--buz);color:var(--gri)}
+/* ---------- Ödeme ---------- */
+.odeme-sahne{max-width:1160px;margin:0 auto;padding:40px 24px 80px}
+.adimlar{display:flex;gap:10px;margin-bottom:26px;flex-wrap:wrap}
+.adim{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:600;color:var(--gri)}
+.adim .no{width:26px;height:26px;border-radius:50%;border:1.5px solid var(--cizgi);display:grid;place-items:center;font-family:'Space Mono',monospace;font-size:12px;background:var(--kart)}
+.adim.aktif{color:var(--murekkep)}
+.adim.aktif .no{background:var(--murekkep);border-color:var(--murekkep);color:#fff}
+.adim .cizgi{width:34px;height:1.5px;background:var(--cizgi)}
+.odeme-grid{display:grid;grid-template-columns:1fr 380px;gap:22px;align-items:start}
+.panel{background:var(--kart);border:1px solid var(--cizgi);border-radius:var(--radius);padding:24px}
+.panel h3{font-size:16.5px;font-weight:800;margin-bottom:14px}
+.iyzico-not{display:flex;align-items:center;gap:10px;background:var(--buz);border:1px solid var(--cizgi);border-radius:12px;padding:11px 14px;font-size:12px;color:var(--gri);margin-top:14px}
+.ozet-satir{display:flex;justify-content:space-between;font-size:13.5px;padding:8px 0;border-bottom:1px dashed var(--cizgi)}
+.ozet-satir:last-of-type{border-bottom:none}
+.ozet-satir.toplam{font-family:'Archivo',sans-serif;font-weight:800;font-size:17px;border-top:1px solid var(--cizgi);padding-top:12px;margin-top:4px}
+.ozet-satir .yesil-yazi{color:var(--yesil);font-weight:600}
+.basari-panel{max-width:560px;margin:0 auto;text-align:center;background:var(--kart);border:1px solid var(--cizgi);border-radius:20px;padding:48px 40px}
+.basari-panel .halka{width:86px;height:86px;border-radius:50%;background:var(--yesil-fon);display:grid;place-items:center;margin:0 auto 20px}
+.basari-panel .halka svg{width:40px;height:40px;stroke:var(--yesil);stroke-width:2}
+.basari-panel h2{font-size:24px;font-weight:800;margin-bottom:8px}
+.basari-panel p{color:var(--gri);font-size:14px;margin-bottom:8px}
+.basari-panel .sip-no{font-family:'Space Mono',monospace;font-size:15px;background:var(--buz);border:1px solid var(--cizgi);border-radius:10px;display:inline-block;padding:8px 18px;margin:10px 0 24px}
 
-/* Admin tablo */
-.tablo-sar{overflow-x:auto}
-table.veri{width:100%;border-collapse:collapse;font-size:13.5px;min-width:720px}
-table.veri th{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--gri);text-align:left;font-weight:600;padding:10px 12px;border-bottom:1px solid var(--cizgi);white-space:nowrap}
-table.veri td{padding:13px 12px;border-bottom:1px solid var(--cizgi);vertical-align:middle}
-table.veri tr:last-child td{border-bottom:none}
-table.veri tbody tr{cursor:pointer;transition:.12s}
-table.veri tbody tr:hover{background:#FBFCFD}
-.musteri-hucre{display:flex;align-items:center;gap:11px;min-width:200px}
-.musteri-hucre .avatar{width:36px;height:36px;border-radius:50%;font-family:'Archivo',sans-serif;font-weight:700;font-size:12.5px;display:grid;place-items:center;color:#fff;flex-shrink:0}
-.musteri-hucre b{font-size:13.5px;display:block;line-height:1.25}
-.musteri-hucre span{font-size:11.5px;color:var(--gri)}
-.rozet-k{font-size:11px;font-weight:700;border-radius:99px;padding:3px 10px;white-space:nowrap;display:inline-flex;align-items:center;gap:5px}
-.rozet-k.kayitli{background:var(--yesil-fon);color:var(--yesil)}
-.rozet-k.misafir{background:var(--buz);color:var(--gri)}
-.rozet-k.sadik{background:var(--amber-fon);color:var(--amber-koyu)}
-.rozet-k.yeni-uye{background:var(--mavi-fon);color:var(--mavi)}
-.siparis-sayi-pill{font-family:'Space Mono',monospace;font-size:12px;background:var(--buz);border:1px solid var(--cizgi);border-radius:99px;padding:3px 11px;white-space:nowrap}
-.siparis-sayi-pill.coklu{background:var(--amber-fon);border-color:#EBD3AC;color:var(--amber-koyu);font-weight:700}
-
-/* Admin müşteri detay çekmecesi */
+/* ---------- Sepet çekmecesi ---------- */
 .cekmece-fon{position:fixed;inset:0;background:rgba(11,23,33,.45);z-index:90;display:none;backdrop-filter:blur(2px)}
 .cekmece-fon.acik{display:block}
-.cekmece{position:fixed;top:0;right:0;bottom:0;width:min(480px,94vw);background:var(--kart);z-index:95;box-shadow:-24px 0 60px rgba(11,23,33,.25);transform:translateX(105%);transition:.28s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;overflow-y:auto}
+.cekmece{position:fixed;top:0;right:0;bottom:0;width:min(440px,94vw);background:var(--kart);z-index:95;box-shadow:-24px 0 60px rgba(11,23,33,.25);transform:translateX(105%);transition:.28s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column}
 .cekmece.acik{transform:translateX(0)}
-.cekmece-ust{background:var(--petrol-grad);color:#DCE9EC;padding:26px 26px 22px;position:relative}
-.cekmece-kapat{position:absolute;right:18px;top:18px;width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:transparent;color:#fff;cursor:pointer;font-size:15px;display:grid;place-items:center}
-.cekmece-ust .avatar{width:56px;height:56px;border-radius:50%;font-family:'Archivo',sans-serif;font-weight:800;font-size:19px;display:grid;place-items:center;color:#fff;margin-bottom:12px}
-.cekmece-ust b.ad{color:#fff;font-family:'Archivo',sans-serif;font-size:19px;display:block}
-.cekmece-ust .eposta{font-size:13px;opacity:.75}
-.cekmece-ust .rozetler{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
-.cekmece-govde{padding:22px 26px;display:flex;flex-direction:column;gap:18px}
-.cekmece-ozet{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.cekmece-ozet .kutu{background:var(--buz);border:1px solid var(--cizgi);border-radius:12px;padding:12px;text-align:center}
-.cekmece-ozet .kutu b{font-family:'Archivo',sans-serif;font-size:18px;display:block}
-.cekmece-ozet .kutu span{font-size:10.5px;color:var(--gri)}
-.cekmece h4{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gri)}
-.zaman-cizgi{display:flex;flex-direction:column}
-.zc-madde{display:grid;grid-template-columns:auto 1fr auto;gap:12px;padding:11px 0;border-bottom:1px dashed var(--cizgi);align-items:center}
-.zc-madde:last-child{border-bottom:none}
-.zc-madde .nokta2{width:10px;height:10px;border-radius:50%;background:var(--amber);box-shadow:0 0 0 4px var(--amber-fon)}
-.zc-madde .nokta2.gri{background:var(--gri-acik);box-shadow:0 0 0 4px var(--buz)}
-.zc-madde b{font-size:13px;display:block}
-.zc-madde span{font-size:11.5px;color:var(--gri)}
-.zc-madde .t{font-family:'Archivo',sans-serif;font-weight:800;font-size:13.5px;white-space:nowrap}
-.bilgi-liste{display:flex;flex-direction:column}
-.bilgi-liste .bs{display:flex;justify-content:space-between;gap-14px;padding:9px 0;border-bottom:1px solid var(--cizgi);font-size:13px}
-.bilgi-liste .bs:last-child{border-bottom:none}
-.bilgi-liste .bs span{color:var(--gri)}
-.bilgi-liste .bs b{font-weight:600;text-align:right}
+.cekmece-baslik{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid var(--cizgi)}
+.cekmece-baslik h3{font-size:17px;font-weight:800}
+.cekmece-kapat{width:32px;height:32px;border-radius:50%;border:1px solid var(--cizgi);background:transparent;cursor:pointer;font-size:14px;display:grid;place-items:center}
+.sepet-govde{flex:1;overflow-y:auto;padding:16px 24px}
+.sepet-satir{display:grid;grid-template-columns:auto 1fr auto;gap:14px;padding:14px 0;border-bottom:1px dashed var(--cizgi);align-items:center}
+.sepet-satir .kucuk-foto{width:52px;height:52px;border-radius:10px;background:var(--foto-fon);border:1px solid var(--cizgi);display:grid;place-items:center;overflow:hidden}
+.sepet-satir b{font-size:13.5px;font-family:'Archivo',sans-serif;display:block}
+.sepet-satir .alt{font-size:11.5px;color:var(--gri)}
+.sepet-satir .fiyatx{font-family:'Archivo',sans-serif;font-weight:800;font-size:14px;text-align:right}
+.adet-step{display:inline-flex;align-items:center;gap:2px;border:1px solid var(--cizgi);border-radius:99px;margin-top:6px}
+.adet-step button{width:26px;height:26px;border:none;background:transparent;cursor:pointer;font-size:14px;color:var(--murekkep);border-radius:50%}
+.adet-step button:hover{background:var(--buz)}
+.adet-step span{font-family:'Space Mono',monospace;font-size:12.5px;min-width:22px;text-align:center}
+.sepet-sil{font-size:11px;color:var(--kirmizi);cursor:pointer;margin-top:4px;display:inline-block}
+.sepet-alt{border-top:1px solid var(--cizgi);padding:18px 24px;background:#FBFCFD}
+.sepet-alt .btn{width:100%;margin-top:12px}
+.kargo-notu{font-size:11.5px;color:var(--yesil);background:var(--yesil-fon);border-radius:8px;padding:6px 10px;margin-top:10px;text-align:center}
+.kargo-notu.uyari{color:var(--amber-koyu);background:var(--amber-fon)}
 
-/* ---------- Responsive ---------- */
+/* ---------- Ürün modalı ---------- */
+.modal-fon{position:fixed;inset:0;background:rgba(11,23,33,.5);z-index:96;display:none;place-items:center;backdrop-filter:blur(3px);padding:20px;overflow-y:auto}
+.modal-fon.acik{display:grid}
+.modal-kutu{background:var(--kart);border-radius:20px;max-width:520px;width:100%;padding:28px;box-shadow:var(--golge);position:relative;max-height:92vh;overflow-y:auto}
+.modal-kapat{position:absolute;right:16px;top:16px;width:32px;height:32px;border-radius:50%;border:1px solid var(--cizgi);background:var(--kart);cursor:pointer;font-size:14px;display:grid;place-items:center;z-index:2}
+.um-ust{display:flex;gap:18px;align-items:center;margin-bottom:18px}
+.um-foto{width:110px;height:110px;border-radius:16px;background:var(--foto-fon);border:1px solid var(--cizgi);display:grid;place-items:center;flex-shrink:0;overflow:hidden}
+.um-ust .marka{margin-bottom:2px}
+.um-ust h3{font-size:20px;font-weight:800;line-height:1.15}
+.um-ust .urun-not{margin-top:3px}
+.um-fiyatlar{background:var(--buz);border:1px solid var(--cizgi);border-radius:12px;padding:6px 16px;margin-bottom:16px}
+.um-secimler{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:6px}
+.um-toplam{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--cizgi);padding-top:14px;margin-top:8px}
+.um-toplam .t{font-family:'Archivo',sans-serif;font-weight:800;font-size:22px}
+.um-toplam .kazanc{font-size:11.5px;color:var(--yesil);font-weight:600}
+.modal-kutu .btn{width:100%;margin-top:14px}
+
+/* ---------- Toast ---------- */
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(120px);background:var(--murekkep);color:#fff;border-radius:14px;padding:14px 22px;font-size:13.5px;font-weight:600;box-shadow:0 24px 50px -12px rgba(11,23,33,.55);z-index:98;transition:.3s cubic-bezier(.4,0,.2,1);display:flex;align-items:center;gap:10px;max-width:min(560px,92vw)}
+.toast.acik{transform:translateX(-50%) translateY(0)}
+.toast .tik{width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,.18);display:grid;place-items:center;flex-shrink:0}
+.toast.hatali{background:var(--kirmizi)}
+
 @media(max-width:960px){
   .hero{grid-template-columns:1fr;padding-top:32px}
   .hero-gorsel{height:300px}
@@ -346,66 +330,69 @@ table.veri tbody tr:hover{background:#FBFCFD}
   .auth-yan{padding:34px 30px}
   .hesap-sahne{grid-template-columns:1fr}
   .profil-kart{position:static}
-  .admin{grid-template-columns:1fr}
-  .admin-menu{position:static}
+  .odeme-grid{grid-template-columns:1fr}
   .siparis-ust{grid-template-columns:auto 1fr auto;row-gap:8px}
   nav.sekmeler{display:none}
   .ara{display:none}
   .footer-ic{grid-template-columns:1fr 1fr}
+  .um-secimler{grid-template-columns:1fr}
 }
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
 <body>
 
-<!-- Demo görünüm seçici (yalnızca önizleme için) -->
+<!-- Demo çubuğu -->
 <div class="demo-bar">
   <span class="etiketcik">Önizleme</span>
-  <button class="aktif" onclick="gorunumSec('magaza',this)">Vitrin</button>
-  <button onclick="gorunumSec('auth',this)">Kayıt / Giriş</button>
-  <button onclick="gorunumSec('hesap',this)">Hesabım</button>
-  <div class="ayrac"></div>
-  <span class="etiketcik">Yönetim</span>
-  <button onclick="gorunumSec('adminSiparis',this)">Siparişler</button>
-  <button onclick="gorunumSec('adminMusteri',this)">Müşteriler</button>
+  <button class="aktif" data-g="magaza" onclick="gorunumSec('magaza')">Vitrin</button>
+  <button data-g="auth" onclick="gorunumSec('auth')">Kayıt / Giriş</button>
+  <button data-g="hesap" onclick="gorunumSec('hesap')">Hesabım</button>
+  <a class="buton" href="admin.html">Yönetim Paneli →</a>
+  <span style="flex:1"></span>
+  <button onclick="demoSifirla()" title="Tüm demo verilerini ilk haline döndürür">↺ Demoyu Sıfırla</button>
 </div>
 
-<!-- ============ 1. VİTRİN ============ -->
-<div id="magaza" class="gorunum aktif">
-  <div class="serit">Tüm lenslerde resmi ödeme kanallarıyla <b>6 aya varan taksit</b> · 500₺ üzeri kargo bedava</div>
-  <header class="site">
-    <div class="header-ic">
-      <div class="logo">DOĞAN <em>OPTİK</em><small>LENS UZMANI · 1998</small></div>
-      <nav class="sekmeler">
-        <a href="#" class="secili">Lensler</a>
-        <a href="#">Renkli Lensler</a>
-        <a href="#">Lens Bakımı</a>
-        <a href="#">Markalar</a>
-        <a href="#" style="color:var(--amber-koyu)">Tekrar Sipariş</a>
-        <!-- GÖZLÜK MODÜLÜ: askıda, silinmedi -->
-        <a href="#" class="gozluk-modul">Optik Gözlük</a>
-        <a href="#" class="gozluk-modul">Güneş Gözlüğü</a>
-      </nav>
-      <div class="header-arac">
-        <div class="ara">
-          <svg class="ik" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-          Marka veya lens ara…
-        </div>
-        <div class="hesap-pill" onclick="gorunumSec('auth', demoBtn('auth'))">
-          <span class="avatar">AY</span><b>Hesabım</b>
-        </div>
-        <div class="ikon-btn" title="Sepet"><svg class="ik" viewBox="0 0 24 24"><path d="M6 7h12l-1 12H7L6 7Z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg><span class="rozet">2</span></div>
+<div class="serit" id="duyuruSerit"></div>
+
+<!-- Ortak header -->
+<header class="site">
+  <div class="header-ic">
+    <div class="logo" onclick="gorunumSec('magaza')">DOĞAN <em>OPTİK</em><small>LENS UZMANI · 1998</small></div>
+    <nav class="sekmeler">
+      <a class="secili" data-nav onclick="navFiltre('hepsi',this)">Lensler</a>
+      <a data-nav onclick="navFiltre('renkli',this)">Renkli Lensler</a>
+      <a data-nav onclick="navFiltre('bakim',this)">Lens Bakımı</a>
+      <a data-nav onclick="markalaraGit()">Markalar</a>
+      <a style="color:var(--amber-koyu)" onclick="sonSiparisiTekrarla()">Tekrar Sipariş</a>
+      <!-- GÖZLÜK MODÜLÜ: askıda -->
+      <a class="gozluk-modul" data-nav onclick="navFiltre('gozluk',this)">Optik Gözlük</a>
+    </nav>
+    <div class="header-arac">
+      <div class="ara">
+        <svg class="ik" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="aramaKutusu" placeholder="Marka veya lens ara…" oninput="aramaYap(this.value)">
+      </div>
+      <div class="hesap-pill" id="hesapPill" onclick="hesabaGit()">
+        <span class="avatar" id="hesapPillAvatar">→</span><b id="hesapPillAd">Giriş Yap</b>
+      </div>
+      <div class="ikon-btn" title="Sepet" onclick="sepetAc()">
+        <svg class="ik" viewBox="0 0 24 24"><path d="M6 7h12l-1 12H7L6 7Z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+        <span class="rozet" id="sepetRozet" style="display:none">0</span>
       </div>
     </div>
-  </header>
+  </div>
+</header>
 
+<!-- ============ VİTRİN ============ -->
+<div id="magaza" class="gorunum aktif">
   <section class="hero">
     <div>
       <div class="ust-not"><i></i>Reçeteni kaydet, iki tıkla tekrar sipariş ver</div>
       <h1 class="baslik">Gözlerin için<br>doğru lens, <span class="ton">net</span> fiyat.</h1>
       <p>Türkiye distribütörü garantili orijinal lensler. Değerlerini bir kez kaydet; sonraki her siparişin saniyeler sürsün. Kutu adedi arttıkça birim fiyat düşer.</p>
       <a class="btn amberli" href="#lensler">Lensleri Keşfet</a>
-      <a class="btn cerceve" href="#" style="margin-left:10px">Lensimi Bul</a>
+      <a class="btn cerceve" style="margin-left:10px" onclick="hesabaGit()">Reçetemi Kaydet</a>
     </div>
     <div class="hero-gorsel">
       <div class="lens-halka h1"></div>
@@ -413,7 +400,7 @@ table.veri tbody tr:hover{background:#FBFCFD}
       <div class="lens-halka h3"></div>
       <div class="hero-lens"></div>
       <div class="yuzen-kart a"><b>-2.25 / -2.25</b>Reçeten kayıtlı ✓</div>
-      <div class="yuzen-kart b"><span class="tik">✓</span><div><b>4 kutu = %9 indirim</b><span style="color:var(--gri);font-size:12px">Otomatik uygulanır</span></div></div>
+      <div class="yuzen-kart b"><span class="tik">✓</span><div><b>4 kutu = daha düşük birim fiyat</b><span style="color:var(--gri);font-size:12px">Otomatik uygulanır</span></div></div>
     </div>
   </section>
 
@@ -421,203 +408,29 @@ table.veri tbody tr:hover{background:#FBFCFD}
     <div class="tekrar-kutu">
       <div class="ikon"><svg class="ik" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg></div>
       <div><b>Daha önce sipariş verdin mi?</b><span>Giriş yap, son siparişini tek tıkla yenile — reçete değerlerin hazır.</span></div>
-      <a class="btn amberli kucukk" onclick="gorunumSec('auth', demoBtn('auth'))">Giriş Yap & Tekrarla</a>
+      <a class="btn amberli kucukk" onclick="sonSiparisiTekrarla()">Son Siparişimi Tekrarla</a>
     </div>
   </div>
 
-  <div class="kategori-serit" id="lensler">
-    <div class="kat-kart"><div class="damla" style="background:linear-gradient(160deg,#2E86AB,#123C49)"><i>G</i></div><b>Günlük Lens</b><span>14 ürün</span></div>
-    <div class="kat-kart"><div class="damla" style="background:linear-gradient(160deg,#4C9F70,#1E6B37)"><i>15</i></div><b>15 Günlük</b><span>6 ürün</span></div>
-    <div class="kat-kart"><div class="damla" style="background:linear-gradient(160deg,#1C5566,#0B1721)"><i>A</i></div><b>Aylık Lens</b><span>18 ürün</span></div>
-    <div class="kat-kart"><div class="damla" style="background:var(--lens-grad)"><i>R</i></div><b>Renkli Lens</b><span>9 ürün</span></div>
-    <div class="kat-kart"><div class="damla" style="background:linear-gradient(160deg,#7A2E3A,#4A1B23)"><i>T</i></div><b>Torik / Astigmat</b><span>8 ürün</span></div>
-    <div class="kat-kart"><div class="damla" style="background:linear-gradient(160deg,#5B6B75,#2C3A44)"><i>M</i></div><b>Multifokal</b><span>4 ürün</span></div>
-    <div class="kat-kart"><div class="damla" style="background:linear-gradient(160deg,#8FB8C9,#4A7A8C)"><i>B</i></div><b>Bakım Ürünleri</b><span>12 ürün</span></div>
-  </div>
+  <div class="kategori-serit" id="katSerit"></div>
 
-  <section class="bolum">
+  <section class="bolum" id="lensler">
     <div class="bolum-baslik">
-      <h2>Çok Satan Lensler</h2>
-      <span class="adet">46 ürün listeleniyor</span>
+      <h2 id="vitrinBaslik">Tüm Lensler</h2>
+      <span class="adet" id="vitrinAdet"></span>
     </div>
     <div class="filtreler">
-      <button class="cip secili">Tümü</button>
-      <button class="cip">Günlük</button>
-      <button class="cip">Aylık</button>
-      <button class="cip">Torik</button>
-      <button class="cip">Renkli</button>
-      <button class="cip">Acuvue</button>
-      <button class="cip">Alcon</button>
-      <button class="cip">Bausch+Lomb</button>
-      <button class="cip">CooperVision</button>
-      <button class="cip" style="margin-left:auto">Sırala: Çok Satanlar ▾</button>
+      <span id="tipCipler"></span>
+      <select class="secim" id="markaSec" onchange="markaSecildi(this.value)"></select>
+      <select class="secim" id="siralaSec" onchange="siralaSecildi(this.value)" style="margin-left:auto">
+        <option value="onerilen">Sırala: Önerilen</option>
+        <option value="artan">Fiyat: Düşükten Yükseğe</option>
+        <option value="azalan">Fiyat: Yüksekten Düşüğe</option>
+        <option value="ad">İsme Göre (A→Z)</option>
+      </select>
     </div>
-    <div class="grid">
-
-      <div class="urun">
-        <div class="foto"><span class="std">DO-STD/02</span><span class="etiket cok-satan">Çok Satan</span>
-          <div class="lens-silindir"><div class="kapak" style="background:linear-gradient(180deg,#1D5B8A,#123C49)"></div><div class="yazi">ACUVUE<br>OASYS</div><div class="alt-cizgi"></div></div>
-        </div>
-        <div class="urun-bilgi">
-          <div class="marka">Johnson & Johnson</div>
-          <div class="urun-ad">Acuvue Oasys</div>
-          <div class="urun-not">Aylık · 6 lens · Hydraclear Plus</div>
-          <div class="fiyat-tablo">
-            <div class="fiyat-satir2"><span class="kutu-ad"><b>1 kutu</b></span><span class="tutar">₺1.099,90</span></div>
-            <div class="fiyat-satir2"><span class="kutu-ad"><b>4 kutu</b> alımında</span><span class="tutar indirimli">₺1.049,90<span class="birim">/ kutu</span></span></div>
-          </div>
-          <button class="btn dolu sepet-btn">Sepete Ekle</button>
-        </div>
-      </div>
-
-      <div class="urun">
-        <div class="foto"><span class="std">DO-STD/02</span><span class="etiket">4 Kutuda İndirim</span>
-          <div class="lens-silindir"><div class="kapak" style="background:linear-gradient(180deg,#7A2E3A,#4A1B23)"></div><div class="yazi">OASYS<br>TORIC</div><div class="alt-cizgi"></div></div>
-        </div>
-        <div class="urun-bilgi">
-          <div class="marka">Johnson & Johnson</div>
-          <div class="urun-ad">Acuvue Oasys Toric</div>
-          <div class="urun-not">Aylık · Astigmatlı · 6 lens</div>
-          <div class="fiyat-tablo">
-            <div class="fiyat-satir2"><span class="kutu-ad"><b>1 kutu</b></span><span class="tutar">₺1.529,90</span></div>
-            <div class="fiyat-satir2"><span class="kutu-ad"><b>4 kutu</b> alımında</span><span class="tutar indirimli">₺1.489,90<span class="birim">/ kutu</span></span></div>
-          </div>
-          <button class="btn dolu sepet-btn">Sepete Ekle</button>
-        </div>
-      </div>
-
-      <div class="urun">
-        <div class="foto"><span class="std">DO-STD/02</span>
-          <div class="lens-silindir"><div class="kapak" style="background:linear-gradient(180deg,#2E86AB,#1D5B8A)"></div><div class="yazi">AIR OPTIX<br>HYDRAGLYDE</div><div class="alt-cizgi"></div></div>
-        </div>
-        <div class="urun-bilgi">
-          <div class="marka">Alcon</div>
-          <div class="urun-ad">Air Optix Plus HydraGlyde</div>
-          <div class="urun-not">Aylık · 3 lens · SmartShield</div>
-          <div class="fiyat-tablo">
-            <div class="fiyat-satir2"><span class="kutu-ad"><b>1 kutu</b></span><span class="tutar">₺1.099,90</span></div>
-            <div class="fiyat-satir2"><span class="kutu-ad"><b>4 kutu</b> alımında</span><span class="tutar indirimli">₺1.089,90<span class="birim">/ kutu</span></span></div>
-          </div>
-          <button class="btn dolu sepet-btn">Sepete Ekle</button>
-        </div>
-      </div>
-
-      <div class="urun">
-        <div class="foto"><span class="std">DO-STD/02</span><span class="etiket yeni">Yeni</span>
-          <div class="lens-silindir"><div class="kapak" style="background:linear-gradient(180deg,#8FB8C9,#4A7A8C)"></div><div class="yazi">OASYS 1-DAY<br>HYDRALUXE</div><div class="alt-cizgi"></div></div>
-        </div>
-        <div class="urun-bilgi">
-          <div class="marka">Johnson & Johnson</div>
-          <div class="urun-ad">Acuvue Oasys 1-Day</div>
-          <div class="urun-not">Günlük · 30 lens · HydraLuxe</div>
-          <div class="fiyat-tablo">
-            <div class="fiyat-satir2"><span class="kutu-ad"><b>1 kutu</b></span><span class="tutar">₺1.179,90</span></div>
-            <div class="fiyat-satir2"><span class="kutu-ad"><b>6 kutu</b> alımında</span><span class="tutar indirimli">₺1.099,90<span class="birim">/ kutu</span></span></div>
-          </div>
-          <button class="btn dolu sepet-btn">Sepete Ekle</button>
-        </div>
-      </div>
-
-      <div class="urun">
-        <div class="foto"><span class="std">DO-STD/02</span>
-          <div class="lens-silindir"><div class="kapak" style="background:linear-gradient(180deg,#4C9F70,#1E6B37)"></div><div class="yazi">BAUSCH+LOMB<br>ULTRA</div><div class="alt-cizgi"></div></div>
-        </div>
-        <div class="urun-bilgi">
-          <div class="marka">Bausch + Lomb</div>
-          <div class="urun-ad">Bausch+Lomb ULTRA</div>
-          <div class="urun-not">Aylık · 6 lens · MoistureSeal</div>
-          <div class="fiyat-tablo">
-            <div class="fiyat-satir2"><span class="kutu-ad"><b>1 kutu</b></span><span class="tutar">₺999,90</span></div>
-            <div class="fiyat-satir2"><span class="kutu-ad"><b>4 kutu</b> alımında</span><span class="tutar indirimli">₺989,90<span class="birim">/ kutu</span></span></div>
-          </div>
-          <button class="btn dolu sepet-btn">Sepete Ekle</button>
-        </div>
-      </div>
-
-      <div class="urun">
-        <div class="foto"><span class="std">DO-STD/02</span><span class="etiket cok-satan">Çok Satan</span>
-          <div class="lens-silindir"><div class="kapak" style="background:linear-gradient(180deg,#1C5566,#0B1721)"></div><div class="yazi">DAILIES<br>AQUA COMFORT</div><div class="alt-cizgi"></div></div>
-        </div>
-        <div class="urun-bilgi">
-          <div class="marka">Alcon</div>
-          <div class="urun-ad">Dailies Aqua Comfort Plus</div>
-          <div class="urun-not">Günlük · 30 lens</div>
-          <div class="fiyat-tablo">
-            <div class="fiyat-satir2"><span class="kutu-ad"><b>1 kutu</b></span><span class="tutar">₺979,90</span></div>
-            <div class="fiyat-satir2"><span class="kutu-ad"><b>6 kutu</b> alımında</span><span class="tutar indirimli">₺921,90<span class="birim">/ kutu</span></span></div>
-          </div>
-          <button class="btn dolu sepet-btn">Sepete Ekle</button>
-        </div>
-      </div>
-
-      <div class="urun">
-        <div class="foto"><span class="std">DO-STD/02</span>
-          <div class="lens-silindir"><div class="kapak" style="background:var(--lens-grad)"></div><div class="yazi">AIR OPTIX<br>COLORS</div><div class="alt-cizgi"></div></div>
-        </div>
-        <div class="urun-bilgi">
-          <div class="marka">Alcon</div>
-          <div class="urun-ad">Air Optix Colors</div>
-          <div class="urun-not">Aylık · Renkli · 2 lens</div>
-          <div class="fiyat-tablo">
-            <div class="fiyat-satir2"><span class="kutu-ad"><b>1 kutu</b></span><span class="tutar">₺799,90</span></div>
-            <div class="fiyat-satir2"><span class="kutu-ad"><b>4 kutu</b> alımında</span><span class="tutar indirimli">₺784,90<span class="birim">/ kutu</span></span></div>
-          </div>
-          <button class="btn dolu sepet-btn">Sepete Ekle</button>
-        </div>
-      </div>
-
-      <div class="urun">
-        <div class="foto"><span class="std">DO-STD/02</span>
-          <div class="lens-silindir"><div class="kapak" style="background:linear-gradient(180deg,#5B6B75,#2C3A44)"></div><div class="yazi">PUREVISION<br>2 HD</div><div class="alt-cizgi"></div></div>
-        </div>
-        <div class="urun-bilgi">
-          <div class="marka">Bausch + Lomb</div>
-          <div class="urun-ad">PureVision 2 HD</div>
-          <div class="urun-not">Aylık · 6 lens · HD Optik</div>
-          <div class="fiyat-tablo">
-            <div class="fiyat-satir2"><span class="kutu-ad"><b>1 kutu</b></span><span class="tutar">₺1.189,90</span></div>
-            <div class="fiyat-satir2"><span class="kutu-ad"><b>4 kutu</b> alımında</span><span class="tutar indirimli">₺1.109,90<span class="birim">/ kutu</span></span></div>
-          </div>
-          <button class="btn dolu sepet-btn">Sepete Ekle</button>
-        </div>
-      </div>
-    </div>
+    <div class="grid" id="urunGrid"></div>
   </section>
-
-  <!-- ======== GÖZLÜK MODÜLÜ (ASKIDA — GOZLUK_AKTIF=true ile geri gelir) ======== -->
-  <section class="bolum gozluk-modul" style="padding-top:0">
-    <div class="bolum-baslik">
-      <h2>Optik Gözlük</h2>
-      <span class="adet">128 model listeleniyor</span>
-    </div>
-    <div class="grid">
-      <div class="urun">
-        <div class="foto"><span class="std">DO-STD/01</span><span class="etiket">12 Taksit</span>
-          <svg viewBox="0 0 400 140" fill="none" style="width:72%"><path d="M25 60 Q25 35 60 35 L145 35 Q172 35 175 60 Q177 80 165 93 Q150 106 110 106 Q62 106 42 90 Q25 77 25 60Z" stroke="#123C49" stroke-width="8" fill="rgba(18,60,73,.06)"/><path d="M375 60 Q375 35 340 35 L255 35 Q228 35 225 60 Q223 80 235 93 Q250 106 290 106 Q338 106 358 90 Q375 77 375 60Z" stroke="#123C49" stroke-width="8" fill="rgba(18,60,73,.06)"/><path d="M175 55 Q200 44 225 55" stroke="#123C49" stroke-width="8"/><path d="M25 52 L8 44 M375 52 L392 44" stroke="#123C49" stroke-width="8"/></svg>
-        </div>
-        <div class="urun-bilgi">
-          <div class="marka">Doğan Collection</div>
-          <div class="urun-ad">Pera Titanyum</div>
-          <div class="urun-not">SKU DGN-OPT-1042</div>
-          <div class="fiyat-tablo"><div class="fiyat-satir2"><span class="kutu-ad"><b>Fiyat</b></span><span class="tutar">₺3.490</span></div></div>
-          <button class="btn dolu sepet-btn">Sepete Ekle</button>
-        </div>
-      </div>
-      <div class="urun">
-        <div class="foto"><span class="std">DO-STD/01</span><span class="etiket yeni">Yeni</span>
-          <svg viewBox="0 0 400 140" fill="none" style="width:72%"><circle cx="105" cy="70" r="42" stroke="#6B4A2E" stroke-width="8" fill="rgba(107,74,46,.07)"/><circle cx="295" cy="70" r="42" stroke="#6B4A2E" stroke-width="8" fill="rgba(107,74,46,.07)"/><path d="M147 62 Q200 46 253 62" stroke="#6B4A2E" stroke-width="8"/><path d="M63 62 L14 50 M337 62 L386 50" stroke="#6B4A2E" stroke-width="8"/></svg>
-        </div>
-        <div class="urun-bilgi">
-          <div class="marka">Lunor Heritage</div>
-          <div class="urun-ad">Cihangir Round</div>
-          <div class="urun-not">SKU LNR-OPT-0217</div>
-          <div class="fiyat-tablo"><div class="fiyat-satir2"><span class="kutu-ad"><b>Fiyat</b></span><span class="tutar">₺5.240</span></div></div>
-          <button class="btn dolu sepet-btn">Sepete Ekle</button>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- ======== /GÖZLÜK MODÜLÜ ======== -->
 
   <div class="guven">
     <div class="guven-ic">
@@ -628,41 +441,11 @@ table.veri tbody tr:hover{background:#FBFCFD}
     </div>
   </div>
 
-  <div class="markalar">
-    <div class="marka-pill">ACUVUE</div>
-    <div class="marka-pill">ALCON</div>
-    <div class="marka-pill">BAUSCH + LOMB</div>
-    <div class="marka-pill">COOPERVISION</div>
-    <div class="marka-pill">SOLOTICA</div>
-    <div class="marka-pill">RENU</div>
-    <div class="marka-pill">OPTI-FREE</div>
-  </div>
-
-  <footer>
-    <div class="footer-ic">
-      <div>
-        <div class="logo">DOĞAN <em>OPTİK</em><small style="color:#5F7078">LENS UZMANI · 1998</small></div>
-        <p style="font-size:12.5px;margin-top:14px;max-width:30ch">1998'den beri aynı vitrin, aynı güven. Şimdi lens siparişin cebinde.</p>
-      </div>
-      <div><h4>Lensler</h4><a href="#">Günlük Lens</a><a href="#">Aylık Lens</a><a href="#">Torik Lens</a><a href="#">Renkli Lens</a><a href="#">Bakım Ürünleri</a></div>
-      <div><h4>Hesap</h4><a href="#">Üye Ol</a><a href="#">Giriş Yap</a><a href="#">Siparişlerim</a><a href="#">Tekrar Sipariş</a><a href="#">Reçetem</a></div>
-      <div><h4>Kurumsal</h4><a href="#">Hakkımızda</a><a href="#">İade & Değişim</a><a href="#">Gizlilik</a><a href="#">İletişim</a></div>
-    </div>
-    <div class="footer-alt">© 2026 Doğan Optik — Tüm hakları saklıdır · Mesafeli Satış Sözleşmesi · KVKK</div>
-  </footer>
+  <div class="markalar" id="markaPilller"></div>
 </div>
 
-<!-- ============ 2. KAYIT / GİRİŞ ============ -->
+<!-- ============ KAYIT / GİRİŞ ============ -->
 <div id="auth" class="gorunum">
-  <div class="serit">Üye ol, ilk siparişine özel <b>ücretsiz kargo</b> kazan</div>
-  <header class="site">
-    <div class="header-ic">
-      <div class="logo" onclick="gorunumSec('magaza', demoBtn('magaza'))">DOĞAN <em>OPTİK</em><small>LENS UZMANI · 1998</small></div>
-      <div style="flex:1"></div>
-      <a class="btn cerceve kucukk" onclick="gorunumSec('magaza', demoBtn('magaza'))">← Alışverişe Dön</a>
-    </div>
-  </header>
-
   <div class="auth-sahne">
     <div class="auth-yan">
       <h2>Bir kez kaydol,<br>her seferinde <em>saniyeler</em> içinde sipariş ver.</h2>
@@ -678,476 +461,759 @@ table.veri tbody tr:hover{background:#FBFCFD}
 
     <div class="auth-form" id="authForm">
       <div class="auth-sekme">
-        <button class="aktif" onclick="authModu('kayit',this)">Üye Ol</button>
-        <button onclick="authModu('giris',this)">Giriş Yap</button>
+        <button id="sekmeKayit" class="aktif" onclick="authModu('kayit')">Üye Ol</button>
+        <button id="sekmeGiris" onclick="authModu('giris')">Giriş Yap</button>
       </div>
+      <div class="demo-ipucu">Demo hesap: <b>ayse@ornek.com</b> · şifre <b>demo1234</b></div>
+      <div class="hata-not" id="authHata"></div>
 
       <!-- KAYIT -->
       <div class="kayit-panel">
         <div class="form-ikili">
-          <div class="form-alan"><label>Ad</label><input type="text" placeholder="Ayşe"></div>
-          <div class="form-alan"><label>Soyad</label><input type="text" placeholder="Yılmaz"></div>
+          <div class="form-alan"><label>Ad</label><input id="kAd" type="text" placeholder="Ayşe"></div>
+          <div class="form-alan"><label>Soyad</label><input id="kSoyad" type="text" placeholder="Yılmaz"></div>
         </div>
         <div class="form-alan">
-          <label>E-posta</label><input type="email" placeholder="ayse@ornek.com">
+          <label>E-posta</label><input id="kEposta" type="email" placeholder="ayse@ornek.com">
           <div class="ipucu">Sipariş onayı ve kargo bildirimleri bu adrese gelir.</div>
         </div>
-        <div class="form-alan"><label>Telefon <span style="color:var(--gri-acik);font-weight:400">(isteğe bağlı)</span></label><input type="tel" placeholder="05__ ___ __ __"></div>
-        <div class="form-alan">
-          <label>Şifre</label><input type="password" placeholder="En az 8 karakter">
-        </div>
-        <div class="onay-satir"><input type="checkbox" checked><span><b>KVKK Aydınlatma Metni</b>'ni okudum, üyelik sözleşmesini kabul ediyorum.</span></div>
-        <div class="onay-satir" style="margin-top:-10px"><input type="checkbox"><span>Kampanya ve lens hatırlatma e-postaları almak istiyorum.</span></div>
-        <button class="btn amberli">Hesabımı Oluştur</button>
-        <div class="dogrulama-notu">
-          <svg class="ik" viewBox="0 0 24 24" style="flex-shrink:0;stroke:var(--mavi)"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
-          <span><b>E-posta doğrulama:</b> Kayıttan sonra adresine tek kullanımlık bağlantı gönderilir. Doğrulanmadan sipariş tamamlanamaz — böylece admin panelindeki her müşteri gerçek bir e-postaya sahiptir.</span>
-        </div>
+        <div class="form-alan"><label>Telefon <span style="color:var(--gri-acik);font-weight:400">(isteğe bağlı)</span></label><input id="kTel" type="tel" placeholder="05__ ___ __ __"></div>
+        <div class="form-alan"><label>Şifre</label><input id="kSifre" type="password" placeholder="En az 8 karakter"></div>
+        <div class="onay-satir"><input id="kKvkk" type="checkbox"><span><b>KVKK Aydınlatma Metni</b>'ni okudum, üyelik sözleşmesini kabul ediyorum.</span></div>
+        <div class="onay-satir" style="margin-top:-10px"><input id="kBulten" type="checkbox"><span>Kampanya ve lens hatırlatma e-postaları almak istiyorum.</span></div>
+        <button class="btn amberli" onclick="kayitOl()">Hesabımı Oluştur</button>
       </div>
 
       <!-- GİRİŞ -->
       <div class="giris-panel">
-        <div class="form-alan"><label>E-posta</label><input type="email" placeholder="ayse@ornek.com"></div>
-        <div class="form-alan"><label>Şifre</label><input type="password" placeholder="••••••••"></div>
-        <div style="text-align:right;margin:-6px 0 18px"><a href="#" style="font-size:12.5px;color:var(--petrol);font-weight:600;text-decoration:none">Şifremi unuttum</a></div>
-        <button class="btn amberli" onclick="gorunumSec('hesap', demoBtn('hesap'))">Giriş Yap</button>
-        <div class="auth-veya">veya</div>
-        <button class="btn cerceve" style="width:100%">E-posta ile tek kullanımlık kod gönder</button>
+        <div class="form-alan"><label>E-posta</label><input id="gEposta" type="email" placeholder="ayse@ornek.com"></div>
+        <div class="form-alan"><label>Şifre</label><input id="gSifre" type="password" placeholder="••••••••" onkeydown="if(event.key==='Enter')girisYap()"></div>
+        <button class="btn amberli" onclick="girisYap()">Giriş Yap</button>
+      </div>
+
+      <!-- E-POSTA DOĞRULAMA (demo) -->
+      <div class="dogrulama-panel">
+        <div class="zarf"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></div>
+        <h3>E-postanı doğrula</h3>
+        <p><b id="dogrulamaEposta"></b> adresine tek kullanımlık doğrulama bağlantısı gönderdik.<br>Doğrulamadan sipariş tamamlanamaz.</p>
+        <button class="btn amberli" onclick="dogrulaDemo()">Doğrulama Bağlantısına Tıkladım (demo)</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ============ 3. HESABIM (müşteri profili) ============ -->
+<!-- ============ HESABIM ============ -->
 <div id="hesap" class="gorunum">
-  <div class="serit">Lens değişim günün yaklaşıyor: <b>Oasys Aylık için son 6 gün</b> — tek tıkla yenile</div>
-  <header class="site">
-    <div class="header-ic">
-      <div class="logo" onclick="gorunumSec('magaza', demoBtn('magaza'))">DOĞAN <em>OPTİK</em><small>LENS UZMANI · 1998</small></div>
-      <nav class="sekmeler">
-        <a href="#" onclick="gorunumSec('magaza', demoBtn('magaza'))">Lensler</a>
-        <a href="#">Renkli Lensler</a>
-        <a href="#">Lens Bakımı</a>
-      </nav>
-      <div class="header-arac">
-        <div class="hesap-pill"><span class="avatar">AY</span><b>Ayşe Y.</b></div>
-        <div class="ikon-btn"><svg class="ik" viewBox="0 0 24 24"><path d="M6 7h12l-1 12H7L6 7Z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg></div>
-      </div>
-    </div>
-  </header>
-
   <div class="hesap-sahne">
     <aside class="profil-kart">
-      <div class="profil-ust">
-        <div class="avatar">AY</div>
-        <b>Ayşe Yılmaz</b>
-        <span>ayse.yilmaz@ornek.com</span><br>
-        <span class="mono" style="font-size:11px">Üyelik: Mart 2025</span>
-        <div class="uye-rozet">★ SADIK MÜŞTERİ — 7. SİPARİŞ</div>
-      </div>
+      <div class="profil-ust" id="profilUst"></div>
       <div class="profil-menu">
-        <a href="#" class="secili">Siparişlerim</a>
-        <a href="#">Reçetem & Lens Değerlerim</a>
-        <a href="#">Adreslerim</a>
-        <a href="#">Hesap Bilgileri</a>
-        <a href="#">Hatırlatma Tercihleri</a>
-        <a href="#" style="color:var(--kirmizi)">Çıkış Yap</a>
+        <a class="secili">Siparişlerim</a>
+        <a onclick="receteAc()">Reçetem & Lens Değerlerim</a>
+        <a onclick="gorunumSec('magaza')">Alışverişe Devam</a>
+        <a style="color:var(--kirmizi)" onclick="cikisYap()">Çıkış Yap</a>
       </div>
     </aside>
-
     <div class="hesap-icerik">
-      <div class="ozet-grid">
-        <div class="ozet-kart"><div class="deger">7</div><div class="ad">Toplam sipariş</div></div>
-        <div class="ozet-kart"><div class="deger">₺7.410</div><div class="ad">Toplam alışveriş</div></div>
-        <div class="ozet-kart"><div class="deger">1</div><div class="ad">Aktif sipariş</div></div>
-        <div class="ozet-kart"><div class="deger" style="color:var(--amber-koyu)">6 gün</div><div class="ad">Lens yenileme sayacı</div></div>
-      </div>
-
+      <div class="ozet-grid" id="hesapOzet"></div>
       <div class="recete-kart">
         <div class="rec-baslik">
           <h3>Kayıtlı Reçetem</h3>
-          <a href="#" style="font-size:12.5px;color:var(--petrol);font-weight:600;text-decoration:none">Güncelle</a>
+          <a class="baglanti" onclick="receteAc()">Güncelle</a>
         </div>
-        <div class="rec-grid">
-          <div class="rec-goz"><b>Sağ Göz (OD)</b><div class="degerler"><div class="d"><small>SPH</small><span>-2.25</span></div><div class="d"><small>BC</small><span>8.4</span></div><div class="d"><small>DIA</small><span>14.0</span></div></div></div>
-          <div class="rec-goz"><b>Sol Göz (OS)</b><div class="degerler"><div class="d"><small>SPH</small><span>-2.25</span></div><div class="d"><small>BC</small><span>8.4</span></div><div class="d"><small>DIA</small><span>14.0</span></div></div></div>
-        </div>
+        <div class="rec-grid" id="receteKutu"></div>
       </div>
-
       <div>
         <div class="bolum-baslik" style="margin-bottom:12px">
           <h2 style="font-size:20px">Sipariş Geçmişim</h2>
-          <span class="adet">7 sipariş</span>
+          <span class="adet" id="siparisAdet"></span>
         </div>
-
-        <div class="siparis acik" onclick="this.classList.toggle('acik')">
-          <div class="siparis-ust">
-            <div class="mini-foto"><div class="lens-silindir" style="transform:scale(.4)"><div class="kapak" style="background:linear-gradient(180deg,#1D5B8A,#123C49)"></div><div class="yazi">OASYS</div></div></div>
-            <div class="siparis-ad"><b>Acuvue Oasys — 4 kutu</b><span class="mono">#DO-2026-05203 · 1 Temmuz 2026</span></div>
-            <span class="durum hazir">Hazırlanıyor</span>
-            <span class="siparis-tutar">₺4.199,60</span>
-            <span class="ok">▾</span>
-          </div>
-          <div class="siparis-detay">
-            <div class="detay-blok"><b>Lens Değerleri</b>Sağ: -2.25 / Sol: -2.25<br>BC 8.4 · DIA 14.0</div>
-            <div class="detay-blok"><b>Ödeme</b>Kredi kartı · 3 taksit<div class="odeme-cubugu"><i style="width:33%"></i></div><span style="color:var(--gri)">1/3 taksit ödendi</span></div>
-            <div class="detay-blok"><b>Teslimat</b>Adrese kargo<br>Beşiktaş / İstanbul</div>
-            <div class="tekrar-btn"><a class="btn amberli kucukk">↻ Bu Siparişi Tekrarla</a><a class="btn cerceve kucukk">Fatura İndir</a></div>
-          </div>
-        </div>
-
-        <div class="siparis" onclick="this.classList.toggle('acik')">
-          <div class="siparis-ust">
-            <div class="mini-foto"><div class="lens-silindir" style="transform:scale(.4)"><div class="kapak" style="background:linear-gradient(180deg,#1D5B8A,#123C49)"></div><div class="yazi">OASYS</div></div></div>
-            <div class="siparis-ad"><b>Acuvue Oasys — 2 kutu</b><span class="mono">#DO-2026-04102 · 3 Nisan 2026</span></div>
-            <span class="durum teslim">Teslim edildi</span>
-            <span class="siparis-tutar">₺2.199,80</span>
-            <span class="ok">▾</span>
-          </div>
-          <div class="siparis-detay">
-            <div class="detay-blok"><b>Lens Değerleri</b>Sağ: -2.25 / Sol: -2.25</div>
-            <div class="detay-blok"><b>Ödeme</b>Tek çekim (iyzico)</div>
-            <div class="detay-blok"><b>Teslimat</b>6 Nisan — Yurtiçi Kargo</div>
-            <div class="tekrar-btn"><a class="btn amberli kucukk">↻ Bu Siparişi Tekrarla</a><a class="btn cerceve kucukk">Fatura İndir</a></div>
-          </div>
-        </div>
-
-        <div class="siparis" onclick="this.classList.toggle('acik')">
-          <div class="siparis-ust">
-            <div class="mini-foto"><div class="lens-silindir" style="transform:scale(.4)"><div class="kapak" style="background:linear-gradient(180deg,#8FB8C9,#4A7A8C)"></div><div class="yazi">RENU</div></div></div>
-            <div class="siparis-ad"><b>ReNu Solüsyon 360ml + Oasys 2 kutu</b><span class="mono">#DO-2026-01088 · 12 Ocak 2026</span></div>
-            <span class="durum teslim">Teslim edildi</span>
-            <span class="siparis-tutar">₺2.489,70</span>
-            <span class="ok">▾</span>
-          </div>
-          <div class="siparis-detay">
-            <div class="detay-blok"><b>İçerik</b>2× Oasys Aylık<br>1× ReNu MPS 360ml</div>
-            <div class="detay-blok"><b>Ödeme</b>Kredi kartı · 2 taksit</div>
-            <div class="detay-blok"><b>Teslimat</b>15 Ocak — MNG Kargo</div>
-            <div class="tekrar-btn"><a class="btn amberli kucukk">↻ Bu Siparişi Tekrarla</a><a class="btn cerceve kucukk">Fatura İndir</a></div>
-          </div>
-        </div>
-
-        <div style="text-align:center;padding:8px"><a class="btn cerceve kucukk">Daha Eski Siparişleri Gör (4)</a></div>
+        <div id="siparisListe"></div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ============ 4. ADMİN — SİPARİŞLER ============ -->
-<div id="adminSiparis" class="gorunum">
-  <header class="site">
-    <div class="header-ic">
-      <div class="logo">DOĞAN <em>OPTİK</em><small>YÖNETİM PANELİ</small></div>
-      <div style="flex:1"></div>
-      <div class="header-arac"><span style="font-size:13px;color:var(--gri)">admin@doganoptik.com</span>
-        <div class="ikon-btn"><svg class="ik" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-3.5 4.5-5 8-5s6.5 1.5 8 5"/></svg></div>
+<!-- ============ ÖDEME ============ -->
+<div id="odeme" class="gorunum">
+  <div class="odeme-sahne">
+    <div id="odemeAkis">
+      <div class="adimlar">
+        <div class="adim aktif"><span class="no">1</span>Sepet<span class="cizgi"></span></div>
+        <div class="adim aktif"><span class="no">2</span>Teslimat & Ödeme<span class="cizgi"></span></div>
+        <div class="adim"><span class="no">3</span>Onay</div>
+      </div>
+      <div class="odeme-grid">
+        <div style="display:flex;flex-direction:column;gap:20px">
+          <div class="panel">
+            <h3>Teslimat Bilgileri</h3>
+            <div class="form-ikili">
+              <div class="form-alan"><label>Ad</label><input id="oAd"></div>
+              <div class="form-alan"><label>Soyad</label><input id="oSoyad"></div>
+            </div>
+            <div class="form-ikili">
+              <div class="form-alan"><label>Telefon</label><input id="oTel" placeholder="05__ ___ __ __"></div>
+              <div class="form-alan"><label>İl / İlçe</label><input id="oSehir" placeholder="İstanbul / Beşiktaş"></div>
+            </div>
+            <div class="form-alan"><label>Adres</label><textarea id="oAdres" rows="2" placeholder="Mahalle, sokak, no, daire"></textarea></div>
+          </div>
+          <div class="panel">
+            <h3>Ödeme — Kredi / Banka Kartı</h3>
+            <div class="form-alan"><label>Kart Üzerindeki İsim</label><input id="oKartAd" placeholder="AYŞE YILMAZ"></div>
+            <div class="form-alan"><label>Kart Numarası</label><input id="oKartNo" inputmode="numeric" placeholder="•••• •••• •••• ••••" maxlength="19" oninput="kartBicimle(this)"></div>
+            <div class="form-ikili">
+              <div class="form-alan"><label>Son Kullanma</label><input id="oSkt" placeholder="AA/YY" maxlength="5" oninput="sktBicimle(this)"></div>
+              <div class="form-alan"><label>CVC</label><input id="oCvc" inputmode="numeric" placeholder="•••" maxlength="4"></div>
+            </div>
+            <div class="form-alan">
+              <label>Taksit</label>
+              <select id="oTaksit">
+                <option value="1">Tek çekim</option>
+                <option value="2">2 taksit</option>
+                <option value="3">3 taksit</option>
+                <option value="6">6 taksit</option>
+              </select>
+            </div>
+            <div class="iyzico-not">
+              <svg class="ik" viewBox="0 0 24 24" style="flex-shrink:0"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+              <span><b>Demo ödeme:</b> Bu ekran tasarım önizlemesidir; karttan ücret çekilmez. Gerçek sürümde ödeme iyzico güvenli sayfasında tamamlanır — kart bilgisi sitemizde tutulmaz.</span>
+            </div>
+          </div>
+        </div>
+        <div class="panel" style="position:sticky;top:120px">
+          <h3>Sipariş Özeti</h3>
+          <div id="odemeOzet"></div>
+          <button class="btn amberli" style="width:100%;margin-top:16px" onclick="odemeTamamla()">Ödemeyi Tamamla</button>
+          <button class="btn cerceve kucukk" style="width:100%;margin-top:10px" onclick="gorunumSec('magaza');sepetAc()">← Sepete Dön</button>
+        </div>
       </div>
     </div>
-  </header>
 
-  <div class="admin">
-    <aside class="admin-menu">
-      <div class="baslikcik">MENÜ</div>
-      <a>Genel Bakış</a>
-      <a class="secili">Siparişler<span class="mini-rozet">3 yeni</span></a>
-      <a onclick="gorunumSec('adminMusteri', demoBtn('adminMusteri'))">Müşteriler</a>
-      <a>Ürünler & Fiyatlar</a>
-      <a>Kategoriler</a>
-      <a>Hatırlatma E-postaları</a>
-      <a>Ayarlar</a>
-      <a class="gozluk-modul">Gözlük Modülü (askıda)</a>
-    </aside>
-
-    <div class="admin-icerik">
-      <div class="stat-grid">
-        <div class="stat"><div class="deger">14</div><div class="ad">Bugünkü sipariş</div><span class="degisim arti">+4 düne göre</span></div>
-        <div class="stat petrol"><div class="deger">₺18.640</div><div class="ad">Bugünkü ciro</div><span class="degisim arti">+%12</span></div>
-        <div class="stat yesil"><div class="deger">%64</div><div class="ad">Kayıtlı müşteri oranı</div><span class="degisim arti">+%8 bu ay</span></div>
-        <div class="stat"><div class="deger">%41</div><div class="ad">Tekrar sipariş oranı</div><span class="degisim notr">Son 90 gün</span></div>
-      </div>
-
-      <div class="panel">
-        <h3>Siparişler</h3>
-        <p class="aciklama">Her siparişte müşterinin üyelik durumu ve kaçıncı siparişi olduğu görünür. Müşteri adına tıklayınca profil çekmecesi açılır.</p>
-        <div class="filtreler" style="margin-bottom:16px">
-          <button class="cip secili">Tümü</button>
-          <button class="cip">Yeni</button>
-          <button class="cip">Hazırlanıyor</button>
-          <button class="cip">Kargoda</button>
-          <button class="cip">Teslim</button>
-          <button class="cip" style="margin-left:auto">Yalnızca tekrar siparişler</button>
-        </div>
-        <div class="tablo-sar">
-        <table class="veri">
-          <thead><tr><th>Sipariş</th><th>Müşteri</th><th>Üyelik</th><th>Kaçıncı</th><th>Tutar</th><th>Durum</th></tr></thead>
-          <tbody>
-            <tr onclick="musteriAc('ayse')">
-              <td><b class="mono" style="font-size:12px">#05203</b><br><span style="font-size:11.5px;color:var(--gri)">Oasys ×4 · 1 Tem</span></td>
-              <td><div class="musteri-hucre"><span class="avatar" style="background:var(--petrol)">AY</span><div><b>Ayşe Yılmaz</b><span>ayse.yilmaz@ornek.com</span></div></div></td>
-              <td><span class="rozet-k kayitli">✓ Kayıtlı</span> <span class="rozet-k sadik">★ Sadık</span></td>
-              <td><span class="siparis-sayi-pill coklu">7. sipariş</span></td>
-              <td><b>₺4.199,60</b></td>
-              <td><span class="durum hazir">Hazırlanıyor</span></td>
-            </tr>
-            <tr onclick="musteriAc('mehmet')">
-              <td><b class="mono" style="font-size:12px">#05202</b><br><span style="font-size:11.5px;color:var(--gri)">Air Optix ×2 · 1 Tem</span></td>
-              <td><div class="musteri-hucre"><span class="avatar" style="background:var(--mavi)">MK</span><div><b>Mehmet Kaya</b><span>m.kaya@ornek.com</span></div></div></td>
-              <td><span class="rozet-k kayitli">✓ Kayıtlı</span></td>
-              <td><span class="siparis-sayi-pill coklu">3. sipariş</span></td>
-              <td><b>₺2.179,80</b></td>
-              <td><span class="durum kargo">Kargoda</span></td>
-            </tr>
-            <tr onclick="musteriAc('zeynep')">
-              <td><b class="mono" style="font-size:12px">#05201</b><br><span style="font-size:11.5px;color:var(--gri)">Dailies ×6 · 30 Haz</span></td>
-              <td><div class="musteri-hucre"><span class="avatar" style="background:var(--amber-koyu)">ZD</span><div><b>Zeynep Demir</b><span>zeynep.d@ornek.com</span></div></div></td>
-              <td><span class="rozet-k kayitli">✓ Kayıtlı</span> <span class="rozet-k yeni-uye">Yeni üye</span></td>
-              <td><span class="siparis-sayi-pill">1. sipariş</span></td>
-              <td><b>₺5.531,40</b></td>
-              <td><span class="durum hazir">Hazırlanıyor</span></td>
-            </tr>
-            <tr>
-              <td><b class="mono" style="font-size:12px">#05200</b><br><span style="font-size:11.5px;color:var(--gri)">B+L ULTRA ×1 · 30 Haz</span></td>
-              <td><div class="musteri-hucre"><span class="avatar" style="background:var(--gri-acik)">?</span><div><b>Misafir Sipariş</b><span>can.t@ornek.com — üyeliğe davet gönderildi</span></div></div></td>
-              <td><span class="rozet-k misafir">Misafir</span></td>
-              <td><span class="siparis-sayi-pill">—</span></td>
-              <td><b>₺999,90</b></td>
-              <td><span class="durum teslim">Teslim edildi</span></td>
-            </tr>
-            <tr onclick="musteriAc('mehmet')">
-              <td><b class="mono" style="font-size:12px">#05188</b><br><span style="font-size:11.5px;color:var(--gri)">Air Optix ×2 · 24 Haz</span></td>
-              <td><div class="musteri-hucre"><span class="avatar" style="background:var(--mavi)">MK</span><div><b>Mehmet Kaya</b><span>m.kaya@ornek.com</span></div></div></td>
-              <td><span class="rozet-k kayitli">✓ Kayıtlı</span></td>
-              <td><span class="siparis-sayi-pill coklu">2. sipariş</span></td>
-              <td><b>₺2.179,80</b></td>
-              <td><span class="durum teslim">Teslim edildi</span></td>
-            </tr>
-          </tbody>
-        </table>
-        </div>
+    <div id="odemeBasari" style="display:none">
+      <div class="basari-panel">
+        <div class="halka"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4 10-11"/></svg></div>
+        <h2>Siparişin alındı! 🎉</h2>
+        <p>Sipariş onayını <b id="basariEposta"></b> adresine gönderdik.<br>Kargoya verildiğinde ayrıca haber vereceğiz.</p>
+        <div class="sip-no" id="basariNo"></div><br>
+        <a class="btn dolu" onclick="gorunumSec('hesap')">Siparişlerime Git</a>
+        <a class="btn cerceve" style="margin-left:8px" onclick="gorunumSec('magaza')">Alışverişe Devam</a>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ============ 5. ADMİN — MÜŞTERİLER ============ -->
-<div id="adminMusteri" class="gorunum">
-  <header class="site">
-    <div class="header-ic">
-      <div class="logo">DOĞAN <em>OPTİK</em><small>YÖNETİM PANELİ</small></div>
-      <div style="flex:1"></div>
-      <div class="header-arac"><span style="font-size:13px;color:var(--gri)">admin@doganoptik.com</span>
-        <div class="ikon-btn"><svg class="ik" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-3.5 4.5-5 8-5s6.5 1.5 8 5"/></svg></div>
-      </div>
-    </div>
-  </header>
-
-  <div class="admin">
-    <aside class="admin-menu">
-      <div class="baslikcik">MENÜ</div>
-      <a>Genel Bakış</a>
-      <a onclick="gorunumSec('adminSiparis', demoBtn('adminSiparis'))">Siparişler<span class="mini-rozet">3 yeni</span></a>
-      <a class="secili">Müşteriler</a>
-      <a>Ürünler & Fiyatlar</a>
-      <a>Kategoriler</a>
-      <a>Hatırlatma E-postaları</a>
-      <a>Ayarlar</a>
-      <a class="gozluk-modul">Gözlük Modülü (askıda)</a>
-    </aside>
-
-    <div class="admin-icerik">
-      <div class="stat-grid">
-        <div class="stat"><div class="deger">312</div><div class="ad">Toplam kayıtlı müşteri</div><span class="degisim arti">+24 bu ay</span></div>
-        <div class="stat yesil"><div class="deger">128</div><div class="ad">Tekrar sipariş veren</div><span class="degisim arti">%41 oranında</span></div>
-        <div class="stat petrol"><div class="deger">₺2.140</div><div class="ad">Ortalama müşteri değeri</div><span class="degisim notr">Yaşam boyu</span></div>
-        <div class="stat"><div class="deger">18</div><div class="ad">Doğrulama bekleyen</div><span class="degisim notr">E-posta onaysız</span></div>
-      </div>
-
-      <div class="panel">
-        <h3>Kayıtlı Müşteriler</h3>
-        <p class="aciklama">E-posta ile üye olan herkes burada listelenir. Satıra tıklayınca müşterinin profili ve tüm sipariş geçmişi açılır.</p>
-        <div class="filtreler" style="margin-bottom:16px">
-          <button class="cip secili">Tümü (312)</button>
-          <button class="cip">Tekrar sipariş verenler (128)</button>
-          <button class="cip">Tek siparişliler (141)</button>
-          <button class="cip">Hiç sipariş vermemiş (43)</button>
-          <button class="cip">Doğrulama bekleyen (18)</button>
-          <button class="cip" style="margin-left:auto">Sırala: Son sipariş ▾</button>
-        </div>
-        <div class="tablo-sar">
-        <table class="veri">
-          <thead><tr><th>Müşteri</th><th>Kayıt Tarihi</th><th>Sipariş</th><th>Toplam Harcama</th><th>Son Sipariş</th><th>Durum</th></tr></thead>
-          <tbody>
-            <tr onclick="musteriAc('ayse')">
-              <td><div class="musteri-hucre"><span class="avatar" style="background:var(--petrol)">AY</span><div><b>Ayşe Yılmaz</b><span>ayse.yilmaz@ornek.com</span></div></div></td>
-              <td>14 Mart 2025</td>
-              <td><span class="siparis-sayi-pill coklu">7 sipariş</span></td>
-              <td><b>₺7.410</b></td>
-              <td>1 Tem 2026</td>
-              <td><span class="rozet-k sadik">★ Sadık müşteri</span></td>
-            </tr>
-            <tr onclick="musteriAc('mehmet')">
-              <td><div class="musteri-hucre"><span class="avatar" style="background:var(--mavi)">MK</span><div><b>Mehmet Kaya</b><span>m.kaya@ornek.com</span></div></div></td>
-              <td>2 Şubat 2026</td>
-              <td><span class="siparis-sayi-pill coklu">3 sipariş</span></td>
-              <td><b>₺6.539</b></td>
-              <td>1 Tem 2026</td>
-              <td><span class="rozet-k kayitli">Tekrar sipariş</span></td>
-            </tr>
-            <tr onclick="musteriAc('zeynep')">
-              <td><div class="musteri-hucre"><span class="avatar" style="background:var(--amber-koyu)">ZD</span><div><b>Zeynep Demir</b><span>zeynep.d@ornek.com</span></div></div></td>
-              <td>28 Haziran 2026</td>
-              <td><span class="siparis-sayi-pill">1 sipariş</span></td>
-              <td><b>₺5.531</b></td>
-              <td>30 Haz 2026</td>
-              <td><span class="rozet-k yeni-uye">Yeni üye</span></td>
-            </tr>
-            <tr>
-              <td><div class="musteri-hucre"><span class="avatar" style="background:#4C9F70">EA</span><div><b>Emre Arslan</b><span>emre.a@ornek.com</span></div></div></td>
-              <td>19 Haziran 2026</td>
-              <td><span class="siparis-sayi-pill">0</span></td>
-              <td><b>—</b></td>
-              <td>—</td>
-              <td><span class="rozet-k misafir">Doğrulama bekliyor</span></td>
-            </tr>
-            <tr>
-              <td><div class="musteri-hucre"><span class="avatar" style="background:#7A2E3A">SÖ</span><div><b>Selin Öztürk</b><span>selin.oz@ornek.com</span></div></div></td>
-              <td>11 Ekim 2025</td>
-              <td><span class="siparis-sayi-pill coklu">5 sipariş</span></td>
-              <td><b>₺5.120</b></td>
-              <td>12 Haz 2026</td>
-              <td><span class="rozet-k sadik">★ Sadık müşteri</span></td>
-            </tr>
-          </tbody>
-        </table>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ============ MÜŞTERİ DETAY ÇEKMECESİ (admin ortak) ============ -->
-<div class="cekmece-fon" id="cekmeceFon" onclick="musteriKapat()"></div>
-<aside class="cekmece" id="cekmece">
-  <div class="cekmece-ust">
-    <button class="cekmece-kapat" onclick="musteriKapat()">✕</button>
-    <div class="avatar" id="ckAvatar" style="background:var(--petrol)">AY</div>
-    <b class="ad" id="ckAd">Ayşe Yılmaz</b>
-    <div class="eposta" id="ckEposta">ayse.yilmaz@ornek.com</div>
-    <div class="rozetler" id="ckRozetler"></div>
-  </div>
-  <div class="cekmece-govde">
-    <div class="cekmece-ozet">
-      <div class="kutu"><b id="ckSiparis">7</b><span>Sipariş</span></div>
-      <div class="kutu"><b id="ckHarcama">₺7.410</b><span>Toplam</span></div>
-      <div class="kutu"><b id="ckUyelik">16 ay</b><span>Üyelik</span></div>
-    </div>
+<footer>
+  <div class="footer-ic">
     <div>
-      <h4 style="margin-bottom:8px">Hesap Bilgileri</h4>
-      <div class="bilgi-liste" id="ckBilgi"></div>
+      <div class="logo">DOĞAN <em>OPTİK</em><small style="color:#5F7078">LENS UZMANI · 1998</small></div>
+      <p style="font-size:12.5px;margin-top:14px;max-width:30ch">1998'den beri aynı vitrin, aynı güven. Şimdi lens siparişin cebinde.</p>
     </div>
-    <div>
-      <h4 style="margin-bottom:4px">Sipariş Geçmişi</h4>
-      <div class="zaman-cizgi" id="ckGecmis"></div>
+    <div><h4>Lensler</h4>
+      <a onclick="navFiltre('gunluk')">Günlük Lens</a>
+      <a onclick="navFiltre('aylik')">Aylık Lens</a>
+      <a onclick="navFiltre('torik')">Torik Lens</a>
+      <a onclick="navFiltre('renkli')">Renkli Lens</a>
+      <a onclick="navFiltre('bakim')">Bakım Ürünleri</a>
     </div>
-    <a class="btn cerceve kucukk" style="width:100%">Müşteriye E-posta Gönder</a>
+    <div><h4>Hesap</h4>
+      <a onclick="gorunumSec('auth')">Üye Ol / Giriş Yap</a>
+      <a onclick="hesabaGit()">Siparişlerim</a>
+      <a onclick="sonSiparisiTekrarla()">Tekrar Sipariş</a>
+      <a onclick="hesabaGit()">Reçetem</a>
+    </div>
+    <div><h4>Kurumsal</h4>
+      <a>Hakkımızda</a><a>İade & Değişim</a><a>Gizlilik & KVKK</a><a>İletişim</a>
+    </div>
   </div>
+  <div class="footer-alt">© 2026 Doğan Optik — Tüm hakları saklıdır · Mesafeli Satış Sözleşmesi · KVKK</div>
+</footer>
+
+<!-- ============ SEPET ÇEKMECESİ ============ -->
+<div class="cekmece-fon" id="sepetFon" onclick="sepetKapat()"></div>
+<aside class="cekmece" id="sepetCekmece">
+  <div class="cekmece-baslik">
+    <h3>Sepetim <span id="sepetBaslikAdet" style="color:var(--gri);font-weight:400;font-size:13px"></span></h3>
+    <button class="cekmece-kapat" onclick="sepetKapat()">✕</button>
+  </div>
+  <div class="sepet-govde" id="sepetListe"></div>
+  <div class="sepet-alt" id="sepetAlt"></div>
 </aside>
 
+<!-- ============ ÜRÜN MODALI ============ -->
+<div class="modal-fon" id="urunModal" onclick="if(event.target===this)urunModalKapat()">
+  <div class="modal-kutu">
+    <button class="modal-kapat" onclick="urunModalKapat()">✕</button>
+    <div class="um-ust">
+      <div class="um-foto" id="umFoto"></div>
+      <div>
+        <div class="marka" id="umMarka"></div>
+        <h3 id="umAd"></h3>
+        <div class="urun-not" id="umNot"></div>
+      </div>
+    </div>
+    <div class="um-fiyatlar" id="umFiyatlar"></div>
+    <div class="um-secimler" id="umReceteAlan"></div>
+    <div class="form-alan">
+      <label>Kutu Adedi</label>
+      <select id="umAdet" onchange="umToplamGuncelle()">
+        <option>1</option><option>2</option><option>3</option><option>4</option><option>6</option><option>8</option>
+      </select>
+    </div>
+    <div class="um-toplam">
+      <div><span style="font-size:12px;color:var(--gri)">Toplam</span><br><span class="t" id="umToplam"></span></div>
+      <span class="kazanc" id="umKazanc"></span>
+    </div>
+    <button class="btn amberli" onclick="modaldanSepeteEkle()">Sepete Ekle</button>
+  </div>
+</div>
+
+<!-- ============ REÇETE MODALI ============ -->
+<div class="modal-fon" id="receteModal" onclick="if(event.target===this)receteKapat()">
+  <div class="modal-kutu" style="max-width:440px">
+    <button class="modal-kapat" onclick="receteKapat()">✕</button>
+    <h3 style="font-size:19px;font-weight:800;margin-bottom:4px">Reçetemi Güncelle</h3>
+    <p style="font-size:13px;color:var(--gri);margin-bottom:18px">Değerlerin hesabında saklanır; yeni siparişlerde otomatik seçili gelir.</p>
+    <div class="form-ikili">
+      <div class="form-alan"><label>Sağ Göz (SPH)</label><select id="rSag"></select></div>
+      <div class="form-alan"><label>Sol Göz (SPH)</label><select id="rSol"></select></div>
+    </div>
+    <div class="form-ikili">
+      <div class="form-alan"><label>BC</label><input id="rBc" placeholder="8.4"></div>
+      <div class="form-alan"><label>DIA</label><input id="rDia" placeholder="14.0"></div>
+    </div>
+    <button class="btn amberli" style="width:100%" onclick="receteKaydetForm()">Kaydet</button>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"><span class="tik">✓</span><span id="toastMetin"></span></div>
+
+<script src="ortak.js"></script>
 <script>
 /* =========================================================
-   GÖZLÜK MODÜLÜ ANAHTARI
-   true yapınca: nav sekmeleri, vitrin gözlük bölümü ve
-   admin menüsündeki gözlük maddesi geri gelir.
+   DOĞAN OPTİK — VİTRİN (tam etkileşimli demo)
+   Veri katmanı: ortak.js (localStorage). Supabase'e geçişte
+   yalnızca ortak.js'teki fonksiyonlar değişecek.
    ========================================================= */
-const GOZLUK_AKTIF = false;
-if (GOZLUK_AKTIF) document.body.classList.add('gozluk-acik');
+doTohumla();
+gozlukUygula();
 
-/* ---------- Demo görünüm geçişi ---------- */
-function gorunumSec(id, btn){
-  document.querySelectorAll('.gorunum').forEach(g=>g.classList.remove('aktif'));
+const GOZLUK_SVG = {
+  pera:     `<svg viewBox="0 0 400 140" fill="none" style="width:78%"><path d="M25 60 Q25 35 60 35 L145 35 Q172 35 175 60 Q177 80 165 93 Q150 106 110 106 Q62 106 42 90 Q25 77 25 60Z" stroke="#123C49" stroke-width="8" fill="rgba(18,60,73,.06)"/><path d="M375 60 Q375 35 340 35 L255 35 Q228 35 225 60 Q223 80 235 93 Q250 106 290 106 Q338 106 358 90 Q375 77 375 60Z" stroke="#123C49" stroke-width="8" fill="rgba(18,60,73,.06)"/><path d="M175 55 Q200 44 225 55" stroke="#123C49" stroke-width="8"/><path d="M25 52 L8 44 M375 52 L392 44" stroke="#123C49" stroke-width="8"/></svg>`,
+  cihangir: `<svg viewBox="0 0 400 140" fill="none" style="width:78%"><circle cx="105" cy="70" r="42" stroke="#6B4A2E" stroke-width="8" fill="rgba(107,74,46,.07)"/><circle cx="295" cy="70" r="42" stroke="#6B4A2E" stroke-width="8" fill="rgba(107,74,46,.07)"/><path d="M147 62 Q200 46 253 62" stroke="#6B4A2E" stroke-width="8"/><path d="M63 62 L14 50 M337 62 L386 50" stroke="#6B4A2E" stroke-width="8"/></svg>`
+};
+function urunGorsel(u, olcek){
+  if(u.tip === 'gozluk') return GOZLUK_SVG[u.id] || '';
+  return `<div class="lens-silindir" style="transform:scale(${olcek||1})"><div class="kapak" style="background:${u.kapak}"></div><div class="yazi">${u.yazi}</div><div class="alt-cizgi"></div></div>`;
+}
+
+/* ---------- Görünüm geçişi ---------- */
+function gorunumSec(id){
+  if(id === 'hesap' && !oturumKullanici()){ id = 'auth'; }
+  document.querySelectorAll('body > .gorunum').forEach(g => g.classList.remove('aktif'));
   document.getElementById(id).classList.add('aktif');
-  document.querySelectorAll('.demo-bar button').forEach(b=>b.classList.remove('aktif'));
-  if(btn) btn.classList.add('aktif');
-  musteriKapat();
+  document.querySelectorAll('.demo-bar button[data-g]').forEach(b =>
+    b.classList.toggle('aktif', b.dataset.g === id));
+  if(id === 'hesap') hesapCiz();
+  if(id === 'odeme') odemeCiz();
   window.scrollTo({top:0});
 }
-function demoBtn(id){
-  const sira = {magaza:0, auth:1, hesap:2, adminSiparis:3, adminMusteri:4};
-  return document.querySelectorAll('.demo-bar button')[sira[id]];
-}
+function hesabaGit(){ gorunumSec(oturumKullanici() ? 'hesap' : 'auth'); }
 
-/* ---------- Kayıt / Giriş sekmesi ---------- */
-function authModu(mod, btn){
-  document.getElementById('authForm').classList.toggle('giris-modu', mod==='giris');
-  document.querySelectorAll('.auth-sekme button').forEach(b=>b.classList.remove('aktif'));
-  btn.classList.add('aktif');
-}
+/* ---------- Duyuru şeridi + gözlük ---------- */
+document.getElementById('duyuruSerit').innerHTML = ayarlar().serit;
 
-/* ---------- Admin: müşteri detay çekmecesi ---------- */
-const MUSTERILER = {
-  ayse: {
-    ad:'Ayşe Yılmaz', eposta:'ayse.yilmaz@ornek.com', bas:'AY', renk:'var(--petrol)',
-    siparis:7, harcama:'₺7.410', uyelik:'16 ay',
-    rozetler:[['sadik','★ Sadık müşteri'],['kayitli','✓ E-posta doğrulandı']],
-    bilgi:[['Kayıt tarihi','14 Mart 2025'],['Telefon','0532 ··· ·· 41'],['Şehir','İstanbul / Beşiktaş'],['Reçete','Sağ -2.25 · Sol -2.25'],['Hatırlatma','Açık — aylık döngü']],
-    gecmis:[
-      ['#05203','Acuvue Oasys ×4 — Hazırlanıyor','1 Tem 2026','₺4.200',true],
-      ['#04102','Acuvue Oasys ×2 — Teslim','3 Nis 2026','₺2.200',false],
-      ['#01088','Oasys ×2 + ReNu — Teslim','12 Oca 2026','₺2.490',false],
-      ['#09441','Oasys ×2 — Teslim','9 Eki 2025','₺1.960',false],
-      ['#06212','Oasys ×1 — Teslim','2 Tem 2025','₺980',false]
-    ]
-  },
-  mehmet: {
-    ad:'Mehmet Kaya', eposta:'m.kaya@ornek.com', bas:'MK', renk:'var(--mavi)',
-    siparis:3, harcama:'₺6.539', uyelik:'5 ay',
-    rozetler:[['kayitli','✓ E-posta doğrulandı'],['yeni-uye','Tekrar sipariş veren']],
-    bilgi:[['Kayıt tarihi','2 Şubat 2026'],['Telefon','0505 ··· ·· 18'],['Şehir','Ankara / Çankaya'],['Reçete','Sağ -1.75 · Sol -2.00'],['Hatırlatma','Açık — aylık döngü']],
-    gecmis:[
-      ['#05202','Air Optix ×2 — Kargoda','1 Tem 2026','₺2.180',true],
-      ['#05188','Air Optix ×2 — Teslim','24 Haz 2026','₺2.180',false],
-      ['#03310','Air Optix ×2 — Teslim','2 Şub 2026','₺2.180',false]
-    ]
-  },
-  zeynep: {
-    ad:'Zeynep Demir', eposta:'zeynep.d@ornek.com', bas:'ZD', renk:'var(--amber-koyu)',
-    siparis:1, harcama:'₺5.531', uyelik:'1 hafta',
-    rozetler:[['yeni-uye','Yeni üye'],['kayitli','✓ E-posta doğrulandı']],
-    bilgi:[['Kayıt tarihi','28 Haziran 2026'],['Telefon','—'],['Şehir','İzmir / Karşıyaka'],['Reçete','Sağ -3.00 · Sol -2.75'],['Hatırlatma','Kapalı']],
-    gecmis:[
-      ['#05201','Dailies Aqua Comfort ×6 — Hazırlanıyor','30 Haz 2026','₺5.531',true]
-    ]
+/* ---------- Vitrin: filtre + arama + sıralama ---------- */
+let filtre = {tip:'hepsi', marka:'hepsi', arama:'', sirala:'onerilen'};
+
+function aktifUrunler(){
+  const gozlukAcik = !!ayarlar().gozluk;
+  return URUNLER.map(urunEfektif).filter(u =>
+    urunAktifMi(u) && (u.tip !== 'gozluk' || gozlukAcik));
+}
+function filtreliUrunler(){
+  let liste = aktifUrunler();
+  if(filtre.tip !== 'hepsi') liste = liste.filter(u => u.tip === filtre.tip);
+  if(filtre.marka !== 'hepsi') liste = liste.filter(u => u.marka === filtre.marka);
+  if(filtre.arama){
+    const a = filtre.arama.toLowerCase();
+    liste = liste.filter(u => (u.ad + ' ' + u.marka + ' ' + u.not).toLowerCase().includes(a));
   }
-};
-function musteriAc(anahtar){
-  const m = MUSTERILER[anahtar]; if(!m) return;
-  document.getElementById('ckAvatar').textContent = m.bas;
-  document.getElementById('ckAvatar').style.background = m.renk;
-  document.getElementById('ckAd').textContent = m.ad;
-  document.getElementById('ckEposta').textContent = m.eposta;
-  document.getElementById('ckSiparis').textContent = m.siparis;
-  document.getElementById('ckHarcama').textContent = m.harcama;
-  document.getElementById('ckUyelik').textContent = m.uyelik;
-  document.getElementById('ckRozetler').innerHTML =
-    m.rozetler.map(([s,t])=>`<span class="rozet-k ${s}">${t}</span>`).join('');
-  document.getElementById('ckBilgi').innerHTML =
-    m.bilgi.map(([a,d])=>`<div class="bs"><span>${a}</span><b>${d}</b></div>`).join('');
-  document.getElementById('ckGecmis').innerHTML =
-    m.gecmis.map(([no,ad,tarih,tutar,aktif])=>`
-      <div class="zc-madde">
-        <span class="nokta2 ${aktif?'':'gri'}"></span>
-        <div><b>${ad}</b><span class="mono">${no} · ${tarih}</span></div>
-        <span class="t">${tutar}</span>
-      </div>`).join('');
-  document.getElementById('cekmeceFon').classList.add('acik');
-  document.getElementById('cekmece').classList.add('acik');
+  if(filtre.sirala === 'artan')  liste.sort((x,y) => x.fiyat - y.fiyat);
+  if(filtre.sirala === 'azalan') liste.sort((x,y) => y.fiyat - x.fiyat);
+  if(filtre.sirala === 'ad')     liste.sort((x,y) => x.ad.localeCompare(y.ad, 'tr'));
+  return liste;
 }
-function musteriKapat(){
-  document.getElementById('cekmeceFon').classList.remove('acik');
-  document.getElementById('cekmece').classList.remove('acik');
+function etiketHTML(u){
+  if(u.etiket === 'cok-satan') return '<span class="etiket cok-satan">Çok Satan</span>';
+  if(u.etiket === 'yeni')      return '<span class="etiket yeni">Yeni</span>';
+  if(u.etiket === 'indirim')   return `<span class="etiket">${u.cokAdet} Kutuda İndirim</span>`;
+  return '';
 }
-document.addEventListener('keydown', e=>{ if(e.key==='Escape') musteriKapat(); });
+function vitrinCiz(){
+  /* kategori kartları */
+  const sira = ayarlar().kategoriSira.filter(t => TIP_DAMLA[t]);
+  document.getElementById('katSerit').innerHTML = sira.map(t => {
+    const adet = aktifUrunler().filter(u => u.tip === t).length;
+    const [fon, harf] = TIP_DAMLA[t];
+    return `<div class="kat-kart ${filtre.tip===t?'secili':''}" onclick="navFiltre('${t}')">
+      <div class="damla" style="background:${fon}"><i>${harf}</i></div>
+      <b>${TIP_AD[t]}</b><span>${adet} ürün</span></div>`;
+  }).join('');
+
+  /* tip çipleri */
+  const tipler = [['hepsi','Tümü'], ...sira.map(t => [t, TIP_AD[t]])];
+  document.getElementById('tipCipler').innerHTML = tipler.map(([t, ad]) =>
+    `<button class="cip ${filtre.tip===t?'secili':''}" onclick="navFiltre('${t}')">${ad}</button>`).join(' ');
+
+  /* marka seçici + pilleri */
+  const markalar = [...new Set(aktifUrunler().map(u => u.marka))].sort((a,b)=>a.localeCompare(b,'tr'));
+  document.getElementById('markaSec').innerHTML =
+    `<option value="hepsi">Marka: Tümü</option>` +
+    markalar.map(m => `<option ${filtre.marka===m?'selected':''}>${m}</option>`).join('');
+  document.getElementById('markaPilller').innerHTML = markalar.map(m =>
+    `<div class="marka-pill ${filtre.marka===m?'secili':''}" onclick="markaSecildi('${m}');markalaraGit()">${m.toUpperCase()}</div>`).join('');
+
+  /* başlık + grid */
+  const liste = filtreliUrunler();
+  document.getElementById('vitrinBaslik').textContent =
+    filtre.tip === 'hepsi' ? (filtre.arama ? `"${filtre.arama}" için sonuçlar` : 'Tüm Ürünler') : TIP_AD[filtre.tip];
+  document.getElementById('vitrinAdet').textContent = `${liste.length} ürün listeleniyor`;
+  document.getElementById('urunGrid').innerHTML = liste.length ? liste.map(u => `
+    <div class="urun" onclick="urunModalAc('${u.id}')">
+      <div class="foto"><span class="std">${u.tip==='gozluk'?'DO-STD/01':'DO-STD/02'}</span>${etiketHTML(u)}${urunGorsel(u)}</div>
+      <div class="urun-bilgi">
+        <div class="marka">${u.marka}</div>
+        <div class="urun-ad">${u.ad}</div>
+        <div class="urun-not">${u.not}</div>
+        <div class="fiyat-tablo">
+          <div class="fiyat-satir2"><span class="kutu-ad"><b>1 ${u.lens?'kutu':'adet'}</b></span><span class="tutar">${paraTL(u.fiyat)}</span></div>
+          ${u.cokFiyat ? `<div class="fiyat-satir2"><span class="kutu-ad"><b>${u.cokAdet}+ ${u.lens?'kutu':'adet'}</b> alımında</span><span class="tutar indirimli">${paraTL(u.cokFiyat)}<span class="birim">/ ${u.lens?'kutu':'adet'}</span></span></div>` : ''}
+        </div>
+        <button class="btn dolu sepet-btn">Sepete Ekle</button>
+      </div>
+    </div>`).join('') :
+    `<div class="bos-durum"><div class="buyuk-ikon"><svg class="ik" viewBox="0 0 24 24" style="width:26px;height:26px"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></div><b>Sonuç bulunamadı</b><br>Farklı bir arama ya da filtre dene.</div>`;
+}
+function navFiltre(tip, navEl){
+  filtre.tip = tip; filtre.arama = '';
+  document.getElementById('aramaKutusu').value = '';
+  document.querySelectorAll('nav.sekmeler a[data-nav]').forEach(a => a.classList.remove('secili'));
+  if(navEl) navEl.classList.add('secili');
+  gorunumSec('magaza');
+  vitrinCiz();
+  document.getElementById('lensler').scrollIntoView({behavior:'smooth'});
+}
+function markaSecildi(m){ filtre.marka = m; vitrinCiz(); }
+function siralaSecildi(s){ filtre.sirala = s; vitrinCiz(); }
+function aramaYap(v){
+  filtre.arama = v.trim();
+  if(!document.getElementById('magaza').classList.contains('aktif')) gorunumSec('magaza');
+  vitrinCiz();
+}
+function markalaraGit(){
+  gorunumSec('magaza');
+  document.getElementById('markaPilller').scrollIntoView({behavior:'smooth', block:'center'});
+}
+
+/* ---------- Ürün modalı ---------- */
+let modalUrunId = null;
+function urunModalAc(id){
+  const u = urunEfektif(urunGetir(id)); modalUrunId = id;
+  document.getElementById('umFoto').innerHTML = urunGorsel(u, .8);
+  document.getElementById('umMarka').textContent = u.marka;
+  document.getElementById('umAd').textContent = u.ad;
+  document.getElementById('umNot').textContent = u.not;
+  document.getElementById('umFiyatlar').innerHTML =
+    `<div class="fiyat-satir2" style="padding:7px 0"><span class="kutu-ad"><b>1 ${u.lens?'kutu':'adet'}</b></span><span class="tutar">${paraTL(u.fiyat)}</span></div>` +
+    (u.cokFiyat ? `<div class="fiyat-satir2" style="padding:7px 0;border-top:1px dashed var(--cizgi)"><span class="kutu-ad"><b>${u.cokAdet}+ ${u.lens?'kutu':'adet'}</b> alımında</span><span class="tutar indirimli">${paraTL(u.cokFiyat)}<span class="birim">/ ${u.lens?'kutu':'adet'}</span></span></div>` : '');
+  const kul = oturumKullanici();
+  if(u.lens){
+    const sec = sphSecenekleri().map(s => `<option>${s}</option>`).join('');
+    document.getElementById('umReceteAlan').innerHTML =
+      `<div class="form-alan"><label>Sağ Göz (SPH)</label><select id="umSag">${sec}</select></div>
+       <div class="form-alan"><label>Sol Göz (SPH)</label><select id="umSol">${sec}</select></div>`;
+    if(kul && kul.recete){
+      document.getElementById('umSag').value = kul.recete.sag;
+      document.getElementById('umSol').value = kul.recete.sol;
+    }
+  } else {
+    document.getElementById('umReceteAlan').innerHTML = '';
+  }
+  document.getElementById('umAdet').value = u.cokAdet ? String(u.cokAdet) : '1';
+  umToplamGuncelle();
+  document.getElementById('urunModal').classList.add('acik');
+}
+function urunModalKapat(){ document.getElementById('urunModal').classList.remove('acik'); }
+function umToplamGuncelle(){
+  const u = urunEfektif(urunGetir(modalUrunId));
+  const adet = parseInt(document.getElementById('umAdet').value, 10);
+  const birim = birimFiyat(u, adet);
+  document.getElementById('umToplam').textContent = paraTL(birim * adet);
+  document.getElementById('umKazanc').textContent =
+    (birim < u.fiyat) ? `birim ${paraTL(birim)} — ${paraTL((u.fiyat - birim) * adet)} kazanç` : '';
+}
+function modaldanSepeteEkle(){
+  const u = urunGetir(modalUrunId);
+  const adet = parseInt(document.getElementById('umAdet').value, 10);
+  const sag = u.lens ? document.getElementById('umSag').value : null;
+  const sol = u.lens ? document.getElementById('umSol').value : null;
+  sepeteEkle(u.id, adet, sag, sol);
+  urunModalKapat();
+  sepetAc();
+}
+
+/* ---------- Sepet ---------- */
+function sepetOku(){ return doOku(DO_KEY.sepet, []); }
+function sepetYaz(s){ doYaz(DO_KEY.sepet, s); sepetRozetGuncelle(); }
+function sepeteEkle(id, adet, sag, sol){
+  const sepet = sepetOku();
+  const mevcut = sepet.find(s => s.id === id && s.sag === sag && s.sol === sol);
+  if(mevcut) mevcut.adet += adet; else sepet.push({id, adet, sag, sol});
+  sepetYaz(sepet);
+  toastGoster(`${urunGetir(id).ad} sepete eklendi`);
+}
+function sepetRozetGuncelle(){
+  const adet = sepetOku().reduce((t,s) => t + s.adet, 0);
+  const r = document.getElementById('sepetRozet');
+  r.textContent = adet; r.style.display = adet ? 'grid' : 'none';
+}
+function sepetAc(){
+  sepetCiz();
+  document.getElementById('sepetFon').classList.add('acik');
+  document.getElementById('sepetCekmece').classList.add('acik');
+}
+function sepetKapat(){
+  document.getElementById('sepetFon').classList.remove('acik');
+  document.getElementById('sepetCekmece').classList.remove('acik');
+}
+function sepetAdetDegis(i, fark){
+  const sepet = sepetOku();
+  sepet[i].adet += fark;
+  if(sepet[i].adet <= 0) sepet.splice(i, 1);
+  sepetYaz(sepet); sepetCiz();
+}
+function sepetSil(i){
+  const sepet = sepetOku(); sepet.splice(i, 1);
+  sepetYaz(sepet); sepetCiz();
+}
+function sepetCiz(){
+  const sepet = sepetOku();
+  const ay = ayarlar();
+  document.getElementById('sepetBaslikAdet').textContent = sepet.length ? `(${sepet.reduce((t,s)=>t+s.adet,0)} ürün)` : '';
+  if(!sepet.length){
+    document.getElementById('sepetListe').innerHTML =
+      `<div class="bos-durum"><div class="buyuk-ikon"><svg class="ik" viewBox="0 0 24 24" style="width:26px;height:26px"><path d="M6 7h12l-1 12H7L6 7Z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg></div><b>Sepetin boş</b><br>Lensleri keşfetmeye başla.</div>`;
+    document.getElementById('sepetAlt').innerHTML =
+      `<button class="btn dolu" onclick="sepetKapat();gorunumSec('magaza')">Alışverişe Başla</button>`;
+    return;
+  }
+  document.getElementById('sepetListe').innerHTML = sepet.map((s, i) => {
+    const u = urunEfektif(urunGetir(s.id));
+    const birim = birimFiyat(u, s.adet);
+    return `<div class="sepet-satir">
+      <div class="kucuk-foto">${urunGorsel(u, .38)}</div>
+      <div>
+        <b>${u.ad}</b>
+        <span class="alt">${s.sag !== null && s.sag !== undefined ? `Sağ ${s.sag} · Sol ${s.sol} · ` : ''}birim ${paraTL(birim)}</span><br>
+        <span class="adet-step"><button onclick="sepetAdetDegis(${i},-1)">−</button><span>${s.adet}</span><button onclick="sepetAdetDegis(${i},1)">+</button></span>
+        <span class="sepet-sil" onclick="sepetSil(${i})">Kaldır</span>
+      </div>
+      <div class="fiyatx">${paraTL(birim * s.adet)}</div>
+    </div>`;
+  }).join('');
+  const ara = sepetAraToplam(sepet);
+  const kargo = ara >= ay.kargoEsik ? 0 : ay.kargoUcret;
+  document.getElementById('sepetAlt').innerHTML = `
+    <div class="ozet-satir"><span>Ara toplam</span><b>${paraTL(ara)}</b></div>
+    <div class="ozet-satir"><span>Kargo</span>${kargo ? `<b>${paraTL(kargo)}</b>` : '<b class="yesil-yazi">Ücretsiz</b>'}</div>
+    <div class="ozet-satir toplam"><span>Toplam</span><span>${paraTL(ara + kargo)}</span></div>
+    ${kargo ? `<div class="kargo-notu uyari">${paraTL(ay.kargoEsik - ara)} daha ekle, kargo ücretsiz olsun</div>` : `<div class="kargo-notu">✓ Kargo ücretsiz</div>`}
+    <button class="btn amberli" onclick="odemeyeGec()">Ödemeye Geç</button>`;
+}
+function odemeyeGec(){
+  if(!sepetOku().length) return;
+  const kul = oturumKullanici();
+  if(!kul){
+    sepetKapat(); gorunumSec('auth');
+    toastGoster('Siparişi tamamlamak için giriş yap veya üye ol', true);
+    return;
+  }
+  if(!kul.dogrulandi){
+    sepetKapat(); gorunumSec('auth'); dogrulamaGoster(kul.eposta);
+    toastGoster('Sipariş için önce e-postanı doğrula', true);
+    return;
+  }
+  sepetKapat(); gorunumSec('odeme');
+}
+
+/* ---------- Ödeme ---------- */
+function odemeCiz(){
+  const kul = oturumKullanici();
+  if(!kul){ gorunumSec('auth'); return; }
+  document.getElementById('odemeAkis').style.display = '';
+  document.getElementById('odemeBasari').style.display = 'none';
+  document.getElementById('oAd').value = kul.ad || '';
+  document.getElementById('oSoyad').value = kul.soyad || '';
+  document.getElementById('oTel').value = kul.telefon || '';
+  document.getElementById('oSehir').value = kul.sehir || '';
+  document.getElementById('oAdres').value = kul.adres || '';
+  const sepet = sepetOku(); const ay = ayarlar();
+  const ara = sepetAraToplam(sepet);
+  const kargo = ara >= ay.kargoEsik ? 0 : ay.kargoUcret;
+  document.getElementById('odemeOzet').innerHTML =
+    sepet.map(s => {
+      const u = urunEfektif(urunGetir(s.id));
+      return `<div class="ozet-satir"><span>${u.ad} ×${s.adet}</span><b>${paraTL(birimFiyat(u,s.adet)*s.adet)}</b></div>`;
+    }).join('') +
+    `<div class="ozet-satir"><span>Kargo</span>${kargo ? `<b>${paraTL(kargo)}</b>` : '<b class="yesil-yazi">Ücretsiz</b>'}</div>
+     <div class="ozet-satir toplam"><span>Toplam</span><span>${paraTL(ara + kargo)}</span></div>`;
+}
+function kartBicimle(el){
+  el.value = el.value.replace(/\D/g,'').slice(0,16).replace(/(.{4})/g,'$1 ').trim();
+}
+function sktBicimle(el){
+  let v = el.value.replace(/\D/g,'').slice(0,4);
+  el.value = v.length > 2 ? v.slice(0,2) + '/' + v.slice(2) : v;
+}
+function odemeTamamla(){
+  const kul = oturumKullanici();
+  const sepet = sepetOku();
+  if(!kul || !sepet.length) return;
+  const zorunlu = [['oAd','ad'],['oSoyad','soyad'],['oAdres','adres'],['oSehir','il / ilçe'],['oKartAd','kart üzerindeki isim'],['oKartNo','kart numarası'],['oSkt','son kullanma'],['oCvc','CVC']];
+  for(const [id, ad] of zorunlu){
+    if(!document.getElementById(id).value.trim()){
+      toastGoster(`Eksik alan: ${ad}`, true); return;
+    }
+  }
+  if(document.getElementById('oKartNo').value.replace(/\s/g,'').length < 16){
+    toastGoster('Kart numarası 16 haneli olmalı', true); return;
+  }
+  /* Kullanıcının adres bilgisini güncelle */
+  kul.telefon = document.getElementById('oTel').value.trim() || kul.telefon;
+  kul.sehir = document.getElementById('oSehir').value.trim();
+  kul.adres = document.getElementById('oAdres').value.trim();
+  kullaniciKaydet(kul);
+  /* Siparişi oluştur */
+  const ay = ayarlar();
+  const ara = sepetAraToplam(sepet);
+  const kargo = ara >= ay.kargoEsik ? 0 : ay.kargoUcret;
+  const taksit = document.getElementById('oTaksit').value;
+  const no = siparisNoUret();
+  siparisKaydet({
+    no, tarih: bugunISO(), eposta: kul.eposta,
+    urunler: sepet.map(s => ({id:s.id, adet:s.adet, sag:s.sag, sol:s.sol})),
+    tutar: ara + kargo,
+    odeme: taksit === '1' ? 'Tek çekim (demo)' : `Kredi kartı · ${taksit} taksit (demo)`,
+    durum: 'yeni'
+  });
+  epostaKaydet(kul.eposta, `Sipariş onayı #${no} — ${siparisUrunOzeti({urunler:sepet})}`, 'siparis');
+  sepetYaz([]);
+  document.getElementById('odemeAkis').style.display = 'none';
+  document.getElementById('odemeBasari').style.display = 'block';
+  document.getElementById('basariNo').textContent = `Sipariş No: #DO-2026-${no}`;
+  document.getElementById('basariEposta').textContent = kul.eposta;
+  window.scrollTo({top:0});
+}
+
+/* ---------- Üyelik ---------- */
+function authModu(mod){
+  const f = document.getElementById('authForm');
+  f.classList.remove('dogrulama-modu');
+  f.classList.toggle('giris-modu', mod === 'giris');
+  document.getElementById('sekmeKayit').classList.toggle('aktif', mod === 'kayit');
+  document.getElementById('sekmeGiris').classList.toggle('aktif', mod === 'giris');
+  authHata('');
+}
+function authHata(m){
+  const el = document.getElementById('authHata');
+  el.textContent = m; el.classList.toggle('acik', !!m);
+}
+function kayitOl(){
+  const ad = document.getElementById('kAd').value.trim();
+  const soyad = document.getElementById('kSoyad').value.trim();
+  const eposta = document.getElementById('kEposta').value.trim().toLowerCase();
+  const tel = document.getElementById('kTel').value.trim();
+  const sifre = document.getElementById('kSifre').value;
+  if(!ad || !soyad) return authHata('Ad ve soyad gerekli.');
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(eposta)) return authHata('Geçerli bir e-posta adresi gir.');
+  if(kullaniciBul(eposta)) return authHata('Bu e-posta ile zaten bir hesap var — Giriş Yap sekmesini kullan.');
+  if(sifre.length < 8) return authHata('Şifre en az 8 karakter olmalı.');
+  if(!document.getElementById('kKvkk').checked) return authHata('Devam etmek için KVKK metnini onaylaman gerekiyor.');
+  kullaniciKaydet({
+    eposta, sifre, ad, soyad, telefon: tel, sehir:'', adres:'',
+    kayit: bugunISO(), dogrulandi: false,
+    bulten: document.getElementById('kBulten').checked, recete: null
+  });
+  epostaKaydet(eposta, "Doğan Optik'e hoş geldin — e-postanı doğrula", 'kayit');
+  dogrulamaGoster(eposta);
+}
+function dogrulamaGoster(eposta){
+  bekleyenDogrulama = eposta;
+  document.getElementById('dogrulamaEposta').textContent = eposta;
+  document.getElementById('authForm').classList.add('dogrulama-modu');
+  authHata('');
+}
+let bekleyenDogrulama = null;
+function dogrulaDemo(){
+  const kul = kullaniciBul(bekleyenDogrulama); if(!kul) return;
+  kul.dogrulandi = true; kullaniciKaydet(kul);
+  oturumAc(kul.eposta);
+  document.getElementById('authForm').classList.remove('dogrulama-modu');
+  hesapPillGuncelle();
+  toastGoster(`Hoş geldin ${kul.ad}! Hesabın doğrulandı.`);
+  gorunumSec(sepetOku().length ? 'odeme' : 'hesap');
+  if(sepetOku().length) sepetAc();
+}
+function girisYap(){
+  const eposta = document.getElementById('gEposta').value.trim().toLowerCase();
+  const sifre = document.getElementById('gSifre').value;
+  const kul = kullaniciBul(eposta);
+  if(!kul || kul.sifre !== sifre) return authHata('E-posta veya şifre hatalı.');
+  if(!kul.dogrulandi){ dogrulamaGoster(eposta); return; }
+  oturumAc(eposta);
+  hesapPillGuncelle();
+  toastGoster(`Tekrar hoş geldin, ${kul.ad}!`);
+  gorunumSec('hesap');
+}
+function cikisYap(){
+  oturumKapat(); hesapPillGuncelle();
+  toastGoster('Oturum kapatıldı');
+  gorunumSec('magaza');
+}
+function hesapPillGuncelle(){
+  const kul = oturumKullanici();
+  document.getElementById('hesapPillAvatar').textContent = kul ? bassHarfler(kul.ad, kul.soyad) : '→';
+  document.getElementById('hesapPillAd').textContent = kul ? `${kul.ad} ${kul.soyad[0]}.` : 'Giriş Yap';
+}
+
+/* ---------- Hesabım ---------- */
+function musteriDurumEtiketi(s){
+  if(s.durum === 'yeni')         return '<span class="durum yeni">Sipariş alındı</span>';
+  if(s.durum === 'hazirlaniyor') return '<span class="durum hazir">Hazırlanıyor</span>';
+  if(s.durum === 'kargolandi')   return s.teslim ? '<span class="durum teslim">Teslim edildi</span>' : '<span class="durum kargo">Kargoda</span>';
+  return '';
+}
+function hesapCiz(){
+  const kul = oturumKullanici(); if(!kul) return;
+  const sips = musteriSiparisleri(kul.eposta).slice().reverse();
+  const toplam = sips.reduce((t,s) => t + s.tutar, 0);
+  const aktif = sips.filter(s => s.durum !== 'kargolandi' || !s.teslim).length;
+  document.getElementById('profilUst').innerHTML = `
+    <div class="avatar">${bassHarfler(kul.ad, kul.soyad)}</div>
+    <b>${kul.ad} ${kul.soyad}</b>
+    <span>${kul.eposta}</span><br>
+    <span class="mono" style="font-size:11px">Üyelik: ${tarihUzunTR(kul.kayit)}</span>
+    ${sips.length >= 3 ? `<div class="uye-rozet">★ SADIK MÜŞTERİ — ${sips.length}. SİPARİŞ</div>` : ''}`;
+  document.getElementById('hesapOzet').innerHTML = `
+    <div class="ozet-kart"><div class="deger">${sips.length}</div><div class="ad">Toplam sipariş</div></div>
+    <div class="ozet-kart"><div class="deger">${paraTL(toplam)}</div><div class="ad">Toplam alışveriş</div></div>
+    <div class="ozet-kart"><div class="deger">${aktif}</div><div class="ad">Aktif sipariş</div></div>
+    <div class="ozet-kart"><div class="deger" style="color:var(--amber-koyu)">${kul.recete ? '✓' : '—'}</div><div class="ad">${kul.recete ? 'Reçete kayıtlı' : 'Reçete kayıtlı değil'}</div></div>`;
+  document.getElementById('receteKutu').innerHTML = kul.recete ? `
+    <div class="rec-goz"><b>Sağ Göz (OD)</b><div class="degerler"><div class="d"><small>SPH</small><span>${kul.recete.sag}</span></div><div class="d"><small>BC</small><span>${kul.recete.bc||'—'}</span></div><div class="d"><small>DIA</small><span>${kul.recete.dia||'—'}</span></div></div></div>
+    <div class="rec-goz"><b>Sol Göz (OS)</b><div class="degerler"><div class="d"><small>SPH</small><span>${kul.recete.sol}</span></div><div class="d"><small>BC</small><span>${kul.recete.bc||'—'}</span></div><div class="d"><small>DIA</small><span>${kul.recete.dia||'—'}</span></div></div></div>` :
+    `<div class="rec-goz" style="grid-column:1/-1;text-align:center;color:var(--gri)">Henüz reçete kaydetmedin. <a class="baglanti" onclick="receteAc()">Şimdi ekle →</a></div>`;
+  document.getElementById('siparisAdet').textContent = `${sips.length} sipariş`;
+  document.getElementById('siparisListe').innerHTML = sips.length ? sips.map((s, i) => {
+    const ilkUrun = urunGetir(s.urunler[0].id);
+    return `<div class="siparis ${i===0?'acik':''}" onclick="this.classList.toggle('acik')">
+      <div class="siparis-ust">
+        <div class="mini-foto">${urunGorsel(ilkUrun, .4)}</div>
+        <div class="siparis-ad"><b>${siparisUrunOzeti(s)}</b><span class="mono">#DO-2026-${s.no} · ${tarihTR(s.tarih)}</span></div>
+        ${musteriDurumEtiketi(s)}
+        <span class="siparis-tutar">${paraTL(s.tutar)}</span>
+        <span class="ok">▾</span>
+      </div>
+      <div class="siparis-detay">
+        <div class="detay-blok"><b>İçerik</b>${s.urunler.map(su => {
+          const u = urunGetir(su.id);
+          return `${u.ad} ×${su.adet}${su.sag != null ? `<br><span style="color:var(--gri)">Sağ ${su.sag} / Sol ${su.sol}</span>` : ''}`;
+        }).join('<br>')}</div>
+        <div class="detay-blok"><b>Ödeme</b>${s.odeme}</div>
+        <div class="detay-blok"><b>Durum</b>${s.durum === 'kargolandi' ? (s.teslim ? 'Teslim edildi' : `Kargoya verildi — ${s.kargoZaman}`) : (s.durum === 'yeni' ? 'Sipariş alındı, onay bekliyor' : 'Mağazada hazırlanıyor')}</div>
+        <div class="tekrar-btn">
+          <a class="btn amberli kucukk" onclick="event.stopPropagation();siparisiTekrarla('${s.no}')">↻ Bu Siparişi Tekrarla</a>
+        </div>
+      </div>
+    </div>`;
+  }).join('') :
+  `<div class="bos-durum" style="background:var(--kart);border:1px solid var(--cizgi);border-radius:var(--radius)"><b>Henüz siparişin yok</b><br>İlk siparişini ver, burada listelensin.</div>`;
+}
+function siparisiTekrarla(no){
+  const s = siparisler().find(x => x.no === no); if(!s) return;
+  const sepet = sepetOku();
+  s.urunler.forEach(su => {
+    const mevcut = sepet.find(x => x.id === su.id && x.sag === su.sag && x.sol === su.sol);
+    if(mevcut) mevcut.adet += su.adet;
+    else sepet.push({id:su.id, adet:su.adet, sag:su.sag ?? null, sol:su.sol ?? null});
+  });
+  sepetYaz(sepet);
+  toastGoster('Sipariş içeriği sepete eklendi');
+  sepetAc();
+}
+function sonSiparisiTekrarla(){
+  const kul = oturumKullanici();
+  if(!kul){ gorunumSec('auth'); toastGoster('Önce giriş yap — son siparişin hazır bekliyor', true); return; }
+  const sips = musteriSiparisleri(kul.eposta);
+  if(!sips.length){ toastGoster('Henüz siparişin yok', true); gorunumSec('magaza'); return; }
+  siparisiTekrarla(sips[sips.length - 1].no);
+}
+
+/* ---------- Reçete modalı ---------- */
+function receteAc(){
+  const kul = oturumKullanici();
+  if(!kul){ gorunumSec('auth'); return; }
+  const sec = sphSecenekleri().map(s => `<option>${s}</option>`).join('');
+  document.getElementById('rSag').innerHTML = sec;
+  document.getElementById('rSol').innerHTML = sec;
+  if(kul.recete){
+    document.getElementById('rSag').value = kul.recete.sag;
+    document.getElementById('rSol').value = kul.recete.sol;
+    document.getElementById('rBc').value = kul.recete.bc || '';
+    document.getElementById('rDia').value = kul.recete.dia || '';
+  }
+  document.getElementById('receteModal').classList.add('acik');
+}
+function receteKapat(){ document.getElementById('receteModal').classList.remove('acik'); }
+function receteKaydetForm(){
+  const kul = oturumKullanici(); if(!kul) return;
+  kul.recete = {
+    sag: document.getElementById('rSag').value,
+    sol: document.getElementById('rSol').value,
+    bc: document.getElementById('rBc').value.trim(),
+    dia: document.getElementById('rDia').value.trim()
+  };
+  kullaniciKaydet(kul);
+  receteKapat();
+  toastGoster('Reçeten kaydedildi');
+  hesapCiz();
+}
+
+/* ---------- Toast + demo sıfırlama ---------- */
+let toastZamanlayici;
+function toastGoster(metin, hatali){
+  const t = document.getElementById('toast');
+  t.classList.toggle('hatali', !!hatali);
+  t.querySelector('.tik').textContent = hatali ? '!' : '✓';
+  document.getElementById('toastMetin').textContent = metin;
+  t.classList.add('acik');
+  clearTimeout(toastZamanlayici);
+  toastZamanlayici = setTimeout(() => t.classList.remove('acik'), 3800);
+}
+function demoSifirla(){
+  if(!confirm('Tüm demo verileri (üyelikler, siparişler, sepet) ilk haline dönecek. Emin misin?')) return;
+  Object.values(DO_KEY).forEach(k => localStorage.removeItem(k));
+  location.reload();
+}
+
+/* ---------- Klavye + başlangıç ---------- */
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape'){ sepetKapat(); urunModalKapat(); receteKapat(); }
+});
+hesapPillGuncelle();
+sepetRozetGuncelle();
+vitrinCiz();
 </script>
 </body>
 </html>
