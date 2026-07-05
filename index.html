@@ -77,12 +77,28 @@ svg.ik{width:17px;height:17px;stroke:var(--murekkep);fill:none;stroke-width:1.7;
 .hesap-pill .avatar{width:29px;height:29px;border-radius:50%;background:rgba(255,255,255,.16);color:#fff;font-family:'Montserrat',sans-serif;font-weight:700;font-size:11.5px;display:grid;place-items:center}
 .hesap-pill b{font-size:12px;font-family:'Montserrat',sans-serif;letter-spacing:.06em}
 
-/* ---------- Hero ---------- */
-.hero{max-width:1150px;margin:0 auto;padding:52px 24px 14px;text-align:center}
-.hero .baslik{font-size:clamp(34px,4.6vw,52px);font-weight:800;letter-spacing:.06em;line-height:1.06;text-transform:uppercase}
-.hero p{color:var(--gri);margin:14px auto 0;max-width:52ch;font-size:16px}
-.hero .ust-not{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--gri);background:var(--kart);border-radius:99px;padding:7px 18px;margin-bottom:22px;box-shadow:var(--golge-hafif)}
+/* ---------- Hero: animasyonlu cam pencere ---------- */
+.hero{max-width:1150px;margin:0 auto;padding:36px 24px 8px}
+.hero-cam{position:relative;border-radius:34px;padding:58px 48px 46px;text-align:center;overflow:hidden;background:linear-gradient(135deg,rgba(255,255,255,.78) 0%,rgba(238,243,248,.5) 55%,rgba(228,236,243,.62) 100%);backdrop-filter:blur(20px) saturate(1.35);-webkit-backdrop-filter:blur(20px) saturate(1.35);border:1px solid rgba(255,255,255,.92);box-shadow:0 34px 70px -28px rgba(120,140,165,.45), inset 0 1px 0 rgba(255,255,255,.95), inset 0 -1px 0 rgba(200,214,228,.4)}
+.hero-cam::before{content:'';position:absolute;top:-10%;left:-65%;width:42%;height:120%;background:linear-gradient(105deg,transparent 0%,rgba(255,255,255,.7) 50%,transparent 100%);transform:skewX(-18deg);animation:parilti 7.5s ease-in-out infinite;pointer-events:none;z-index:1}
+@keyframes parilti{0%,52%{left:-65%}88%,100%{left:135%}}
+.hero-kure{position:absolute;border-radius:50%;pointer-events:none;background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.98) 0%,rgba(205,224,238,.6) 58%,rgba(150,182,206,.5) 100%);box-shadow:inset 0 -8px 18px rgba(90,125,155,.18);animation:yuz 8s ease-in-out infinite alternate}
+.hero-kure.k1{width:160px;height:160px;left:5%;top:-34px;opacity:.55}
+.hero-kure.k2{width:92px;height:92px;right:8%;top:26px;opacity:.5;animation-delay:-3s}
+.hero-kure.k3{width:58px;height:58px;right:21%;bottom:-12px;opacity:.45;animation-delay:-5.5s}
+.hero-kure.k4{width:44px;height:44px;left:17%;bottom:22px;opacity:.4;animation-delay:-1.6s}
+@keyframes yuz{from{transform:translateY(-10px)}to{transform:translateY(12px)}}
+.hero .ust-not{position:relative;z-index:2;display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--gri);background:rgba(255,255,255,.85);border-radius:99px;padding:7px 18px;margin-bottom:24px;box-shadow:var(--golge-hafif)}
 .hero .ust-not i{width:7px;height:7px;border-radius:50%;background:var(--mavi);display:inline-block}
+.hero-slayt{position:relative;z-index:2;min-height:158px;display:flex;flex-direction:column;justify-content:center;transition:opacity .45s ease,transform .45s ease}
+.hero-slayt.gecis{opacity:0;transform:translateY(16px)}
+.hero-slayt h1{font-size:clamp(32px,4.4vw,50px);font-weight:800;letter-spacing:.06em;line-height:1.08;text-transform:uppercase}
+.hero-slayt p{color:var(--gri);margin:14px auto 0;max-width:54ch;font-size:16px}
+.hero-noktalar{position:relative;z-index:2;display:flex;gap:8px;justify-content:center;margin-top:28px}
+.hero-nokta{width:8px;height:8px;border-radius:99px;background:#C3CDD9;border:none;cursor:pointer;transition:.3s;padding:0}
+.hero-nokta:hover{background:var(--gri-acik)}
+.hero-nokta.aktif{width:28px;background:var(--murekkep)}
+@media(max-width:700px){.hero-cam{padding:44px 24px 36px}.hero-slayt{min-height:210px}}
 
 /* ---------- Butonlar ---------- */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;border-radius:99px;padding:13px 28px;cursor:pointer;border:none;transition:.18s;text-decoration:none}
@@ -395,9 +411,18 @@ footer{color:var(--gri)}
 <!-- ============ VİTRİN ============ -->
 <div id="magaza" class="gorunum aktif">
   <section class="hero">
-    <div class="ust-not"><i></i>Reçeteni kaydet, iki tıkla tekrar sipariş ver</div>
-    <h1 class="baslik">Vizyonunu Keşfet</h1>
-    <p>Her yaşam tarzına uygun, distribütör garantili premium lensler. Değerlerini bir kez kaydet; sonraki her siparişin saniyeler sürsün.</p>
+    <div class="hero-cam" id="heroCam">
+      <div class="hero-kure k1"></div>
+      <div class="hero-kure k2"></div>
+      <div class="hero-kure k3"></div>
+      <div class="hero-kure k4"></div>
+      <div class="ust-not"><i></i>1998'den beri lens uzmanı</div>
+      <div class="hero-slayt" id="heroSlayt">
+        <h1 id="heroBaslik"></h1>
+        <p id="heroAlt"></p>
+      </div>
+      <div class="hero-noktalar" id="heroNoktalar"></div>
+    </div>
   </section>
 
   <div class="kategori-serit" id="katSerit"></div>
@@ -742,6 +767,52 @@ function hesabaGit(){ gorunumSec(oturumKullanici() ? 'hesap' : 'auth'); }
 
 /* ---------- Duyuru şeridi ---------- */
 document.getElementById('duyuruSerit').innerHTML = ayarlar().serit;
+
+/* ---------- Hero: dönen slaytlar (metinler admin > Ayarlar'dan) ---------- */
+let heroListe = [], heroIndeks = 0, heroZamanlayici = null;
+function heroSlaytlari(){
+  return (ayarlar().heroYazi || '').split('\n')
+    .map(s => s.trim()).filter(Boolean)
+    .map(satir => {
+      const [baslik, ...alt] = satir.split('|');
+      return {baslik: baslik.trim(), alt: alt.join('|').trim()};
+    });
+}
+function heroYaz(s){
+  document.getElementById('heroBaslik').textContent = s.baslik;
+  document.getElementById('heroAlt').textContent = s.alt;
+}
+function heroGit(i, elle){
+  if(!heroListe.length) return;
+  heroIndeks = ((i % heroListe.length) + heroListe.length) % heroListe.length;
+  const sahne = document.getElementById('heroSlayt');
+  sahne.classList.add('gecis');
+  setTimeout(() => {
+    heroYaz(heroListe[heroIndeks]);
+    document.querySelectorAll('.hero-nokta').forEach((n, j) =>
+      n.classList.toggle('aktif', j === heroIndeks));
+    sahne.classList.remove('gecis');
+  }, 460);
+  if(elle) heroBaslat();
+}
+function heroBaslat(){
+  clearInterval(heroZamanlayici);
+  if(heroListe.length > 1)
+    heroZamanlayici = setInterval(() => heroGit(heroIndeks + 1), 5200);
+}
+function heroCiz(){
+  heroListe = heroSlaytlari();
+  if(!heroListe.length) heroListe = [{baslik:'Vizyonunu Keşfet', alt:''}];
+  heroIndeks = 0;
+  heroYaz(heroListe[0]);
+  document.getElementById('heroNoktalar').innerHTML = heroListe.length > 1
+    ? heroListe.map((_, i) => `<button class="hero-nokta ${i===0?'aktif':''}" onclick="heroGit(${i},true)" aria-label="Slayt ${i+1}"></button>`).join('')
+    : '';
+  heroBaslat();
+}
+/* Fareyle üzerine gelince duraklat */
+document.getElementById('heroCam').addEventListener('mouseenter', () => clearInterval(heroZamanlayici));
+document.getElementById('heroCam').addEventListener('mouseleave', heroBaslat);
 
 /* ---------- Vitrin: filtre + arama + sıralama ---------- */
 let filtre = {tip:'hepsi', marka:'hepsi', arama:'', sirala:'onerilen'};
@@ -1237,8 +1308,18 @@ function demoSifirla(){
 document.addEventListener('keydown', e => {
   if(e.key === 'Escape'){ sepetKapat(); urunModalKapat(); receteKapat(); }
 });
+/* Admin başka sekmede ayar değiştirirse canlı yansıt */
+window.addEventListener('storage', e => {
+  if(e.key === DO_KEY.ayarlar || e.key === DO_KEY.urunAyar){
+    document.getElementById('duyuruSerit').innerHTML = ayarlar().serit;
+    gozlukUygula();
+    heroCiz();
+    vitrinCiz();
+  }
+});
 hesapPillGuncelle();
 sepetRozetGuncelle();
+heroCiz();
 vitrinCiz();
 </script>
 </body>

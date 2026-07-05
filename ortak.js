@@ -182,6 +182,8 @@ const AYAR_VARSAYILAN = {
   kargoEsik: 500,
   kargoUcret: 49.90,
   serit: 'Tüm lenslerde resmi ödeme kanallarıyla <b>6 aya varan taksit</b> · 500₺ üzeri kargo bedava',
+  /* Vitrin karşılama penceresi: her satır bir slayt, "Başlık | Alt yazı" biçiminde */
+  heroYazi: 'Vizyonunu Keşfet | Her yaşam tarzına uygun, distribütör garantili premium lensler.\nReçeten Hep Kayıtlı | Değerlerini bir kez kaydet; sonraki her siparişin saniyeler sürsün.\nÇoklu Kutuda İndirim | Kutu adedi arttıkça birim fiyat otomatik düşer, kazancını anında gör.',
   adminSifre: 'admin',
   hatirlatmaGun: 25,
   kategoriSira: ['gunluk','onbes','aylik','renkli','torik','multifokal','bakim']
