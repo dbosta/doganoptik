@@ -103,6 +103,10 @@ table.veri tbody tr.secili-satir{background:var(--mavi-fon)}
 .rozet-k.sadik{background:var(--amber-fon);color:var(--amber)}
 .rozet-k.yeni-uye{background:var(--mavi-fon);color:var(--mavi)}
 .siparis-sayi-pill{font-family:'Montserrat',sans-serif;font-weight:600;font-size:11.5px;background:var(--fon);border-radius:99px;padding:4px 12px;white-space:nowrap;box-shadow:var(--golge-ic);color:var(--gri)}
+.recete-hucre{display:flex;flex-direction:column;gap:4px;align-items:flex-start}
+.recete-pill{display:inline-flex;align-items:center;gap:7px;background:var(--fon);box-shadow:var(--golge-ic);border-radius:99px;padding:4px 13px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:11.5px;white-space:nowrap;color:var(--murekkep)}
+.recete-pill small{font-size:8.5px;letter-spacing:.1em;color:var(--gri-acik);font-weight:700}
+.recete-hucre .kaynak-not{font-size:9.5px;color:var(--gri-acik);letter-spacing:.04em;padding-left:4px}
 .siparis-sayi-pill.coklu{background:var(--amber-fon);color:var(--amber);font-weight:700;box-shadow:none}
 .durum{font-size:11px;font-weight:600;border-radius:99px;padding:5px 13px;white-space:nowrap;display:inline-block}
 .durum.yeni{background:var(--amber-fon);color:var(--amber)}
@@ -295,7 +299,7 @@ input.tablo-fiyat:focus{box-shadow:var(--golge-ic),0 0 0 2px rgba(74,127,167,.35
           <table class="veri">
             <thead><tr>
               <th style="width:36px"><input type="checkbox" class="kutucuk" id="tumunuSecKutu" onchange="tumunuSec(this.checked)"></th>
-              <th>Sipariş</th><th>Müşteri</th><th>Üyelik</th><th>Kaçıncı</th><th>Tutar</th><th>Durum</th>
+              <th>Sipariş</th><th>Müşteri</th><th>Üyelik</th><th>Reçete</th><th>Kaçıncı</th><th>Tutar</th><th>Durum</th>
             </tr></thead>
             <tbody id="gelenGovde"></tbody>
           </table>
@@ -538,6 +542,22 @@ function gunFarki(iso){
   return Math.floor((Date.now() - new Date(iso + 'T12:00:00').getTime()) / 86400000);
 }
 function sirali(){ return siparisler().slice().sort((a,b) => b.no.localeCompare(a.no)); }
+function receteHucre(s){
+  /* Önce siparişin kendi değerleri — gönderilecek olan bunlar */
+  const lensler = s.urunler.filter(u => u.sag != null && u.sag !== undefined);
+  if(lensler.length){
+    const ciftler = [...new Set(lensler.map(l => `${l.sag}|${l.sol}`))];
+    return `<div class="recete-hucre">${ciftler.map(c => {
+      const [sag, sol] = c.split('|');
+      return `<span class="recete-pill"><small>SAĞ</small>${sag}<small>SOL</small>${sol}</span>`;
+    }).join('')}<span class="kaynak-not">siparişten</span></div>`;
+  }
+  /* Lens yoksa hesaptaki kayıtlı reçeteyi göster */
+  const k = kullaniciBul(s.eposta);
+  if(k && k.recete)
+    return `<div class="recete-hucre"><span class="recete-pill"><small>SAĞ</small>${k.recete.sag}<small>SOL</small>${k.recete.sol}</span><span class="kaynak-not">kayıtlı reçete</span></div>`;
+  return '<span style="color:var(--gri-acik)">—</span>';
+}
 
 /* ---------- Genel Bakış ---------- */
 function genelCiz(){
@@ -577,6 +597,7 @@ function gelenCiz(){
       <td><b class="mono" style="font-size:12px">#${s.no}</b><br><span style="font-size:11.5px;color:var(--gri)">${siparisUrunOzeti(s)} · ${tarihTR(s.tarih)}</span></td>
       <td>${musteriHucre(s)}</td>
       <td>${uyelikRozetleri(s.eposta)}</td>
+      <td>${receteHucre(s)}</td>
       <td><span class="siparis-sayi-pill ${kacinci >= 2 ? 'coklu' : ''}">${kacinci ? kacinci + '. sipariş' : '—'}</span></td>
       <td><b>${paraTL(s.tutar)}</b></td>
       <td>${durumEtiketi(s)}</td>
