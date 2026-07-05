@@ -549,13 +549,13 @@ function receteHucre(s){
     const ciftler = [...new Set(lensler.map(l => `${l.sag}|${l.sol}`))];
     return `<div class="recete-hucre">${ciftler.map(c => {
       const [sag, sol] = c.split('|');
-      return `<span class="recete-pill"><small>SAĞ</small>${sag}<small>SOL</small>${sol}</span>`;
+      return `<span class="recete-pill"><small>SOL</small>${sol}<small>SAĞ</small>${sag}</span>`;
     }).join('')}<span class="kaynak-not">siparişten</span></div>`;
   }
   /* Lens yoksa hesaptaki kayıtlı reçeteyi göster */
   const k = kullaniciBul(s.eposta);
   if(k && k.recete)
-    return `<div class="recete-hucre"><span class="recete-pill"><small>SAĞ</small>${k.recete.sag}<small>SOL</small>${k.recete.sol}</span><span class="kaynak-not">kayıtlı reçete</span></div>`;
+    return `<div class="recete-hucre"><span class="recete-pill"><small>SOL</small>${k.recete.sol}<small>SAĞ</small>${k.recete.sag}</span><span class="kaynak-not">kayıtlı reçete</span></div>`;
   return '<span style="color:var(--gri-acik)">—</span>';
 }
 
