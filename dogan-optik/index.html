@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Doğan Optik — Lens Uzmanı</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   DOĞAN OPTİK — "Clarity" tasarım sistemi
+   Buz beyazı zemin, cam (glass) bar, yumuşak neumorfik kartlar
+   ============================================================ */
+:root{
+  --fon:#EDF0F4;
+  --kart:#FFFFFF;
+  --murekkep:#141A21;
+  --koyu:#1C242E;
+  --gri:#66727F;
+  --gri-acik:#9AA5B1;
+  --cizgi:#E2E7ED;
+  --mavi:#4A7FA7; --mavi-fon:#E7F0F7;
+  --yesil:#2E7D4F; --yesil-fon:#E6F4EC;
+  --amber:#B07B2E; --amber-fon:#FAF1E2;
+  --kirmizi:#B3392E; --kirmizi-fon:#F9E9E7;
+
+  /* Neumorfik gölgeler */
+  --golge-kart:10px 12px 28px rgba(160,174,192,.34), -8px -8px 22px rgba(255,255,255,.95);
+  --golge-kart-hover:14px 18px 38px rgba(150,166,186,.42), -10px -10px 26px rgba(255,255,255,1);
+  --golge-ic:inset 5px 5px 12px rgba(160,174,192,.28), inset -5px -5px 12px rgba(255,255,255,.95);
+  --golge-hafif:6px 8px 18px rgba(160,174,192,.28), -6px -6px 16px rgba(255,255,255,.9);
+
+  --radius:22px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--fon);color:var(--murekkep);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:'Montserrat',sans-serif}
+a{color:inherit}
+::selection{background:#CBDCE9}
+
+/* GÖZLÜK MODÜLÜ — askıda; Yönetim > Ayarlar'dan açılır */
+body:not(.gozluk-acik) .gozluk-modul{display:none!important}
+
+/* ---------- Demo çubuğu ---------- */
+.demo-bar{display:flex;align-items:center;gap:8px;padding:10px 22px;flex-wrap:wrap;font-size:12px;color:var(--gri)}
+.demo-bar span.etiketcik{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gri-acik);margin-right:4px}
+.demo-bar button,.demo-bar a.buton{font-family:'Montserrat',sans-serif;font-weight:600;font-size:11.5px;background:var(--fon);color:var(--gri);border:none;border-radius:99px;padding:7px 15px;cursor:pointer;transition:.18s;text-decoration:none;display:inline-block;box-shadow:var(--golge-hafif)}
+.demo-bar button:hover,.demo-bar a.buton:hover{color:var(--murekkep)}
+.demo-bar button.aktif{color:var(--murekkep);box-shadow:var(--golge-ic)}
+.gorunum{display:none}
+.gorunum.aktif{display:block}
+
+/* ---------- Duyuru şeridi ---------- */
+.serit{text-align:center;font-size:12px;padding:4px 16px 0;letter-spacing:.02em;color:var(--gri)}
+.serit b{color:var(--murekkep)}
+
+/* ---------- Cam menü barı ---------- */
+.nav-sar{position:sticky;top:14px;z-index:70;display:flex;justify-content:center;padding:12px 18px 6px}
+.cam-bar{width:100%;max-width:1150px;display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.62);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);border:1px solid rgba(255,255,255,.85);border-radius:99px;padding:9px 12px 9px 26px;box-shadow:0 18px 44px -18px rgba(120,140,165,.45), inset 0 1px 0 rgba(255,255,255,.9)}
+.logo{font-family:'Montserrat',sans-serif;font-weight:800;font-size:16.5px;letter-spacing:.12em;white-space:nowrap;cursor:pointer;text-transform:uppercase}
+.logo em{font-style:normal;color:var(--gri-acik);font-weight:600}
+nav.sekmeler{display:flex;gap:2px;flex:1;justify-content:center}
+nav.sekmeler a{font-family:'Montserrat',sans-serif;font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--gri);text-decoration:none;padding:10px 15px;border-radius:99px;transition:.15s;position:relative;white-space:nowrap;cursor:pointer}
+nav.sekmeler a:hover{color:var(--murekkep)}
+nav.sekmeler a.secili{color:var(--murekkep)}
+nav.sekmeler a.secili::after{content:'';position:absolute;left:16px;right:16px;bottom:4px;height:2.5px;border-radius:3px;background:var(--murekkep)}
+.header-arac{display:flex;align-items:center;gap:8px}
+.ara{display:flex;align-items:center;gap:8px;background:rgba(237,240,244,.85);border-radius:99px;padding:0 15px;color:var(--gri);min-width:180px;box-shadow:var(--golge-ic)}
+.ara input{border:none;outline:none;background:transparent;font-family:'Inter',sans-serif;font-size:13px;color:var(--murekkep);padding:9px 0;width:100%}
+.ikon-btn{display:flex;align-items:center;gap:8px;height:40px;border-radius:99px;border:none;background:var(--kart);padding:0 16px;cursor:pointer;position:relative;transition:.15s;flex-shrink:0;font-family:'Montserrat',sans-serif;font-weight:700;font-size:12px;letter-spacing:.08em;box-shadow:var(--golge-hafif)}
+.ikon-btn:hover{transform:translateY(-1px);box-shadow:var(--golge-kart)}
+.ikon-btn .rozet{background:var(--murekkep);color:#fff;font-size:10.5px;font-weight:700;min-width:19px;height:19px;border-radius:99px;display:grid;place-items:center;padding:0 5px}
+svg.ik{width:17px;height:17px;stroke:var(--murekkep);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.hesap-pill{display:flex;align-items:center;gap:8px;height:40px;border-radius:99px;padding:0 16px 0 6px;cursor:pointer;background:var(--koyu);color:#fff;transition:.15s;white-space:nowrap;box-shadow:0 10px 22px -8px rgba(28,36,46,.5)}
+.hesap-pill:hover{transform:translateY(-1px)}
+.hesap-pill .avatar{width:29px;height:29px;border-radius:50%;background:rgba(255,255,255,.16);color:#fff;font-family:'Montserrat',sans-serif;font-weight:700;font-size:11.5px;display:grid;place-items:center}
+.hesap-pill b{font-size:12px;font-family:'Montserrat',sans-serif;letter-spacing:.06em}
+
+/* ---------- Hero ---------- */
+.hero{max-width:1150px;margin:0 auto;padding:52px 24px 14px;text-align:center}
+.hero .baslik{font-size:clamp(34px,4.6vw,52px);font-weight:800;letter-spacing:.06em;line-height:1.06;text-transform:uppercase}
+.hero p{color:var(--gri);margin:14px auto 0;max-width:52ch;font-size:16px}
+.hero .ust-not{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--gri);background:var(--kart);border-radius:99px;padding:7px 18px;margin-bottom:22px;box-shadow:var(--golge-hafif)}
+.hero .ust-not i{width:7px;height:7px;border-radius:50%;background:var(--mavi);display:inline-block}
+
+/* ---------- Butonlar ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;border-radius:99px;padding:13px 28px;cursor:pointer;border:none;transition:.18s;text-decoration:none}
+.btn.dolu{background:var(--koyu);color:#fff;box-shadow:0 14px 26px -10px rgba(28,36,46,.5)}
+.btn.dolu:hover{transform:translateY(-1px);background:#2A3542}
+.btn.cerceve{background:var(--kart);color:var(--murekkep);box-shadow:var(--golge-hafif)}
+.btn.cerceve:hover{transform:translateY(-1px);box-shadow:var(--golge-kart)}
+.btn.kucukk{padding:9px 18px;font-size:11px}
+
+/* ---------- Kategori çipleri + filtreler ---------- */
+.kategori-serit{max-width:1150px;margin:0 auto;padding:26px 24px 0;display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.kat-kart{display:flex;align-items:center;gap:9px;background:var(--kart);border:none;border-radius:99px;padding:10px 20px;cursor:pointer;transition:.18s;box-shadow:var(--golge-hafif)}
+.kat-kart:hover{transform:translateY(-2px);box-shadow:var(--golge-kart)}
+.kat-kart.secili{box-shadow:var(--golge-ic);background:var(--fon)}
+.kat-kart .damla{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.kat-kart b{font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;letter-spacing:.04em}
+.kat-kart span{font-size:11px;color:var(--gri-acik)}
+
+.bolum{max-width:1400px;margin:0 auto;padding:30px 28px 40px}
+.bolum-baslik{display:flex;align-items:baseline;justify-content:center;gap:14px;margin-bottom:22px;flex-wrap:wrap}
+.bolum-baslik h2{font-size:20px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.bolum-baslik .adet{color:var(--gri-acik);font-size:12.5px}
+.filtreler{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px;align-items:center;justify-content:center}
+.cip{font-family:'Montserrat',sans-serif;font-size:11.5px;font-weight:600;letter-spacing:.05em;border:none;background:var(--kart);border-radius:99px;padding:9px 18px;cursor:pointer;color:var(--gri);display:inline-flex;align-items:center;gap:6px;transition:.15s;box-shadow:var(--golge-hafif)}
+.cip:hover{color:var(--murekkep)}
+.cip.secili{color:var(--murekkep);box-shadow:var(--golge-ic);background:var(--fon)}
+select.secim{font-size:12px;font-family:'Montserrat',sans-serif;font-weight:600;border:none;background:var(--kart);border-radius:99px;padding:9px 16px;color:var(--gri);cursor:pointer;outline:none;box-shadow:var(--golge-hafif)}
+
+/* ---------- Ürün kartları ---------- */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:26px}
+.urun{background:linear-gradient(145deg,#FFFFFF 0%,#F4F7FA 100%);border:1px solid rgba(255,255,255,.9);border-radius:var(--radius);transition:.22s;cursor:pointer;position:relative;display:flex;flex-direction:column;padding:18px;box-shadow:var(--golge-kart)}
+.urun:hover{transform:translateY(-5px);box-shadow:var(--golge-kart-hover)}
+.urun-ust{display:flex;gap:16px;align-items:center}
+.foto{width:128px;height:128px;flex-shrink:0;border-radius:18px;background:linear-gradient(145deg,#F0F3F7,#E4E9F0);box-shadow:var(--golge-ic);display:grid;place-items:center;position:relative;overflow:hidden}
+.etiket{position:absolute;left:14px;top:14px;background:var(--kart);color:var(--gri);font-size:9.5px;font-weight:700;font-family:'Montserrat',sans-serif;letter-spacing:.08em;text-transform:uppercase;border-radius:99px;padding:4px 11px;z-index:2;box-shadow:var(--golge-hafif)}
+.etiket.yeni{color:var(--mavi)}
+.etiket.cok-satan{color:var(--amber)}
+.urun-baslik{min-width:0}
+.marka{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--gri-acik);font-weight:600}
+.urun-ad{font-family:'Montserrat',sans-serif;font-weight:700;font-size:16px;margin:2px 0;line-height:1.25}
+.urun-not{font-size:11.5px;color:var(--gri)}
+
+/* Lens görseli — saf CSS kontakt lens */
+.lens-cap{width:96px;height:96px;border-radius:50%;position:relative;background:radial-gradient(circle at 34% 28%, #FFFFFF 0%, var(--t1,#EAF2F8) 38%, var(--t2,#AECBDD) 82%, var(--t3,#8FB4CB) 100%);box-shadow:inset 0 -12px 22px rgba(90,125,155,.28), inset 0 8px 14px rgba(255,255,255,.95), 6px 10px 18px rgba(130,155,180,.35)}
+.lens-cap::before{content:'';position:absolute;inset:9px;border-radius:50%;border:1px solid rgba(255,255,255,.75)}
+.lens-cap::after{content:'';position:absolute;left:16%;top:12%;width:36%;height:20%;border-radius:50%;background:rgba(255,255,255,.9);filter:blur(4px);transform:rotate(-20deg)}
+/* Bakım ürünü — solüsyon şişesi */
+.sise{width:58px;height:96px;border-radius:14px 14px 16px 16px;background:linear-gradient(145deg,#FFFFFF,#E9EEF3);box-shadow:6px 8px 16px rgba(130,155,180,.3), inset -4px -4px 8px rgba(160,180,200,.18), inset 3px 3px 6px rgba(255,255,255,.9);position:relative;display:flex;align-items:center;justify-content:center}
+.sise::before{content:'';position:absolute;top:-14px;left:50%;transform:translateX(-50%);width:26px;height:18px;border-radius:6px 6px 3px 3px;background:linear-gradient(145deg,var(--t2,#AECBDD),var(--t3,#8FB4CB))}
+.sise .sise-etiket{width:40px;height:44px;border-radius:8px;background:var(--t1,#EAF2F8);display:grid;place-items:center;font-family:'Montserrat',sans-serif;font-weight:800;font-size:7.5px;letter-spacing:.04em;text-align:center;color:var(--gri);line-height:1.35;padding:3px}
+
+/* Özellik ikonları */
+.ozellikler{display:flex;justify-content:space-between;gap:4px;margin:16px 2px 4px;padding:12px 10px;border-radius:16px;background:rgba(237,240,244,.6)}
+.ozellik{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;min-width:0}
+.ozellik svg{width:17px;height:17px;stroke:var(--murekkep);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.ozellik span{font-size:8.5px;font-weight:600;letter-spacing:.04em;color:var(--gri);text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+
+.fiyat-satir{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:14px}
+.fiyat{font-family:'Montserrat',sans-serif;font-weight:800;font-size:19px;letter-spacing:.01em}
+.fiyat .birim{font-size:10.5px;color:var(--gri-acik);font-weight:600;margin-left:3px;letter-spacing:0}
+.coklu-not{font-size:10.5px;color:var(--yesil);font-weight:600;margin-top:3px}
+.urun .sepet-btn{padding:11px 20px;font-size:10.5px;flex-shrink:0}
+.bos-durum{text-align:center;padding:44px 20px;color:var(--gri);grid-column:1/-1}
+.bos-durum .buyuk-ikon{width:64px;height:64px;border-radius:20px;background:var(--kart);box-shadow:var(--golge-hafif);display:grid;place-items:center;margin:0 auto 14px}
+.hepsi-btn{display:flex;justify-content:center;margin-top:34px}
+
+/* ---------- Markalar + güven şeridi + footer ---------- */
+.markalar{max-width:1150px;margin:0 auto;padding:8px 24px 44px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:center}
+.marka-pill{font-family:'Montserrat',sans-serif;font-weight:700;font-size:12px;letter-spacing:.08em;color:var(--gri-acik);background:var(--kart);border:none;border-radius:99px;padding:12px 26px;transition:.15s;cursor:pointer;box-shadow:var(--golge-hafif)}
+.marka-pill:hover,.marka-pill.secili{color:var(--murekkep);box-shadow:var(--golge-ic)}
+.guven{border-top:1px solid rgba(255,255,255,.9);background:rgba(255,255,255,.4)}
+.guven-ic{max-width:1150px;margin:0 auto;padding:22px 24px;display:flex;gap:38px;justify-content:center;flex-wrap:wrap}
+.guven-madde{display:flex;gap:10px;align-items:center;font-size:12.5px;color:var(--gri)}
+.guven-madde b{font-family:'Montserrat',sans-serif;font-size:12px;letter-spacing:.04em;color:var(--murekkep);font-weight:700}
+.guven-madde .nokta{width:34px;height:34px;border-radius:12px;background:var(--kart);box-shadow:var(--golge-hafif);display:grid;place-items:center;flex-shrink:0}
+footer{color:var(--gri)}
+.footer-ic{max-width:1150px;margin:0 auto;padding:44px 24px 30px;display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:32px;font-size:13px}
+.footer-ic h4{color:var(--murekkep);font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px}
+.footer-ic a{display:block;text-decoration:none;padding:3px 0;transition:.15s;cursor:pointer}
+.footer-ic a:hover{color:var(--murekkep)}
+.footer-alt{text-align:center;font-size:11.5px;padding:16px;color:var(--gri-acik);border-top:1px solid var(--cizgi)}
+
+/* ---------- Paneller (ortak yumuşak kart) ---------- */
+.panel{background:linear-gradient(145deg,#FFFFFF,#F4F7FA);border:1px solid rgba(255,255,255,.9);border-radius:var(--radius);padding:26px;box-shadow:var(--golge-kart)}
+.panel h3{font-size:14px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px}
+
+/* ---------- Kayıt / Giriş ---------- */
+.auth-sahne{max-width:1020px;margin:0 auto;padding:48px 24px 80px;display:grid;grid-template-columns:1fr 1.05fr;gap:26px;align-items:stretch}
+.auth-yan{background:linear-gradient(160deg,#DEE8F0 0%,#EDF0F4 60%,#F6F8FA 100%);border:1px solid rgba(255,255,255,.9);border-radius:var(--radius);color:var(--murekkep);padding:42px 38px;display:flex;flex-direction:column;box-shadow:var(--golge-kart)}
+.auth-yan h2{font-size:24px;font-weight:800;line-height:1.2;letter-spacing:.02em;text-transform:uppercase}
+.auth-yan h2 em{font-style:normal;color:var(--mavi)}
+.auth-yan p{font-size:13.5px;color:var(--gri);margin-top:12px}
+.auth-fayda{margin-top:30px;display:flex;flex-direction:column;gap:18px}
+.auth-fayda .madde{display:flex;gap:14px;align-items:flex-start}
+.auth-fayda .madde .no{width:34px;height:34px;border-radius:12px;background:var(--kart);box-shadow:var(--golge-hafif);display:grid;place-items:center;font-family:'Montserrat',sans-serif;font-weight:800;font-size:11px;color:var(--mavi);flex-shrink:0}
+.auth-fayda .madde b{font-family:'Montserrat',sans-serif;font-size:13.5px;display:block}
+.auth-fayda .madde span{font-size:12px;color:var(--gri)}
+.auth-yan .alt-not{margin-top:auto;padding-top:28px;font-size:11.5px;color:var(--gri-acik)}
+.auth-form{background:linear-gradient(145deg,#FFFFFF,#F4F7FA);border:1px solid rgba(255,255,255,.9);border-radius:var(--radius);padding:42px 40px;box-shadow:var(--golge-kart)}
+.auth-sekme{display:flex;gap:6px;background:var(--fon);border-radius:99px;padding:5px;margin-bottom:26px;box-shadow:var(--golge-ic)}
+.auth-sekme button{flex:1;font-family:'Montserrat',sans-serif;font-weight:700;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;border:none;border-radius:99px;padding:10px;cursor:pointer;background:transparent;color:var(--gri);transition:.18s}
+.auth-sekme button.aktif{background:var(--kart);color:var(--murekkep);box-shadow:0 6px 14px rgba(130,150,175,.25)}
+.form-alan{margin-bottom:15px}
+.form-alan label{display:block;font-size:12px;font-weight:600;margin-bottom:6px;color:var(--murekkep)}
+.form-alan input,.form-alan select,.form-alan textarea{width:100%;border:none;border-radius:14px;padding:12px 16px;font-size:14px;font-family:'Inter',sans-serif;color:var(--murekkep);background:var(--fon);transition:.15s;outline:none;box-shadow:var(--golge-ic)}
+.form-alan input:focus,.form-alan textarea:focus,.form-alan select:focus{box-shadow:var(--golge-ic),0 0 0 2px rgba(74,127,167,.35)}
+.form-alan .ipucu{font-size:11px;color:var(--gri-acik);margin-top:5px}
+.form-ikili{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.onay-satir{display:flex;gap:10px;align-items:flex-start;font-size:12.5px;color:var(--gri);margin:6px 0 20px}
+.onay-satir input{margin-top:3px;accent-color:var(--koyu)}
+.auth-form .btn{width:100%}
+.hata-not{background:var(--kirmizi-fon);color:var(--kirmizi);font-size:12.5px;border-radius:14px;padding:11px 16px;margin-bottom:16px;display:none}
+.hata-not.acik{display:block}
+.demo-ipucu{background:var(--mavi-fon);color:var(--mavi);font-size:12px;border-radius:14px;padding:10px 16px;margin-bottom:20px}
+.demo-ipucu b{font-weight:700}
+.giris-panel,.dogrulama-panel{display:none}
+.auth-form.giris-modu .kayit-panel{display:none}
+.auth-form.giris-modu .giris-panel{display:block}
+.auth-form.dogrulama-modu .kayit-panel,.auth-form.dogrulama-modu .giris-panel,.auth-form.dogrulama-modu .auth-sekme{display:none}
+.auth-form.dogrulama-modu .dogrulama-panel{display:block}
+.dogrulama-panel{text-align:center;padding:20px 0}
+.dogrulama-panel .zarf{width:74px;height:74px;border-radius:24px;background:var(--fon);box-shadow:var(--golge-ic);display:grid;place-items:center;margin:0 auto 18px}
+.dogrulama-panel .zarf svg{width:32px;height:32px;stroke:var(--mavi)}
+.dogrulama-panel h3{font-size:18px;font-weight:800;margin-bottom:8px;letter-spacing:.04em}
+.dogrulama-panel p{font-size:13.5px;color:var(--gri);margin-bottom:22px}
+
+/* ---------- Hesabım ---------- */
+.hesap-sahne{max-width:1150px;margin:0 auto;padding:40px 24px 80px;display:grid;grid-template-columns:280px 1fr;gap:26px;align-items:start}
+.profil-kart{background:linear-gradient(145deg,#FFFFFF,#F4F7FA);border:1px solid rgba(255,255,255,.9);border-radius:var(--radius);overflow:hidden;position:sticky;top:100px;box-shadow:var(--golge-kart)}
+.profil-ust{background:linear-gradient(160deg,#DEE8F0,#EDF0F4);padding:26px 22px;text-align:center;border-bottom:1px solid rgba(255,255,255,.9)}
+.profil-ust .avatar{width:64px;height:64px;border-radius:50%;background:var(--koyu);color:#fff;font-family:'Montserrat',sans-serif;font-weight:800;font-size:20px;display:grid;place-items:center;margin:0 auto 12px;box-shadow:0 12px 22px -8px rgba(28,36,46,.45)}
+.profil-ust b{font-family:'Montserrat',sans-serif;font-size:16px;display:block}
+.profil-ust span{font-size:12px;color:var(--gri)}
+.profil-ust .uye-rozet{display:inline-flex;align-items:center;gap:6px;background:var(--kart);color:var(--amber);font-size:10px;font-weight:700;letter-spacing:.06em;border-radius:99px;padding:5px 13px;margin-top:10px;box-shadow:var(--golge-hafif)}
+.profil-menu{padding:10px 0}
+.profil-menu a{display:flex;align-items:center;gap:11px;padding:11px 22px;font-size:13.5px;color:var(--gri);text-decoration:none;transition:.15s;cursor:pointer}
+.profil-menu a:hover{color:var(--murekkep)}
+.profil-menu a.secili{color:var(--murekkep);font-weight:600;box-shadow:inset 3px 0 0 var(--mavi)}
+.hesap-icerik{display:flex;flex-direction:column;gap:20px}
+.ozet-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px}
+.ozet-kart{background:linear-gradient(145deg,#FFFFFF,#F4F7FA);border:1px solid rgba(255,255,255,.9);border-radius:18px;padding:18px 20px;box-shadow:var(--golge-hafif)}
+.ozet-kart .deger{font-family:'Montserrat',sans-serif;font-weight:800;font-size:22px}
+.ozet-kart .ad{font-size:11.5px;color:var(--gri);margin-top:2px}
+.recete-kart{background:linear-gradient(145deg,#FFFFFF,#F4F7FA);border:1px solid rgba(255,255,255,.9);border-radius:var(--radius);padding:24px;box-shadow:var(--golge-kart)}
+.recete-kart .rec-baslik{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.recete-kart h3{font-size:14px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.rec-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.rec-goz{background:var(--fon);border-radius:16px;padding:14px 16px;box-shadow:var(--golge-ic)}
+.rec-goz b{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gri);display:block;margin-bottom:8px}
+.rec-goz .degerler{display:flex;gap:16px;flex-wrap:wrap}
+.rec-goz .d{font-size:13px}
+.rec-goz .d small{display:block;font-size:9.5px;color:var(--gri-acik);letter-spacing:.08em}
+.rec-goz .d span{font-family:'Montserrat',sans-serif;font-weight:700}
+.baglanti{font-size:12.5px;color:var(--mavi);font-weight:600;text-decoration:none;cursor:pointer}
+
+/* ---------- Sipariş kartı ---------- */
+.siparis{background:linear-gradient(145deg,#FFFFFF,#F4F7FA);border:1px solid rgba(255,255,255,.9);border-radius:var(--radius);margin-bottom:14px;overflow:hidden;transition:.15s;box-shadow:var(--golge-hafif)}
+.siparis:hover{box-shadow:var(--golge-kart)}
+.siparis-ust{display:grid;grid-template-columns:auto 1fr auto auto auto;gap:18px;align-items:center;padding:16px 20px;cursor:pointer}
+.mini-foto{width:56px;height:56px;border-radius:14px;background:var(--fon);box-shadow:var(--golge-ic);display:grid;place-items:center;overflow:hidden}
+.siparis-ad b{font-family:'Montserrat',sans-serif;font-size:13.5px;display:block}
+.siparis-ad span{font-size:11.5px;color:var(--gri)}
+.durum{font-size:11px;font-weight:600;border-radius:99px;padding:5px 13px;white-space:nowrap;justify-self:start}
+.durum.yeni{background:var(--amber-fon);color:var(--amber)}
+.durum.hazir{background:var(--yesil-fon);color:var(--yesil)}
+.durum.kargo{background:var(--mavi-fon);color:var(--mavi)}
+.durum.teslim{background:var(--fon);color:var(--gri)}
+.siparis-tutar{font-family:'Montserrat',sans-serif;font-weight:800;font-size:14.5px;white-space:nowrap}
+.ok{transition:.25s;color:var(--gri)}
+.siparis.acik .ok{transform:rotate(180deg)}
+.siparis-detay{display:none;border-top:1px solid var(--cizgi);background:rgba(237,240,244,.5);padding:18px 22px;font-size:13px}
+.siparis.acik .siparis-detay{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:18px}
+.detay-blok b{display:block;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gri);margin-bottom:6px}
+.tekrar-btn{grid-column:1/-1;display:flex;gap:10px;padding-top:4px;flex-wrap:wrap}
+
+/* ---------- Ödeme ---------- */
+.odeme-sahne{max-width:1150px;margin:0 auto;padding:40px 24px 80px}
+.adimlar{display:flex;gap:10px;margin-bottom:26px;flex-wrap:wrap;justify-content:center}
+.adim{display:flex;align-items:center;gap:9px;font-family:'Montserrat',sans-serif;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gri-acik)}
+.adim .no{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:12px;background:var(--kart);box-shadow:var(--golge-hafif)}
+.adim.aktif{color:var(--murekkep)}
+.adim.aktif .no{background:var(--koyu);color:#fff;box-shadow:0 8px 16px -6px rgba(28,36,46,.5)}
+.adim .cizgi{width:34px;height:1.5px;background:var(--cizgi)}
+.odeme-grid{display:grid;grid-template-columns:1fr 380px;gap:24px;align-items:start}
+.iyzico-not{display:flex;align-items:center;gap:10px;background:var(--fon);border-radius:14px;padding:11px 14px;font-size:12px;color:var(--gri);margin-top:14px;box-shadow:var(--golge-ic)}
+.ozet-satir{display:flex;justify-content:space-between;font-size:13.5px;padding:8px 0;border-bottom:1px dashed var(--cizgi)}
+.ozet-satir:last-of-type{border-bottom:none}
+.ozet-satir.toplam{font-family:'Montserrat',sans-serif;font-weight:800;font-size:16.5px;border-top:1px solid var(--cizgi);padding-top:12px;margin-top:4px}
+.ozet-satir .yesil-yazi{color:var(--yesil);font-weight:600}
+.basari-panel{max-width:560px;margin:0 auto;text-align:center;background:linear-gradient(145deg,#FFFFFF,#F4F7FA);border:1px solid rgba(255,255,255,.9);border-radius:26px;padding:48px 40px;box-shadow:var(--golge-kart)}
+.basari-panel .halka{width:86px;height:86px;border-radius:50%;background:var(--yesil-fon);display:grid;place-items:center;margin:0 auto 20px}
+.basari-panel .halka svg{width:40px;height:40px;stroke:var(--yesil);stroke-width:2}
+.basari-panel h2{font-size:22px;font-weight:800;margin-bottom:8px;letter-spacing:.04em}
+.basari-panel p{color:var(--gri);font-size:14px;margin-bottom:8px}
+.basari-panel .sip-no{font-family:'Montserrat',sans-serif;font-weight:700;font-size:14px;background:var(--fon);border-radius:12px;display:inline-block;padding:9px 20px;margin:10px 0 24px;box-shadow:var(--golge-ic)}
+
+/* ---------- Sepet çekmecesi ---------- */
+.cekmece-fon{position:fixed;inset:0;background:rgba(20,26,33,.35);z-index:90;display:none;backdrop-filter:blur(3px)}
+.cekmece-fon.acik{display:block}
+.cekmece{position:fixed;top:0;right:0;bottom:0;width:min(440px,94vw);background:#F6F8FA;z-index:95;box-shadow:-24px 0 60px rgba(20,26,33,.22);transform:translateX(105%);transition:.28s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column}
+.cekmece.acik{transform:translateX(0)}
+.cekmece-baslik{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid var(--cizgi)}
+.cekmece-baslik h3{font-size:14px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.cekmece-kapat{width:34px;height:34px;border-radius:50%;border:none;background:var(--kart);box-shadow:var(--golge-hafif);cursor:pointer;font-size:13px;display:grid;place-items:center}
+.sepet-govde{flex:1;overflow-y:auto;padding:16px 24px}
+.sepet-satir{display:grid;grid-template-columns:auto 1fr auto;gap:14px;padding:14px 0;border-bottom:1px dashed var(--cizgi);align-items:center}
+.sepet-satir .kucuk-foto{width:54px;height:54px;border-radius:14px;background:var(--fon);box-shadow:var(--golge-ic);display:grid;place-items:center;overflow:hidden}
+.sepet-satir b{font-size:13px;font-family:'Montserrat',sans-serif;display:block}
+.sepet-satir .alt{font-size:11px;color:var(--gri)}
+.sepet-satir .fiyatx{font-family:'Montserrat',sans-serif;font-weight:800;font-size:13.5px;text-align:right}
+.adet-step{display:inline-flex;align-items:center;gap:2px;background:var(--kart);border-radius:99px;margin-top:6px;box-shadow:var(--golge-hafif)}
+.adet-step button{width:26px;height:26px;border:none;background:transparent;cursor:pointer;font-size:14px;color:var(--murekkep);border-radius:50%}
+.adet-step span{font-family:'Montserrat',sans-serif;font-weight:700;font-size:12px;min-width:22px;text-align:center}
+.sepet-sil{font-size:11px;color:var(--kirmizi);cursor:pointer;margin-top:4px;display:inline-block;margin-left:8px}
+.sepet-alt{border-top:1px solid var(--cizgi);padding:18px 24px;background:rgba(255,255,255,.7)}
+.sepet-alt .btn{width:100%;margin-top:12px}
+.kargo-notu{font-size:11.5px;color:var(--yesil);background:var(--yesil-fon);border-radius:10px;padding:6px 10px;margin-top:10px;text-align:center}
+.kargo-notu.uyari{color:var(--amber);background:var(--amber-fon)}
+
+/* ---------- Modallar ---------- */
+.modal-fon{position:fixed;inset:0;background:rgba(20,26,33,.4);z-index:96;display:none;place-items:center;backdrop-filter:blur(4px);padding:20px;overflow-y:auto}
+.modal-fon.acik{display:grid}
+.modal-kutu{background:linear-gradient(150deg,#FFFFFF,#F2F5F9);border:1px solid rgba(255,255,255,.95);border-radius:26px;max-width:520px;width:100%;padding:30px;box-shadow:0 40px 90px -20px rgba(20,26,33,.4);position:relative;max-height:92vh;overflow-y:auto}
+.modal-kapat{position:absolute;right:16px;top:16px;width:34px;height:34px;border-radius:50%;border:none;background:var(--kart);box-shadow:var(--golge-hafif);cursor:pointer;font-size:13px;display:grid;place-items:center;z-index:2}
+.um-ust{display:flex;gap:18px;align-items:center;margin-bottom:18px}
+.um-foto{width:112px;height:112px;border-radius:20px;background:var(--fon);box-shadow:var(--golge-ic);display:grid;place-items:center;flex-shrink:0;overflow:hidden}
+.um-ust h3{font-size:19px;font-weight:800;line-height:1.2;letter-spacing:.01em}
+.um-fiyatlar{background:var(--fon);border-radius:16px;padding:8px 18px;margin-bottom:16px;box-shadow:var(--golge-ic)}
+.fiyat-satir2{display:flex;align-items:baseline;justify-content:space-between;font-size:13px;padding:7px 0}
+.fiyat-satir2 .kutu-ad{color:var(--gri)}
+.fiyat-satir2 .kutu-ad b{color:var(--murekkep);font-weight:600}
+.fiyat-satir2 .tutar{font-family:'Montserrat',sans-serif;font-weight:800;font-size:15.5px}
+.fiyat-satir2 .tutar.indirimli{color:var(--yesil)}
+.fiyat-satir2 .birim{font-size:10.5px;color:var(--gri-acik);margin-left:5px;font-weight:400}
+.um-secimler{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:6px}
+.um-toplam{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--cizgi);padding-top:14px;margin-top:8px}
+.um-toplam .t{font-family:'Montserrat',sans-serif;font-weight:800;font-size:22px}
+.um-toplam .kazanc{font-size:11.5px;color:var(--yesil);font-weight:600}
+.modal-kutu .btn{width:100%;margin-top:14px}
+
+/* ---------- Toast ---------- */
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(120px);background:var(--koyu);color:#fff;border-radius:99px;padding:13px 24px;font-size:13px;font-weight:600;box-shadow:0 24px 50px -12px rgba(20,26,33,.55);z-index:98;transition:.3s cubic-bezier(.4,0,.2,1);display:flex;align-items:center;gap:10px;max-width:min(560px,92vw)}
+.toast.acik{transform:translateX(-50%) translateY(0)}
+.toast .tik{width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.18);display:grid;place-items:center;flex-shrink:0;font-size:12px}
+.toast.hatali{background:var(--kirmizi)}
+
+@media(max-width:1020px){
+  nav.sekmeler{display:none}
+  .ara{display:none}
+}
+@media(max-width:960px){
+  .auth-sahne{grid-template-columns:1fr}
+  .hesap-sahne{grid-template-columns:1fr}
+  .profil-kart{position:static}
+  .odeme-grid{grid-template-columns:1fr}
+  .siparis-ust{grid-template-columns:auto 1fr auto;row-gap:8px}
+  .footer-ic{grid-template-columns:1fr 1fr}
+  .um-secimler{grid-template-columns:1fr}
+  .cam-bar{padding-left:18px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<!-- Demo çubuğu -->
+<div class="demo-bar">
+  <span class="etiketcik">Önizleme</span>
+  <button class="aktif" data-g="magaza" onclick="gorunumSec('magaza')">Vitrin</button>
+  <button data-g="auth" onclick="gorunumSec('auth')">Kayıt / Giriş</button>
+  <button data-g="hesap" onclick="gorunumSec('hesap')">Hesabım</button>
+  <a class="buton" href="admin.html">Yönetim Paneli →</a>
+  <span style="flex:1"></span>
+  <button onclick="demoSifirla()" title="Tüm demo verilerini ilk haline döndürür">↺ Demoyu Sıfırla</button>
+</div>
+
+<div class="serit" id="duyuruSerit"></div>
+
+<!-- Cam menü barı -->
+<div class="nav-sar">
+  <header class="cam-bar">
+    <div class="logo" onclick="gorunumSec('magaza')">DOĞAN <em>OPTİK</em></div>
+    <nav class="sekmeler">
+      <a class="secili" data-nav onclick="navFiltre('hepsi',this)">Lensler</a>
+      <a data-nav onclick="navFiltre('renkli',this)">Renkli</a>
+      <a data-nav onclick="navFiltre('bakim',this)">Bakım</a>
+      <a data-nav onclick="markalaraGit()">Markalar</a>
+      <a onclick="sonSiparisiTekrarla()">Tekrar Sipariş</a>
+      <!-- GÖZLÜK MODÜLÜ: askıda -->
+      <a class="gozluk-modul" data-nav onclick="navFiltre('gozluk',this)">Gözlük</a>
+    </nav>
+    <div class="header-arac">
+      <div class="ara">
+        <svg class="ik" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="aramaKutusu" placeholder="Marka veya lens ara…" oninput="aramaYap(this.value)">
+      </div>
+      <button class="ikon-btn" title="Sepet" onclick="sepetAc()">
+        <svg class="ik" viewBox="0 0 24 24"><path d="M6 7h12l-1 12H7L6 7Z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+        SEPET <span class="rozet" id="sepetRozet" style="display:none">0</span>
+      </button>
+      <div class="hesap-pill" id="hesapPill" onclick="hesabaGit()">
+        <span class="avatar" id="hesapPillAvatar">→</span><b id="hesapPillAd">GİRİŞ</b>
+      </div>
+    </div>
+  </header>
+</div>
+
+<!-- ============ VİTRİN ============ -->
+<div id="magaza" class="gorunum aktif">
+  <section class="hero">
+    <div class="ust-not"><i></i>Reçeteni kaydet, iki tıkla tekrar sipariş ver</div>
+    <h1 class="baslik">Vizyonunu Keşfet</h1>
+    <p>Her yaşam tarzına uygun, distribütör garantili premium lensler. Değerlerini bir kez kaydet; sonraki her siparişin saniyeler sürsün.</p>
+  </section>
+
+  <div class="kategori-serit" id="katSerit"></div>
+
+  <section class="bolum" id="lensler">
+    <div class="bolum-baslik">
+      <h2 id="vitrinBaslik">Tüm Ürünler</h2>
+      <span class="adet" id="vitrinAdet"></span>
+    </div>
+    <div class="filtreler">
+      <span id="tipCipler" style="display:contents"></span>
+      <select class="secim" id="markaSec" onchange="markaSecildi(this.value)"></select>
+      <select class="secim" id="siralaSec" onchange="siralaSecildi(this.value)">
+        <option value="onerilen">Sırala: Önerilen</option>
+        <option value="artan">Fiyat: Düşükten Yükseğe</option>
+        <option value="azalan">Fiyat: Yüksekten Düşüğe</option>
+        <option value="ad">İsme Göre (A→Z)</option>
+      </select>
+    </div>
+    <div class="grid" id="urunGrid"></div>
+    <div class="hepsi-btn"><a class="btn cerceve" onclick="navFiltre('hepsi')">Tüm Lensleri Gör</a></div>
+  </section>
+
+  <div class="markalar" id="markaPilller"></div>
+
+  <div class="guven">
+    <div class="guven-ic">
+      <div class="guven-madde"><div class="nokta"><svg class="ik" viewBox="0 0 24 24"><path d="M4 12h10l3 3h3v-6l-4-4H4v7Z"/><circle cx="8" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg></div><div><b>Hızlı Kargo</b><br>15:00'a kadar aynı gün</div></div>
+      <div class="guven-madde"><div class="nokta"><svg class="ik" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div><div><b>Güvenli Ödeme</b><br>6 aya varan taksit</div></div>
+      <div class="guven-madde"><div class="nokta"><svg class="ik" viewBox="0 0 24 24"><path d="M12 3 4 7v5c0 5 3.5 8 8 9 4.5-1 8-4 8-9V7l-8-4Z"/></svg></div><div><b>%100 Orijinal</b><br>Distribütör garantili</div></div>
+      <div class="guven-madde"><div class="nokta"><svg class="ik" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg></div><div><b>Tek Tık Tekrar</b><br>Reçeten hep kayıtlı</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ KAYIT / GİRİŞ ============ -->
+<div id="auth" class="gorunum">
+  <div class="auth-sahne">
+    <div class="auth-yan">
+      <h2>Bir kez kaydol,<br>her seferinde <em>saniyeler</em> içinde sipariş ver.</h2>
+      <p>Hesabın; reçeteni, adresini ve tüm sipariş geçmişini güvenle saklar.</p>
+      <div class="auth-fayda">
+        <div class="madde"><div class="no">01</div><div><b>Reçeten kayıtlı kalır</b><span>Sağ / sol göz değerlerin hesabında — her siparişte yeniden yazmazsın.</span></div></div>
+        <div class="madde"><div class="no">02</div><div><b>Tek tıkla tekrar sipariş</b><span>Lensin bitmek üzereyken son siparişini aynen yenile.</span></div></div>
+        <div class="madde"><div class="no">03</div><div><b>Sipariş takibi</b><span>Ödeme, hazırlık ve kargo durumunu anlık gör.</span></div></div>
+        <div class="madde"><div class="no">04</div><div><b>Hatırlatma</b><span>Lens değişim günün yaklaşınca e-posta ile haber verelim.</span></div></div>
+      </div>
+      <div class="alt-not">Verileriniz KVKK kapsamında korunur, üçüncü kişilerle paylaşılmaz.</div>
+    </div>
+
+    <div class="auth-form" id="authForm">
+      <div class="auth-sekme">
+        <button id="sekmeKayit" class="aktif" onclick="authModu('kayit')">Üye Ol</button>
+        <button id="sekmeGiris" onclick="authModu('giris')">Giriş Yap</button>
+      </div>
+      <div class="demo-ipucu">Demo hesap: <b>ayse@ornek.com</b> · şifre <b>demo1234</b></div>
+      <div class="hata-not" id="authHata"></div>
+
+      <!-- KAYIT -->
+      <div class="kayit-panel">
+        <div class="form-ikili">
+          <div class="form-alan"><label>Ad</label><input id="kAd" type="text" placeholder="Ayşe"></div>
+          <div class="form-alan"><label>Soyad</label><input id="kSoyad" type="text" placeholder="Yılmaz"></div>
+        </div>
+        <div class="form-alan">
+          <label>E-posta</label><input id="kEposta" type="email" placeholder="ayse@ornek.com">
+          <div class="ipucu">Sipariş onayı ve kargo bildirimleri bu adrese gelir.</div>
+        </div>
+        <div class="form-alan"><label>Telefon <span style="color:var(--gri-acik);font-weight:400">(isteğe bağlı)</span></label><input id="kTel" type="tel" placeholder="05__ ___ __ __"></div>
+        <div class="form-alan"><label>Şifre</label><input id="kSifre" type="password" placeholder="En az 8 karakter"></div>
+        <div class="onay-satir"><input id="kKvkk" type="checkbox"><span><b>KVKK Aydınlatma Metni</b>'ni okudum, üyelik sözleşmesini kabul ediyorum.</span></div>
+        <div class="onay-satir" style="margin-top:-10px"><input id="kBulten" type="checkbox"><span>Kampanya ve lens hatırlatma e-postaları almak istiyorum.</span></div>
+        <button class="btn dolu" onclick="kayitOl()">Hesabımı Oluştur</button>
+      </div>
+
+      <!-- GİRİŞ -->
+      <div class="giris-panel">
+        <div class="form-alan"><label>E-posta</label><input id="gEposta" type="email" placeholder="ayse@ornek.com"></div>
+        <div class="form-alan"><label>Şifre</label><input id="gSifre" type="password" placeholder="••••••••" onkeydown="if(event.key==='Enter')girisYap()"></div>
+        <button class="btn dolu" onclick="girisYap()">Giriş Yap</button>
+      </div>
+
+      <!-- E-POSTA DOĞRULAMA (demo) -->
+      <div class="dogrulama-panel">
+        <div class="zarf"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></div>
+        <h3>E-postanı doğrula</h3>
+        <p><b id="dogrulamaEposta"></b> adresine tek kullanımlık doğrulama bağlantısı gönderdik.<br>Doğrulamadan sipariş tamamlanamaz.</p>
+        <button class="btn dolu" onclick="dogrulaDemo()">Doğrulama Bağlantısına Tıkladım (demo)</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ HESABIM ============ -->
+<div id="hesap" class="gorunum">
+  <div class="hesap-sahne">
+    <aside class="profil-kart">
+      <div class="profil-ust" id="profilUst"></div>
+      <div class="profil-menu">
+        <a class="secili">Siparişlerim</a>
+        <a onclick="receteAc()">Reçetem & Lens Değerlerim</a>
+        <a onclick="gorunumSec('magaza')">Alışverişe Devam</a>
+        <a style="color:var(--kirmizi)" onclick="cikisYap()">Çıkış Yap</a>
+      </div>
+    </aside>
+    <div class="hesap-icerik">
+      <div class="ozet-grid" id="hesapOzet"></div>
+      <div class="recete-kart">
+        <div class="rec-baslik">
+          <h3>Kayıtlı Reçetem</h3>
+          <a class="baglanti" onclick="receteAc()">Güncelle</a>
+        </div>
+        <div class="rec-grid" id="receteKutu"></div>
+      </div>
+      <div>
+        <div class="bolum-baslik" style="margin-bottom:12px;justify-content:flex-start">
+          <h2 style="font-size:16px">Sipariş Geçmişim</h2>
+          <span class="adet" id="siparisAdet"></span>
+        </div>
+        <div id="siparisListe"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ ÖDEME ============ -->
+<div id="odeme" class="gorunum">
+  <div class="odeme-sahne">
+    <div id="odemeAkis">
+      <div class="adimlar">
+        <div class="adim aktif"><span class="no">1</span>Sepet<span class="cizgi"></span></div>
+        <div class="adim aktif"><span class="no">2</span>Teslimat & Ödeme<span class="cizgi"></span></div>
+        <div class="adim"><span class="no">3</span>Onay</div>
+      </div>
+      <div class="odeme-grid">
+        <div style="display:flex;flex-direction:column;gap:20px">
+          <div class="panel">
+            <h3>Teslimat Bilgileri</h3>
+            <div class="form-ikili">
+              <div class="form-alan"><label>Ad</label><input id="oAd"></div>
+              <div class="form-alan"><label>Soyad</label><input id="oSoyad"></div>
+            </div>
+            <div class="form-ikili">
+              <div class="form-alan"><label>Telefon</label><input id="oTel" placeholder="05__ ___ __ __"></div>
+              <div class="form-alan"><label>İl / İlçe</label><input id="oSehir" placeholder="İstanbul / Beşiktaş"></div>
+            </div>
+            <div class="form-alan"><label>Adres</label><textarea id="oAdres" rows="2" placeholder="Mahalle, sokak, no, daire"></textarea></div>
+          </div>
+          <div class="panel">
+            <h3>Ödeme — Kredi / Banka Kartı</h3>
+            <div class="form-alan"><label>Kart Üzerindeki İsim</label><input id="oKartAd" placeholder="AYŞE YILMAZ"></div>
+            <div class="form-alan"><label>Kart Numarası</label><input id="oKartNo" inputmode="numeric" placeholder="•••• •••• •••• ••••" maxlength="19" oninput="kartBicimle(this)"></div>
+            <div class="form-ikili">
+              <div class="form-alan"><label>Son Kullanma</label><input id="oSkt" placeholder="AA/YY" maxlength="5" oninput="sktBicimle(this)"></div>
+              <div class="form-alan"><label>CVC</label><input id="oCvc" inputmode="numeric" placeholder="•••" maxlength="4"></div>
+            </div>
+            <div class="form-alan">
+              <label>Taksit</label>
+              <select id="oTaksit">
+                <option value="1">Tek çekim</option>
+                <option value="2">2 taksit</option>
+                <option value="3">3 taksit</option>
+                <option value="6">6 taksit</option>
+              </select>
+            </div>
+            <div class="iyzico-not">
+              <svg class="ik" viewBox="0 0 24 24" style="flex-shrink:0"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+              <span><b>Demo ödeme:</b> Bu ekran tasarım önizlemesidir; karttan ücret çekilmez. Gerçek sürümde ödeme iyzico güvenli sayfasında tamamlanır — kart bilgisi sitemizde tutulmaz.</span>
+            </div>
+          </div>
+        </div>
+        <div class="panel" style="position:sticky;top:100px">
+          <h3>Sipariş Özeti</h3>
+          <div id="odemeOzet"></div>
+          <button class="btn dolu" style="width:100%;margin-top:16px" onclick="odemeTamamla()">Ödemeyi Tamamla</button>
+          <button class="btn cerceve kucukk" style="width:100%;margin-top:10px" onclick="gorunumSec('magaza');sepetAc()">← Sepete Dön</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="odemeBasari" style="display:none">
+      <div class="basari-panel">
+        <div class="halka"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4 10-11"/></svg></div>
+        <h2>Siparişin alındı! 🎉</h2>
+        <p>Sipariş onayını <b id="basariEposta"></b> adresine gönderdik.<br>Kargoya verildiğinde ayrıca haber vereceğiz.</p>
+        <div class="sip-no" id="basariNo"></div><br>
+        <a class="btn dolu" onclick="gorunumSec('hesap')">Siparişlerime Git</a>
+        <a class="btn cerceve" style="margin-left:8px" onclick="gorunumSec('magaza')">Alışverişe Devam</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-ic">
+    <div>
+      <div class="logo">DOĞAN <em>OPTİK</em></div>
+      <p style="font-size:12.5px;margin-top:14px;max-width:30ch">1998'den beri aynı vitrin, aynı güven. Şimdi lens siparişin cebinde.</p>
+    </div>
+    <div><h4>Lensler</h4>
+      <a onclick="navFiltre('gunluk')">Günlük Lens</a>
+      <a onclick="navFiltre('aylik')">Aylık Lens</a>
+      <a onclick="navFiltre('torik')">Torik Lens</a>
+      <a onclick="navFiltre('renkli')">Renkli Lens</a>
+      <a onclick="navFiltre('bakim')">Bakım Ürünleri</a>
+    </div>
+    <div><h4>Hesap</h4>
+      <a onclick="gorunumSec('auth')">Üye Ol / Giriş Yap</a>
+      <a onclick="hesabaGit()">Siparişlerim</a>
+      <a onclick="sonSiparisiTekrarla()">Tekrar Sipariş</a>
+      <a onclick="hesabaGit()">Reçetem</a>
+    </div>
+    <div><h4>Kurumsal</h4>
+      <a>Hakkımızda</a><a>İade & Değişim</a><a>Gizlilik & KVKK</a><a>İletişim</a>
+    </div>
+  </div>
+  <div class="footer-alt">© 2026 Doğan Optik — Tüm hakları saklıdır · Mesafeli Satış Sözleşmesi · KVKK</div>
+</footer>
+
+<!-- ============ SEPET ÇEKMECESİ ============ -->
+<div class="cekmece-fon" id="sepetFon" onclick="sepetKapat()"></div>
+<aside class="cekmece" id="sepetCekmece">
+  <div class="cekmece-baslik">
+    <h3>Sepetim <span id="sepetBaslikAdet" style="color:var(--gri);font-weight:400;font-size:12px;text-transform:none;letter-spacing:0"></span></h3>
+    <button class="cekmece-kapat" onclick="sepetKapat()">✕</button>
+  </div>
+  <div class="sepet-govde" id="sepetListe"></div>
+  <div class="sepet-alt" id="sepetAlt"></div>
+</aside>
+
+<!-- ============ ÜRÜN MODALI ============ -->
+<div class="modal-fon" id="urunModal" onclick="if(event.target===this)urunModalKapat()">
+  <div class="modal-kutu">
+    <button class="modal-kapat" onclick="urunModalKapat()">✕</button>
+    <div class="um-ust">
+      <div class="um-foto" id="umFoto"></div>
+      <div>
+        <div class="marka" id="umMarka"></div>
+        <h3 id="umAd"></h3>
+        <div class="urun-not" id="umNot"></div>
+      </div>
+    </div>
+    <div class="um-fiyatlar" id="umFiyatlar"></div>
+    <div class="um-secimler" id="umReceteAlan"></div>
+    <div class="form-alan">
+      <label>Kutu Adedi</label>
+      <select id="umAdet" onchange="umToplamGuncelle()">
+        <option>1</option><option>2</option><option>3</option><option>4</option><option>6</option><option>8</option>
+      </select>
+    </div>
+    <div class="um-toplam">
+      <div><span style="font-size:12px;color:var(--gri)">Toplam</span><br><span class="t" id="umToplam"></span></div>
+      <span class="kazanc" id="umKazanc"></span>
+    </div>
+    <button class="btn dolu" onclick="modaldanSepeteEkle()">Sepete Ekle</button>
+  </div>
+</div>
+
+<!-- ============ REÇETE MODALI ============ -->
+<div class="modal-fon" id="receteModal" onclick="if(event.target===this)receteKapat()">
+  <div class="modal-kutu" style="max-width:440px">
+    <button class="modal-kapat" onclick="receteKapat()">✕</button>
+    <h3 style="font-size:17px;font-weight:800;margin-bottom:4px;letter-spacing:.03em">Reçetemi Güncelle</h3>
+    <p style="font-size:13px;color:var(--gri);margin-bottom:18px">Değerlerin hesabında saklanır; yeni siparişlerde otomatik seçili gelir.</p>
+    <div class="form-ikili">
+      <div class="form-alan"><label>Sağ Göz (SPH)</label><select id="rSag"></select></div>
+      <div class="form-alan"><label>Sol Göz (SPH)</label><select id="rSol"></select></div>
+    </div>
+    <div class="form-ikili">
+      <div class="form-alan"><label>BC</label><input id="rBc" placeholder="8.4"></div>
+      <div class="form-alan"><label>DIA</label><input id="rDia" placeholder="14.0"></div>
+    </div>
+    <button class="btn dolu" style="width:100%" onclick="receteKaydetForm()">Kaydet</button>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"><span class="tik">✓</span><span id="toastMetin"></span></div>
+
+<script src="ortak.js"></script>
+<script>
+/* =========================================================
+   DOĞAN OPTİK — VİTRİN (tam etkileşimli demo)
+   Veri katmanı: ortak.js (localStorage). Supabase'e geçişte
+   yalnızca ortak.js'teki fonksiyonlar değişecek.
+   ========================================================= */
+doTohumla();
+gozlukUygula();
+
+/* ---------- Görsel sistem: lens tonları + ikonlar ---------- */
+const TIP_TON = {
+  gunluk:    ['#EAF3F9','#AECBDD','#8FB4CB'],
+  onbes:     ['#EAF6F0','#A8D3BC','#88BEA4'],
+  aylik:     ['#E9EFF6','#9FBCD4','#7FA5C2'],
+  renkli:    ['#FBF2E4','#E0BE8C','#CBA265'],
+  torik:     ['#F2EDF5','#BFA9CF','#A78EBB'],
+  multifokal:['#EEF0F3','#AAB6C4','#8E9DAE'],
+  bakim:     ['#EAF3F9','#AECBDD','#8FB4CB'],
+  gozluk:    ['#EEF0F3','#AAB6C4','#8E9DAE']
+};
+const OZELLIK_IKON = {
+  konfor:'<svg viewBox="0 0 24 24"><path d="M12 20s-7-4.6-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.4-7 10-7 10Z"/></svg>',
+  odak:  '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2.4"/></svg>',
+  nem:   '<svg viewBox="0 0 24 24"><path d="M12 3.5s6 6.2 6 10.5a6 6 0 0 1-12 0C6 9.7 12 3.5 12 3.5Z"/></svg>',
+  uv:    '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5 5l1.8 1.8M17.2 17.2 19 19M19 5l-1.8 1.8M6.8 17.2 5 19"/></svg>',
+  hijyen:'<svg viewBox="0 0 24 24"><path d="M12 3 4 7v5c0 5 3.5 8 8 9 4.5-1 8-4 8-9V7l-8-4Z"/><path d="m9 12 2 2 4-4.5"/></svg>',
+  pratik:'<svg viewBox="0 0 24 24"><path d="m5 13 4 4 10-11"/></svg>'
+};
+function ozellikSeridi(u){
+  const liste = u.lens
+    ? [['konfor','Konfor'],['odak','Odak'],['nem','Nem'],['uv','UV Koruma']]
+    : [['hijyen','Hijyen'],['nem','Nemlendirme'],['pratik','Pratik']];
+  return `<div class="ozellikler">${liste.map(([ik, ad]) =>
+    `<div class="ozellik">${OZELLIK_IKON[ik]}<span>${ad}</span></div>`).join('')}</div>`;
+}
+
+const GOZLUK_SVG = {
+  pera:     `<svg viewBox="0 0 400 140" fill="none" style="width:82%"><path d="M25 60 Q25 35 60 35 L145 35 Q172 35 175 60 Q177 80 165 93 Q150 106 110 106 Q62 106 42 90 Q25 77 25 60Z" stroke="#66727F" stroke-width="8" fill="rgba(102,114,127,.07)"/><path d="M375 60 Q375 35 340 35 L255 35 Q228 35 225 60 Q223 80 235 93 Q250 106 290 106 Q338 106 358 90 Q375 77 375 60Z" stroke="#66727F" stroke-width="8" fill="rgba(102,114,127,.07)"/><path d="M175 55 Q200 44 225 55" stroke="#66727F" stroke-width="8"/><path d="M25 52 L8 44 M375 52 L392 44" stroke="#66727F" stroke-width="8"/></svg>`,
+  cihangir: `<svg viewBox="0 0 400 140" fill="none" style="width:82%"><circle cx="105" cy="70" r="42" stroke="#8E7455" stroke-width="8" fill="rgba(142,116,85,.07)"/><circle cx="295" cy="70" r="42" stroke="#8E7455" stroke-width="8" fill="rgba(142,116,85,.07)"/><path d="M147 62 Q200 46 253 62" stroke="#8E7455" stroke-width="8"/><path d="M63 62 L14 50 M337 62 L386 50" stroke="#8E7455" stroke-width="8"/></svg>`
+};
+function urunGorsel(u, olcek){
+  if(u.tip === 'gozluk') return GOZLUK_SVG[u.id] || '';
+  const [t1, t2, t3] = TIP_TON[u.tip] || TIP_TON.aylik;
+  const stil = `--t1:${t1};--t2:${t2};--t3:${t3};${olcek ? `transform:scale(${olcek})` : ''}`;
+  if(u.tip === 'bakim')
+    return `<div class="sise" style="${stil}"><div class="sise-etiket">${u.yazi || u.ad}</div></div>`;
+  return `<div class="lens-cap" style="${stil}"></div>`;
+}
+
+/* ---------- Görünüm geçişi ---------- */
+function gorunumSec(id){
+  if(id === 'hesap' && !oturumKullanici()){ id = 'auth'; }
+  document.querySelectorAll('body > .gorunum').forEach(g => g.classList.remove('aktif'));
+  document.getElementById(id).classList.add('aktif');
+  document.querySelectorAll('.demo-bar button[data-g]').forEach(b =>
+    b.classList.toggle('aktif', b.dataset.g === id));
+  if(id === 'hesap') hesapCiz();
+  if(id === 'odeme') odemeCiz();
+  window.scrollTo({top:0});
+}
+function hesabaGit(){ gorunumSec(oturumKullanici() ? 'hesap' : 'auth'); }
+
+/* ---------- Duyuru şeridi ---------- */
+document.getElementById('duyuruSerit').innerHTML = ayarlar().serit;
+
+/* ---------- Vitrin: filtre + arama + sıralama ---------- */
+let filtre = {tip:'hepsi', marka:'hepsi', arama:'', sirala:'onerilen'};
+
+function aktifUrunler(){
+  const gozlukAcik = !!ayarlar().gozluk;
+  return URUNLER.map(urunEfektif).filter(u =>
+    urunAktifMi(u) && (u.tip !== 'gozluk' || gozlukAcik));
+}
+function filtreliUrunler(){
+  let liste = aktifUrunler();
+  if(filtre.tip !== 'hepsi') liste = liste.filter(u => u.tip === filtre.tip);
+  if(filtre.marka !== 'hepsi') liste = liste.filter(u => u.marka === filtre.marka);
+  if(filtre.arama){
+    const a = filtre.arama.toLowerCase();
+    liste = liste.filter(u => (u.ad + ' ' + u.marka + ' ' + u.not).toLowerCase().includes(a));
+  }
+  if(filtre.sirala === 'artan')  liste.sort((x,y) => x.fiyat - y.fiyat);
+  if(filtre.sirala === 'azalan') liste.sort((x,y) => y.fiyat - x.fiyat);
+  if(filtre.sirala === 'ad')     liste.sort((x,y) => x.ad.localeCompare(y.ad, 'tr'));
+  return liste;
+}
+function etiketHTML(u){
+  if(u.etiket === 'cok-satan') return '<span class="etiket cok-satan">Çok Satan</span>';
+  if(u.etiket === 'yeni')      return '<span class="etiket yeni">Yeni</span>';
+  if(u.etiket === 'indirim')   return `<span class="etiket">${u.cokAdet} Kutuda İndirim</span>`;
+  return '';
+}
+function vitrinCiz(){
+  /* kategori çipleri */
+  const sira = ayarlar().kategoriSira.filter(t => TIP_TON[t]);
+  document.getElementById('katSerit').innerHTML = sira.map(t => {
+    const adet = aktifUrunler().filter(u => u.tip === t).length;
+    const [, t2] = TIP_TON[t];
+    return `<button class="kat-kart ${filtre.tip===t?'secili':''}" onclick="navFiltre('${t}')">
+      <span class="damla" style="background:${t2}"></span>
+      <b>${TIP_AD[t]}</b><span>${adet}</span></button>`;
+  }).join('');
+
+  /* tip çipleri */
+  const tipler = [['hepsi','Tümü'], ...sira.map(t => [t, TIP_AD[t]])];
+  document.getElementById('tipCipler').innerHTML = tipler.map(([t, ad]) =>
+    `<button class="cip ${filtre.tip===t?'secili':''}" onclick="navFiltre('${t}')">${ad}</button>`).join(' ');
+
+  /* marka seçici + pilleri */
+  const markalar = [...new Set(aktifUrunler().map(u => u.marka))].sort((a,b)=>a.localeCompare(b,'tr'));
+  document.getElementById('markaSec').innerHTML =
+    `<option value="hepsi">Marka: Tümü</option>` +
+    markalar.map(m => `<option ${filtre.marka===m?'selected':''}>${m}</option>`).join('');
+  document.getElementById('markaPilller').innerHTML = markalar.map(m =>
+    `<div class="marka-pill ${filtre.marka===m?'secili':''}" onclick="markaSecildi('${m}');markalaraGit()">${m.toUpperCase()}</div>`).join('');
+
+  /* başlık + grid */
+  const liste = filtreliUrunler();
+  document.getElementById('vitrinBaslik').textContent =
+    filtre.tip === 'hepsi' ? (filtre.arama ? `"${filtre.arama}" için sonuçlar` : 'Tüm Ürünler') : TIP_AD[filtre.tip];
+  document.getElementById('vitrinAdet').textContent = `${liste.length} ürün`;
+  document.getElementById('urunGrid').innerHTML = liste.length ? liste.map(u => `
+    <div class="urun" onclick="urunModalAc('${u.id}')">
+      ${etiketHTML(u)}
+      <div class="urun-ust">
+        <div class="foto">${urunGorsel(u)}</div>
+        <div class="urun-baslik">
+          <div class="marka">${u.marka}</div>
+          <div class="urun-ad">${u.ad}</div>
+          <div class="urun-not">${u.not}</div>
+        </div>
+      </div>
+      ${ozellikSeridi(u)}
+      <div class="fiyat-satir">
+        <div>
+          <div class="fiyat">${paraTL(u.fiyat)}<span class="birim">/ ${u.lens?'kutu':'adet'}</span></div>
+          ${u.cokFiyat ? `<div class="coklu-not">${u.cokAdet}+ alımda ${paraTL(u.cokFiyat)}</div>` : ''}
+        </div>
+        <button class="btn dolu sepet-btn">Sepete Ekle</button>
+      </div>
+    </div>`).join('') :
+    `<div class="bos-durum"><div class="buyuk-ikon"><svg class="ik" viewBox="0 0 24 24" style="width:26px;height:26px"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></div><b>Sonuç bulunamadı</b><br>Farklı bir arama ya da filtre dene.</div>`;
+}
+function navFiltre(tip, navEl){
+  filtre.tip = tip; filtre.arama = '';
+  document.getElementById('aramaKutusu').value = '';
+  document.querySelectorAll('nav.sekmeler a[data-nav]').forEach(a => a.classList.remove('secili'));
+  if(navEl) navEl.classList.add('secili');
+  gorunumSec('magaza');
+  vitrinCiz();
+  document.getElementById('lensler').scrollIntoView({behavior:'smooth'});
+}
+function markaSecildi(m){ filtre.marka = m; vitrinCiz(); }
+function siralaSecildi(s){ filtre.sirala = s; vitrinCiz(); }
+function aramaYap(v){
+  filtre.arama = v.trim();
+  if(!document.getElementById('magaza').classList.contains('aktif')) gorunumSec('magaza');
+  vitrinCiz();
+}
+function markalaraGit(){
+  gorunumSec('magaza');
+  document.getElementById('markaPilller').scrollIntoView({behavior:'smooth', block:'center'});
+}
+
+/* ---------- Ürün modalı ---------- */
+let modalUrunId = null;
+function urunModalAc(id){
+  const u = urunEfektif(urunGetir(id)); modalUrunId = id;
+  document.getElementById('umFoto').innerHTML = urunGorsel(u, .8);
+  document.getElementById('umMarka').textContent = u.marka;
+  document.getElementById('umAd').textContent = u.ad;
+  document.getElementById('umNot').textContent = u.not;
+  document.getElementById('umFiyatlar').innerHTML =
+    `<div class="fiyat-satir2"><span class="kutu-ad"><b>1 ${u.lens?'kutu':'adet'}</b></span><span class="tutar">${paraTL(u.fiyat)}</span></div>` +
+    (u.cokFiyat ? `<div class="fiyat-satir2" style="border-top:1px dashed var(--cizgi)"><span class="kutu-ad"><b>${u.cokAdet}+ ${u.lens?'kutu':'adet'}</b> alımında</span><span class="tutar indirimli">${paraTL(u.cokFiyat)}<span class="birim">/ ${u.lens?'kutu':'adet'}</span></span></div>` : '');
+  const kul = oturumKullanici();
+  if(u.lens){
+    const sec = sphSecenekleri().map(s => `<option>${s}</option>`).join('');
+    document.getElementById('umReceteAlan').innerHTML =
+      `<div class="form-alan"><label>Sağ Göz (SPH)</label><select id="umSag">${sec}</select></div>
+       <div class="form-alan"><label>Sol Göz (SPH)</label><select id="umSol">${sec}</select></div>`;
+    if(kul && kul.recete){
+      document.getElementById('umSag').value = kul.recete.sag;
+      document.getElementById('umSol').value = kul.recete.sol;
+    }
+  } else {
+    document.getElementById('umReceteAlan').innerHTML = '';
+  }
+  document.getElementById('umAdet').value = u.cokAdet ? String(u.cokAdet) : '1';
+  umToplamGuncelle();
+  document.getElementById('urunModal').classList.add('acik');
+}
+function urunModalKapat(){ document.getElementById('urunModal').classList.remove('acik'); }
+function umToplamGuncelle(){
+  const u = urunEfektif(urunGetir(modalUrunId));
+  const adet = parseInt(document.getElementById('umAdet').value, 10);
+  const birim = birimFiyat(u, adet);
+  document.getElementById('umToplam').textContent = paraTL(birim * adet);
+  document.getElementById('umKazanc').textContent =
+    (birim < u.fiyat) ? `birim ${paraTL(birim)} — ${paraTL((u.fiyat - birim) * adet)} kazanç` : '';
+}
+function modaldanSepeteEkle(){
+  const u = urunGetir(modalUrunId);
+  const adet = parseInt(document.getElementById('umAdet').value, 10);
+  const sag = u.lens ? document.getElementById('umSag').value : null;
+  const sol = u.lens ? document.getElementById('umSol').value : null;
+  sepeteEkle(u.id, adet, sag, sol);
+  urunModalKapat();
+  sepetAc();
+}
+
+/* ---------- Sepet ---------- */
+function sepetOku(){ return doOku(DO_KEY.sepet, []); }
+function sepetYaz(s){ doYaz(DO_KEY.sepet, s); sepetRozetGuncelle(); }
+function sepeteEkle(id, adet, sag, sol){
+  const sepet = sepetOku();
+  const mevcut = sepet.find(s => s.id === id && s.sag === sag && s.sol === sol);
+  if(mevcut) mevcut.adet += adet; else sepet.push({id, adet, sag, sol});
+  sepetYaz(sepet);
+  toastGoster(`${urunGetir(id).ad} sepete eklendi`);
+}
+function sepetRozetGuncelle(){
+  const adet = sepetOku().reduce((t,s) => t + s.adet, 0);
+  const r = document.getElementById('sepetRozet');
+  r.textContent = adet; r.style.display = adet ? 'grid' : 'none';
+}
+function sepetAc(){
+  sepetCiz();
+  document.getElementById('sepetFon').classList.add('acik');
+  document.getElementById('sepetCekmece').classList.add('acik');
+}
+function sepetKapat(){
+  document.getElementById('sepetFon').classList.remove('acik');
+  document.getElementById('sepetCekmece').classList.remove('acik');
+}
+function sepetAdetDegis(i, fark){
+  const sepet = sepetOku();
+  sepet[i].adet += fark;
+  if(sepet[i].adet <= 0) sepet.splice(i, 1);
+  sepetYaz(sepet); sepetCiz();
+}
+function sepetSil(i){
+  const sepet = sepetOku(); sepet.splice(i, 1);
+  sepetYaz(sepet); sepetCiz();
+}
+function sepetCiz(){
+  const sepet = sepetOku();
+  const ay = ayarlar();
+  document.getElementById('sepetBaslikAdet').textContent = sepet.length ? `(${sepet.reduce((t,s)=>t+s.adet,0)} ürün)` : '';
+  if(!sepet.length){
+    document.getElementById('sepetListe').innerHTML =
+      `<div class="bos-durum"><div class="buyuk-ikon"><svg class="ik" viewBox="0 0 24 24" style="width:26px;height:26px"><path d="M6 7h12l-1 12H7L6 7Z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg></div><b>Sepetin boş</b><br>Lensleri keşfetmeye başla.</div>`;
+    document.getElementById('sepetAlt').innerHTML =
+      `<button class="btn dolu" onclick="sepetKapat();gorunumSec('magaza')">Alışverişe Başla</button>`;
+    return;
+  }
+  document.getElementById('sepetListe').innerHTML = sepet.map((s, i) => {
+    const u = urunEfektif(urunGetir(s.id));
+    const birim = birimFiyat(u, s.adet);
+    return `<div class="sepet-satir">
+      <div class="kucuk-foto">${urunGorsel(u, .42)}</div>
+      <div>
+        <b>${u.ad}</b>
+        <span class="alt">${s.sag !== null && s.sag !== undefined ? `Sağ ${s.sag} · Sol ${s.sol} · ` : ''}birim ${paraTL(birim)}</span><br>
+        <span class="adet-step"><button onclick="sepetAdetDegis(${i},-1)">−</button><span>${s.adet}</span><button onclick="sepetAdetDegis(${i},1)">+</button></span>
+        <span class="sepet-sil" onclick="sepetSil(${i})">Kaldır</span>
+      </div>
+      <div class="fiyatx">${paraTL(birim * s.adet)}</div>
+    </div>`;
+  }).join('');
+  const ara = sepetAraToplam(sepet);
+  const kargo = ara >= ay.kargoEsik ? 0 : ay.kargoUcret;
+  document.getElementById('sepetAlt').innerHTML = `
+    <div class="ozet-satir"><span>Ara toplam</span><b>${paraTL(ara)}</b></div>
+    <div class="ozet-satir"><span>Kargo</span>${kargo ? `<b>${paraTL(kargo)}</b>` : '<b class="yesil-yazi">Ücretsiz</b>'}</div>
+    <div class="ozet-satir toplam"><span>Toplam</span><span>${paraTL(ara + kargo)}</span></div>
+    ${kargo ? `<div class="kargo-notu uyari">${paraTL(ay.kargoEsik - ara)} daha ekle, kargo ücretsiz olsun</div>` : `<div class="kargo-notu">✓ Kargo ücretsiz</div>`}
+    <button class="btn dolu" onclick="odemeyeGec()">Ödemeye Geç</button>`;
+}
+function odemeyeGec(){
+  if(!sepetOku().length) return;
+  const kul = oturumKullanici();
+  if(!kul){
+    sepetKapat(); gorunumSec('auth');
+    toastGoster('Siparişi tamamlamak için giriş yap veya üye ol', true);
+    return;
+  }
+  if(!kul.dogrulandi){
+    sepetKapat(); gorunumSec('auth'); dogrulamaGoster(kul.eposta);
+    toastGoster('Sipariş için önce e-postanı doğrula', true);
+    return;
+  }
+  sepetKapat(); gorunumSec('odeme');
+}
+
+/* ---------- Ödeme ---------- */
+function odemeCiz(){
+  const kul = oturumKullanici();
+  if(!kul){ gorunumSec('auth'); return; }
+  document.getElementById('odemeAkis').style.display = '';
+  document.getElementById('odemeBasari').style.display = 'none';
+  document.getElementById('oAd').value = kul.ad || '';
+  document.getElementById('oSoyad').value = kul.soyad || '';
+  document.getElementById('oTel').value = kul.telefon || '';
+  document.getElementById('oSehir').value = kul.sehir || '';
+  document.getElementById('oAdres').value = kul.adres || '';
+  const sepet = sepetOku(); const ay = ayarlar();
+  const ara = sepetAraToplam(sepet);
+  const kargo = ara >= ay.kargoEsik ? 0 : ay.kargoUcret;
+  document.getElementById('odemeOzet').innerHTML =
+    sepet.map(s => {
+      const u = urunEfektif(urunGetir(s.id));
+      return `<div class="ozet-satir"><span>${u.ad} ×${s.adet}</span><b>${paraTL(birimFiyat(u,s.adet)*s.adet)}</b></div>`;
+    }).join('') +
+    `<div class="ozet-satir"><span>Kargo</span>${kargo ? `<b>${paraTL(kargo)}</b>` : '<b class="yesil-yazi">Ücretsiz</b>'}</div>
+     <div class="ozet-satir toplam"><span>Toplam</span><span>${paraTL(ara + kargo)}</span></div>`;
+}
+function kartBicimle(el){
+  el.value = el.value.replace(/\D/g,'').slice(0,16).replace(/(.{4})/g,'$1 ').trim();
+}
+function sktBicimle(el){
+  let v = el.value.replace(/\D/g,'').slice(0,4);
+  el.value = v.length > 2 ? v.slice(0,2) + '/' + v.slice(2) : v;
+}
+function odemeTamamla(){
+  const kul = oturumKullanici();
+  const sepet = sepetOku();
+  if(!kul || !sepet.length) return;
+  const zorunlu = [['oAd','ad'],['oSoyad','soyad'],['oAdres','adres'],['oSehir','il / ilçe'],['oKartAd','kart üzerindeki isim'],['oKartNo','kart numarası'],['oSkt','son kullanma'],['oCvc','CVC']];
+  for(const [id, ad] of zorunlu){
+    if(!document.getElementById(id).value.trim()){
+      toastGoster(`Eksik alan: ${ad}`, true); return;
+    }
+  }
+  if(document.getElementById('oKartNo').value.replace(/\s/g,'').length < 16){
+    toastGoster('Kart numarası 16 haneli olmalı', true); return;
+  }
+  /* Kullanıcının adres bilgisini güncelle */
+  kul.telefon = document.getElementById('oTel').value.trim() || kul.telefon;
+  kul.sehir = document.getElementById('oSehir').value.trim();
+  kul.adres = document.getElementById('oAdres').value.trim();
+  kullaniciKaydet(kul);
+  /* Siparişi oluştur */
+  const ay = ayarlar();
+  const ara = sepetAraToplam(sepet);
+  const kargo = ara >= ay.kargoEsik ? 0 : ay.kargoUcret;
+  const taksit = document.getElementById('oTaksit').value;
+  const no = siparisNoUret();
+  siparisKaydet({
+    no, tarih: bugunISO(), eposta: kul.eposta,
+    urunler: sepet.map(s => ({id:s.id, adet:s.adet, sag:s.sag, sol:s.sol})),
+    tutar: ara + kargo,
+    odeme: taksit === '1' ? 'Tek çekim (demo)' : `Kredi kartı · ${taksit} taksit (demo)`,
+    durum: 'yeni'
+  });
+  epostaKaydet(kul.eposta, `Sipariş onayı #${no} — ${siparisUrunOzeti({urunler:sepet})}`, 'siparis');
+  sepetYaz([]);
+  document.getElementById('odemeAkis').style.display = 'none';
+  document.getElementById('odemeBasari').style.display = 'block';
+  document.getElementById('basariNo').textContent = `Sipariş No: #DO-2026-${no}`;
+  document.getElementById('basariEposta').textContent = kul.eposta;
+  window.scrollTo({top:0});
+}
+
+/* ---------- Üyelik ---------- */
+function authModu(mod){
+  const f = document.getElementById('authForm');
+  f.classList.remove('dogrulama-modu');
+  f.classList.toggle('giris-modu', mod === 'giris');
+  document.getElementById('sekmeKayit').classList.toggle('aktif', mod === 'kayit');
+  document.getElementById('sekmeGiris').classList.toggle('aktif', mod === 'giris');
+  authHata('');
+}
+function authHata(m){
+  const el = document.getElementById('authHata');
+  el.textContent = m; el.classList.toggle('acik', !!m);
+}
+function kayitOl(){
+  const ad = document.getElementById('kAd').value.trim();
+  const soyad = document.getElementById('kSoyad').value.trim();
+  const eposta = document.getElementById('kEposta').value.trim().toLowerCase();
+  const tel = document.getElementById('kTel').value.trim();
+  const sifre = document.getElementById('kSifre').value;
+  if(!ad || !soyad) return authHata('Ad ve soyad gerekli.');
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(eposta)) return authHata('Geçerli bir e-posta adresi gir.');
+  if(kullaniciBul(eposta)) return authHata('Bu e-posta ile zaten bir hesap var — Giriş Yap sekmesini kullan.');
+  if(sifre.length < 8) return authHata('Şifre en az 8 karakter olmalı.');
+  if(!document.getElementById('kKvkk').checked) return authHata('Devam etmek için KVKK metnini onaylaman gerekiyor.');
+  kullaniciKaydet({
+    eposta, sifre, ad, soyad, telefon: tel, sehir:'', adres:'',
+    kayit: bugunISO(), dogrulandi: false,
+    bulten: document.getElementById('kBulten').checked, recete: null
+  });
+  epostaKaydet(eposta, "Doğan Optik'e hoş geldin — e-postanı doğrula", 'kayit');
+  dogrulamaGoster(eposta);
+}
+function dogrulamaGoster(eposta){
+  bekleyenDogrulama = eposta;
+  document.getElementById('dogrulamaEposta').textContent = eposta;
+  document.getElementById('authForm').classList.add('dogrulama-modu');
+  authHata('');
+}
+let bekleyenDogrulama = null;
+function dogrulaDemo(){
+  const kul = kullaniciBul(bekleyenDogrulama); if(!kul) return;
+  kul.dogrulandi = true; kullaniciKaydet(kul);
+  oturumAc(kul.eposta);
+  document.getElementById('authForm').classList.remove('dogrulama-modu');
+  hesapPillGuncelle();
+  toastGoster(`Hoş geldin ${kul.ad}! Hesabın doğrulandı.`);
+  gorunumSec(sepetOku().length ? 'odeme' : 'hesap');
+  if(sepetOku().length) sepetAc();
+}
+function girisYap(){
+  const eposta = document.getElementById('gEposta').value.trim().toLowerCase();
+  const sifre = document.getElementById('gSifre').value;
+  const kul = kullaniciBul(eposta);
+  if(!kul || kul.sifre !== sifre) return authHata('E-posta veya şifre hatalı.');
+  if(!kul.dogrulandi){ dogrulamaGoster(eposta); return; }
+  oturumAc(eposta);
+  hesapPillGuncelle();
+  toastGoster(`Tekrar hoş geldin, ${kul.ad}!`);
+  gorunumSec('hesap');
+}
+function cikisYap(){
+  oturumKapat(); hesapPillGuncelle();
+  toastGoster('Oturum kapatıldı');
+  gorunumSec('magaza');
+}
+function hesapPillGuncelle(){
+  const kul = oturumKullanici();
+  document.getElementById('hesapPillAvatar').textContent = kul ? bassHarfler(kul.ad, kul.soyad) : '→';
+  document.getElementById('hesapPillAd').textContent = kul ? `${kul.ad} ${kul.soyad[0]}.` : 'GİRİŞ';
+}
+
+/* ---------- Hesabım ---------- */
+function musteriDurumEtiketi(s){
+  if(s.durum === 'yeni')         return '<span class="durum yeni">Sipariş alındı</span>';
+  if(s.durum === 'hazirlaniyor') return '<span class="durum hazir">Hazırlanıyor</span>';
+  if(s.durum === 'kargolandi')   return s.teslim ? '<span class="durum teslim">Teslim edildi</span>' : '<span class="durum kargo">Kargoda</span>';
+  return '';
+}
+function hesapCiz(){
+  const kul = oturumKullanici(); if(!kul) return;
+  const sips = musteriSiparisleri(kul.eposta).slice().reverse();
+  const toplam = sips.reduce((t,s) => t + s.tutar, 0);
+  const aktif = sips.filter(s => s.durum !== 'kargolandi' || !s.teslim).length;
+  document.getElementById('profilUst').innerHTML = `
+    <div class="avatar">${bassHarfler(kul.ad, kul.soyad)}</div>
+    <b>${kul.ad} ${kul.soyad}</b>
+    <span>${kul.eposta}</span><br>
+    <span style="font-size:11px;color:var(--gri-acik)">Üyelik: ${tarihUzunTR(kul.kayit)}</span>
+    ${sips.length >= 3 ? `<div class="uye-rozet">★ SADIK MÜŞTERİ — ${sips.length}. SİPARİŞ</div>` : ''}`;
+  document.getElementById('hesapOzet').innerHTML = `
+    <div class="ozet-kart"><div class="deger">${sips.length}</div><div class="ad">Toplam sipariş</div></div>
+    <div class="ozet-kart"><div class="deger">${paraTL(toplam)}</div><div class="ad">Toplam alışveriş</div></div>
+    <div class="ozet-kart"><div class="deger">${aktif}</div><div class="ad">Aktif sipariş</div></div>
+    <div class="ozet-kart"><div class="deger" style="color:var(--mavi)">${kul.recete ? '✓' : '—'}</div><div class="ad">${kul.recete ? 'Reçete kayıtlı' : 'Reçete kayıtlı değil'}</div></div>`;
+  document.getElementById('receteKutu').innerHTML = kul.recete ? `
+    <div class="rec-goz"><b>Sağ Göz (OD)</b><div class="degerler"><div class="d"><small>SPH</small><span>${kul.recete.sag}</span></div><div class="d"><small>BC</small><span>${kul.recete.bc||'—'}</span></div><div class="d"><small>DIA</small><span>${kul.recete.dia||'—'}</span></div></div></div>
+    <div class="rec-goz"><b>Sol Göz (OS)</b><div class="degerler"><div class="d"><small>SPH</small><span>${kul.recete.sol}</span></div><div class="d"><small>BC</small><span>${kul.recete.bc||'—'}</span></div><div class="d"><small>DIA</small><span>${kul.recete.dia||'—'}</span></div></div></div>` :
+    `<div class="rec-goz" style="grid-column:1/-1;text-align:center;color:var(--gri)">Henüz reçete kaydetmedin. <a class="baglanti" onclick="receteAc()">Şimdi ekle →</a></div>`;
+  document.getElementById('siparisAdet').textContent = `${sips.length} sipariş`;
+  document.getElementById('siparisListe').innerHTML = sips.length ? sips.map((s, i) => {
+    const ilkUrun = urunGetir(s.urunler[0].id);
+    return `<div class="siparis ${i===0?'acik':''}" onclick="this.classList.toggle('acik')">
+      <div class="siparis-ust">
+        <div class="mini-foto">${urunGorsel(ilkUrun, .44)}</div>
+        <div class="siparis-ad"><b>${siparisUrunOzeti(s)}</b><span>#DO-2026-${s.no} · ${tarihTR(s.tarih)}</span></div>
+        ${musteriDurumEtiketi(s)}
+        <span class="siparis-tutar">${paraTL(s.tutar)}</span>
+        <span class="ok">▾</span>
+      </div>
+      <div class="siparis-detay">
+        <div class="detay-blok"><b>İçerik</b>${s.urunler.map(su => {
+          const u = urunGetir(su.id);
+          return `${u.ad} ×${su.adet}${su.sag != null ? `<br><span style="color:var(--gri)">Sağ ${su.sag} / Sol ${su.sol}</span>` : ''}`;
+        }).join('<br>')}</div>
+        <div class="detay-blok"><b>Ödeme</b>${s.odeme}</div>
+        <div class="detay-blok"><b>Durum</b>${s.durum === 'kargolandi' ? (s.teslim ? 'Teslim edildi' : `Kargoya verildi — ${s.kargoZaman}`) : (s.durum === 'yeni' ? 'Sipariş alındı, onay bekliyor' : 'Mağazada hazırlanıyor')}</div>
+        <div class="tekrar-btn">
+          <a class="btn dolu kucukk" onclick="event.stopPropagation();siparisiTekrarla('${s.no}')">↻ Bu Siparişi Tekrarla</a>
+        </div>
+      </div>
+    </div>`;
+  }).join('') :
+  `<div class="bos-durum panel"><b>Henüz siparişin yok</b><br>İlk siparişini ver, burada listelensin.</div>`;
+}
+function siparisiTekrarla(no){
+  const s = siparisler().find(x => x.no === no); if(!s) return;
+  const sepet = sepetOku();
+  s.urunler.forEach(su => {
+    const mevcut = sepet.find(x => x.id === su.id && x.sag === su.sag && x.sol === su.sol);
+    if(mevcut) mevcut.adet += su.adet;
+    else sepet.push({id:su.id, adet:su.adet, sag:su.sag ?? null, sol:su.sol ?? null});
+  });
+  sepetYaz(sepet);
+  toastGoster('Sipariş içeriği sepete eklendi');
+  sepetAc();
+}
+function sonSiparisiTekrarla(){
+  const kul = oturumKullanici();
+  if(!kul){ gorunumSec('auth'); toastGoster('Önce giriş yap — son siparişin hazır bekliyor', true); return; }
+  const sips = musteriSiparisleri(kul.eposta);
+  if(!sips.length){ toastGoster('Henüz siparişin yok', true); gorunumSec('magaza'); return; }
+  siparisiTekrarla(sips[sips.length - 1].no);
+}
+
+/* ---------- Reçete modalı ---------- */
+function receteAc(){
+  const kul = oturumKullanici();
+  if(!kul){ gorunumSec('auth'); return; }
+  const sec = sphSecenekleri().map(s => `<option>${s}</option>`).join('');
+  document.getElementById('rSag').innerHTML = sec;
+  document.getElementById('rSol').innerHTML = sec;
+  if(kul.recete){
+    document.getElementById('rSag').value = kul.recete.sag;
+    document.getElementById('rSol').value = kul.recete.sol;
+    document.getElementById('rBc').value = kul.recete.bc || '';
+    document.getElementById('rDia').value = kul.recete.dia || '';
+  }
+  document.getElementById('receteModal').classList.add('acik');
+}
+function receteKapat(){ document.getElementById('receteModal').classList.remove('acik'); }
+function receteKaydetForm(){
+  const kul = oturumKullanici(); if(!kul) return;
+  kul.recete = {
+    sag: document.getElementById('rSag').value,
+    sol: document.getElementById('rSol').value,
+    bc: document.getElementById('rBc').value.trim(),
+    dia: document.getElementById('rDia').value.trim()
+  };
+  kullaniciKaydet(kul);
+  receteKapat();
+  toastGoster('Reçeten kaydedildi');
+  hesapCiz();
+}
+
+/* ---------- Toast + demo sıfırlama ---------- */
+let toastZamanlayici;
+function toastGoster(metin, hatali){
+  const t = document.getElementById('toast');
+  t.classList.toggle('hatali', !!hatali);
+  t.querySelector('.tik').textContent = hatali ? '!' : '✓';
+  document.getElementById('toastMetin').textContent = metin;
+  t.classList.add('acik');
+  clearTimeout(toastZamanlayici);
+  toastZamanlayici = setTimeout(() => t.classList.remove('acik'), 3800);
+}
+function demoSifirla(){
+  if(!confirm('Tüm demo verileri (üyelikler, siparişler, sepet) ilk haline dönecek. Emin misin?')) return;
+  Object.values(DO_KEY).forEach(k => localStorage.removeItem(k));
+  location.reload();
+}
+
+/* ---------- Klavye + başlangıç ---------- */
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape'){ sepetKapat(); urunModalKapat(); receteKapat(); }
+});
+hesapPillGuncelle();
+sepetRozetGuncelle();
+vitrinCiz();
+</script>
+</body>
+</html>
